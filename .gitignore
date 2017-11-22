@@ -1,3 +1,4 @@
 .backupfiles/*
 .swapfiles/*
 .undofiles/*
+.netrwhist
