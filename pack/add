@@ -14,3 +14,4 @@ if [ ! -z $3 ]; then
 fi
 
 git submodule add https://github.com/$AUTHOR/$NAME pack/plugins/$TYPE/$NAME
+vim -c "helptags ALL | quit"
