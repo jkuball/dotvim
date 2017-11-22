@@ -18,6 +18,9 @@ set mouse=nv
 " Line numbering
 set nu
 
+" No ex mode
+map Q gq
+
 " Convenience Mappings
 nnoremap ZZ :wq<cr>
 nnoremap XX :q!<cr>
