@@ -1,6 +1,9 @@
 " My ~/.config/nvim/init.vim
 " Author: Jonas Kuball <jkuball@tzi.de>
 
+" Firstly, load sensible.vim
+packadd vim-sensible
+
 " Never lose anything
 set backup
 set undofile
