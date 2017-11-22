@@ -19,3 +19,6 @@
 [submodule "pack/plugins/start/vim-trailing-whitespace"]
 	path = pack/plugins/start/vim-trailing-whitespace
 	url = https://github.com/bronson/vim-trailing-whitespace
+[submodule "pack/plugins/start/vim-dispatch"]
+	path = pack/plugins/start/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch
