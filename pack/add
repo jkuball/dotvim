@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
+TYPE=start
 AUTHOR=$1
 NAME=$2
 
 if [ -z $AUTHOR ] || [ -z $NAME ]; then
-    echo usage: $0 \$AUTHOR \$NAME
+    echo usage: $0 \$AUTHOR \$NAME [\$TYPE]
     exit -1
 fi
 
-git submodule add https://github.com/$AUTHOR/$NAME pack/plugins/start/$NAME
+if [ ! -z $3 ]; then
+    TYPE=$3
+fi
+
+git submodule add https://github.com/$AUTHOR/$NAME pack/plugins/$TYPE/$NAME
