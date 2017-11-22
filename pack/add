@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+AUTHOR=$1
+NAME=$2
+
+if [ -z $AUTHOR ] || [ -z $NAME ]; then
+    echo usage: $0 \$AUTHOR \$NAME
+    exit -1
+fi
+
+git submodule add https://github.com/$AUTHOR/$NAME pack/plugins/start/$NAME
