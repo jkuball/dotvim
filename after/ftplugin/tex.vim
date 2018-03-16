@@ -65,10 +65,11 @@ fun! CompleteTex(findstart, base)
         echom texfile
         echom '\\label{\(' . a:base . '\w*\)}'
         for line in readfile(texfile)
-          let matched = matchlist(line, '\\label{\(' . a:base . '[0-9a-zA-Z:]*\)}')
+          " this does not match labels when a percentage sign is preceeding
+          let matched = matchlist(line, '\(%.*\)\@<!\\label{\(' . a:base . '[0-9a-zA-Z:]*\)}')
           if len(matched) > 1
             let item = {}
-            let item.word = get(matched, 1)
+            let item.word = get(matched, 2)
             let item.abbr = '[' . item.word . ']'
             let item.menu = texfile
             call add(completion.words, item)
