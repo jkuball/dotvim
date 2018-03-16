@@ -1,20 +1,21 @@
 " Semantic omnicompletion for my latex files.
 "
 " When cursor is on cite{
-"   Scans all ./*.bib files for lines that match this pattern: @TYPE{NAME,
+"   Scans all **/*.bib files for lines that match this pattern: @TYPE{NAME,
 "   (NAME will be completed and TYPE could be anything containing alphanumerical characters and colons)
 "   Also, every entry needs to have a title defined.
 "
 " When cursor is on ref{
-"   Scans all ./*.tex files for \label{}'s.
+"   Scans all **/*.tex files for \label{}'s.
 "
 " Note, that it doesn't look for the backslash in \cite and \ref. That means,
 " it works on my usual defined commands like \secref{} etc.
 "
 fun! CompleteTex(findstart, base)
+  let line = getline(".")
+  let start = col(".") - 1
+
   if a:findstart
-    let line = getline(".")
-    let start = col(".") - 1
 
     while start > 0 && line[start - 1] =~ "[0-9A-Za-z:]"
       let start -= 1
@@ -30,12 +31,10 @@ fun! CompleteTex(findstart, base)
 
   else
 
-    let line = getline(".")
-    let start = col(".") - 1
+    let completion = { 'words': [], 'refresh': 'always' }
 
     " We need citation completion.
     if line[start - 5:start] ==# "cite{"
-      let completion = { 'words': [], 'refresh': 'always' }
       for bibfile in glob('**/*.bib', 0, 1)
         let item = {}
         for line in readfile(bibfile)
@@ -46,7 +45,7 @@ fun! CompleteTex(findstart, base)
               let item.abbr = '[' . item.word . ']'
             endif
           else
-            let matched = matchlist(line, '\s*[Tt][Ii][Tt][Ll][Ee]\s*=\s*{\(\p\+\)}')
+            let matched = matchlist(line, '[Tt][Ii][Tt][Ll][Ee]\s*=\s*{\(\p\+\)}')
             if len(matched) > 1
               let item.menu = get(matched, 1)
               call add(completion.words, item)
@@ -55,12 +54,10 @@ fun! CompleteTex(findstart, base)
           endif
         endfor
       endfor
-      return completion
     endif
 
     " We need reference completion.
     if line[start - 4:start] ==# "ref{"
-      let completion = { 'words': [], 'refresh': 'always' }
       for texfile in glob('**/*.tex', 0, 1)
         for line in readfile(texfile)
           " this does not match labels when a percentage sign is preceeding
@@ -74,8 +71,9 @@ fun! CompleteTex(findstart, base)
           endif
         endfor
       endfor
-      return completion
     endif
+
+    return completion
 
   endif
 endfun
