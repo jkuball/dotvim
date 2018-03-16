@@ -62,8 +62,6 @@ fun! CompleteTex(findstart, base)
     if line[start - 4:start] ==# "ref{"
       let completion = { 'words': [], 'refresh': 'always' }
       for texfile in glob('**/*.tex', 0, 1)
-        echom texfile
-        echom '\\label{\(' . a:base . '\w*\)}'
         for line in readfile(texfile)
           " this does not match labels when a percentage sign is preceeding
           let matched = matchlist(line, '\(%.*\)\@<!\\label{\(' . a:base . '[0-9a-zA-Z:]*\)}')
