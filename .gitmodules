@@ -37,3 +37,6 @@
 [submodule "pack/plugins/start/vim-clean"]
 	path = pack/plugins/start/vim-clean
 	url = https://github.com/camilstaps/vim-clean
+[submodule "pack/plugins/start/vim-abolish"]
+	path = pack/plugins/start/vim-abolish
+	url = https://github.com/tpope/vim-abolish
