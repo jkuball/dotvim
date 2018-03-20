@@ -1,3 +1,6 @@
+" Set default latex compiler
+set makeprg=latexmk\ -pdf
+
 " Semantic omnicompletion for my latex files.
 "
 " When cursor is on cite{
