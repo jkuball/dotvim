@@ -37,7 +37,7 @@ fun! CompleteTex(findstart, base)
     let completion = { 'words': [], 'refresh': 'always' }
 
     " We need citation completion.
-    if line[start - 5:start] ==# "cite{"
+    if line[start - 5:start] =~ "cite{"
       for bibfile in glob('**/*.bib', 0, 1)
         let item = {}
         for line in readfile(bibfile)
@@ -60,7 +60,7 @@ fun! CompleteTex(findstart, base)
     endif
 
     " We need reference completion.
-    if line[start - 4:start] ==# "ref{"
+    if line[start - 4:start] =~ "ref{"
       for texfile in glob('**/*.tex', 0, 1)
         for line in readfile(texfile)
           " this does not match labels when a percentage sign is preceeding
