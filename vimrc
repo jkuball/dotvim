@@ -45,4 +45,4 @@ vnoremap <expr> cn g:mc . "''cgn"
 vnoremap <expr> cN g:mc . "''cgN"
 
 " Re-generate helptags
-command Helptags helptags ALL
+command! Helptags helptags ALL
