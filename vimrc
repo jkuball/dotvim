@@ -60,5 +60,5 @@ endif
 " If git is installed, use vim-fugitive.
 if executable("git")
   packadd vim-fugitive
-  set statusline+=[git:%{fugitive#head()}]
+  set statusline+=%([git:%{fugitive#head()}]%)
 endif
