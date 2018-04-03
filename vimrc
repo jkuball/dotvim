@@ -46,3 +46,8 @@ vnoremap <expr> cN g:mc . "''cgN"
 
 " Re-generate helptags
 command! Helptags helptags ALL
+
+" Set custom status line
+set statusline=%(%q%h%r\ %)%t\ %y%m
+set statusline+=%= " everything below this is right justified (mostly for plugins)
+
