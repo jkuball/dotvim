@@ -56,3 +56,9 @@ if executable("ctags")
   packadd vim-gutentags
   set statusline+=%{gutentags#statusline('[','\ running]')}
 endif
+
+" If git is installed, use vim-fugitive.
+if executable("git")
+  packadd vim-fugitive
+  set statusline+=[git:%{fugitive#head()}]
+endif

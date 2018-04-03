@@ -13,9 +13,6 @@
 [submodule "pack/plugins/start/vim-cursorword"]
 	path = pack/plugins/start/vim-cursorword
 	url = https://github.com/itchyny/vim-cursorword
-[submodule "pack/plugins/start/vim-fugitive"]
-	path = pack/plugins/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "pack/plugins/start/vim-trailing-whitespace"]
 	path = pack/plugins/start/vim-trailing-whitespace
 	url = https://github.com/bronson/vim-trailing-whitespace
@@ -43,3 +40,6 @@
 [submodule "pack/plugins/opt/vim-gutentags"]
 	path = pack/plugins/opt/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "pack/plugins/opt/vim-fugitive"]
+	path = pack/plugins/opt/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
