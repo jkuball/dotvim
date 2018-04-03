@@ -14,4 +14,9 @@ if [ ! -z $3 ]; then
 fi
 
 git submodule add https://github.com/$AUTHOR/$NAME pack/plugins/$TYPE/$NAME
-vim -c "helptags ALL | quit" # does not work with optional packages right now
+
+if [ $TYPE == "opt" ]; then
+  OPTIONAL="packadd $NAME |"
+fi
+
+vim -N -u NONE -c "$OPTIONAL helptags ALL | quit"
