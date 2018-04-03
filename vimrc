@@ -51,3 +51,8 @@ command! Helptags helptags ALL
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (mostly for plugins)
 
+" If ctags is installed, use vim-gutentags.
+if executable("ctags")
+  packadd vim-gutentags
+  set statusline+=%{gutentags#statusline('[','\ running]')}
+endif
