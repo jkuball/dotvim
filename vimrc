@@ -54,7 +54,7 @@ set statusline+=%= " everything below this is right justified (mostly for plugin
 " If ctags is installed, use vim-gutentags.
 if executable("ctags")
   packadd vim-gutentags
-  set statusline+=%{gutentags#statusline('[','\ running]')}
+  set statusline+=%{gutentags#statusline('[','\ ♺\ ]')}
 endif
 
 " If git is installed, use vim-fugitive.
