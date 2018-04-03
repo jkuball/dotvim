@@ -1,4 +1,4 @@
-" My ~/.config/nvim/init.vim
+" My ~/.vim/vimrc
 " Author: Jonas Kuball <jkuball@tzi.de>
 
 " Firstly, load sensible.vim
