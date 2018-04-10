@@ -45,7 +45,7 @@ vnoremap <expr> cn g:mc . "''cgn"
 vnoremap <expr> cN g:mc . "''cgN"
 
 " Align the paragraph with the top of the screen
-nnoremap gzz m`{jzt``
+nnoremap gzz {jzt``
 
 " Re-generate helptags
 command! Helptags helptags ALL
