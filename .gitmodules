@@ -43,3 +43,6 @@
 [submodule "pack/plugins/opt/vim-fugitive"]
 	path = pack/plugins/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "pack/plugins/start/vim-translate"]
+	path = pack/plugins/start/vim-translate
+	url = https://github.com/geratheon/vim-translate
