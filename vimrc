@@ -50,6 +50,17 @@ nnoremap gzz {jzt``
 " Re-generate helptags
 command! Helptags helptags ALL
 
+" Supply the :Shebang command which inserts the contents of the
+" variable b:shebang. It needs to be set for each filetype in
+" after/ftplugin/filetype.vim
+command! -nargs=0 Shebang if exists("b:shebang") |
+      \ exec 'normal!ggO' . b:shebang |
+      \ else |
+      \ echohl WarningMsg |
+      \ echo "No shebang specified for " . expand(&ft) |
+      \ echohl None |
+      \ endif
+
 " Set custom status line
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (mostly for plugins)
