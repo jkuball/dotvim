@@ -14,7 +14,7 @@ set makeprg=latexmk\ -pdf
 " Note, that it doesn't look for the backslash in \cite and \ref. That means,
 " it works on my usual defined commands like \secref{} etc.
 "
-fun! CompleteTex(findstart, base)
+function! CompleteTex(findstart, base)
   let line = getline(".")
   let start = col(".") - 1
 

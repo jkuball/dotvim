@@ -1,7 +1,7 @@
 " My ~/.vim/vimrc
 " Author: Jonas Kuball <jkuball@tzi.de>
 
-" Firstly, load sensible.vim
+" Firstly, load sensible.vim to have sane defaults set
 packadd vim-sensible
 
 " Default indentation, might be overwritten for specific filetypes
