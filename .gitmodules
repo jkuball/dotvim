@@ -49,3 +49,6 @@
 [submodule "pack/plugins/start/vim-rhubarb"]
 	path = pack/plugins/start/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
+[submodule "pack/plugins/start/vim-tinyrainbow"]
+	path = pack/plugins/start/vim-tinyrainbow
+	url = https://github.com/geratheon/vim-tinyrainbow
