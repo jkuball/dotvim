@@ -50,6 +50,15 @@ nnoremap gzz {jzt``
 " Re-generate helptags
 command! Helptags helptags ALL
 
+" Map the build process to mnemonic keys (make, build, run).
+" They might be overwritten in specific filetypes depending on their context.
+" By default, all should just call vim-dispatches :Make command since it's the
+" most versatile (and for the most filetypes I just have to set &makeprg).
+nnoremap <leader>m :Make<cr>
+nnoremap <leader>b :Make<cr>
+nnoremap <leader>r :Make<cr>
+nnoremap <c-m> :Make<cr>
+
 " Supply the :Shebang command which inserts the contents of the
 " variable b:shebang. It needs to be set for each filetype in
 " after/ftplugin/filetype.vim
