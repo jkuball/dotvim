@@ -4,6 +4,9 @@
 " Firstly, load sensible.vim to have sane defaults set
 packadd vim-sensible
 
+" Allow easy :argdo modifications etc.
+set hidden
+
 " Default indentation, might be overwritten for specific filetypes
 set expandtab
 set tabstop=2
