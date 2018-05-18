@@ -82,3 +82,19 @@ function! CompleteTex(findstart, base)
 endfun
 set omnifunc=CompleteTex
 
+" Make a label for the section definition under the cursor
+function! s:LabelSection()
+  let matched = matchlist(getline("."), '^\\[sub]*section{\(.*\)}$')
+  if len(matched) > 1
+    let label = get(matched, 1)
+    let label = tolower(label)
+    let label = substitute(label, ' ', '_', 'ge')
+    let label = substitute(label, 'ä', 'ae', 'ge')
+    let label = substitute(label, 'ö', 'oe', 'ge')
+    let label = substitute(label, 'ü', 'ue', 'ge')
+    exec printf('normal o\label{sec:%s}', label)
+  else
+    echohl WarningMsg | echom "Not on a line with a \[sub]section." | echohl None
+  endif
+endfun
+command! -nargs=0 LabelSection call s:LabelSection()
