@@ -62,6 +62,23 @@ nnoremap <leader>b :Make<cr>
 nnoremap <leader>r :Make<cr>
 nnoremap <c-m> :Make<cr>
 
+" Just a small convenience thing for myself that might be enough
+" to make into a proper plugin. I noticed a pattern in my workflow
+" where a simple :Make is not enough, so this helps with non-standard
+" build commands. For instance, when in a python script, you can call
+" `:ActivateTermBuild python3 myscript.py --some --arguments 42` to open
+" a terminal and setup <c-m> to send the previously given command to it.
+" It only starts a new terminal if one is not already present, so you can use
+" it to update the build command.
+function OpenTermForBuild(buildcommand)
+  if bufnr('!' . &shell) < 0
+    call term_start(&shell, { 'term_rows': 10 })
+    normal ``
+  endif
+  exec "nnoremap <c-m> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>``"
+endfunction
+command! -nargs=1 ActivateTermBuild call OpenTermForBuild(<q-args>)
+
 " Supply the :Shebang command which inserts the contents of the
 " variable b:shebang. It needs to be set for each filetype in
 " after/ftplugin/filetype.vim
