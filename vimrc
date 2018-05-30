@@ -33,6 +33,9 @@ set nu
 " No ex mode
 map Q gq
 
+" Set spelling languages
+set spelllang=de,en_us
+
 " Convenience Mappings
 nnoremap ZZ :wq<cr>
 nnoremap XX :q!<cr>
