@@ -75,10 +75,13 @@ nnoremap <c-m> :Make<cr>
 " it to update the build command.
 function OpenTermForBuild(buildcommand)
   if bufnr('!' . &shell) < 0
-    call term_start(&shell, { 'term_rows': 10 })
-    normal ``
+    let pos = getcurpos()
+    let buffernumber = term_start(&shell, { 'term_rows': 10 })
+    call win_gotoid(buffernumber)
+    let &l:winfixheight = 10
+    call setpos('.', pos)
   endif
-  exec "nnoremap <c-m> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>``"
+  exec "nnoremap <c-m> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>"
 endfunction
 command! -nargs=1 ActivateTermBuild call OpenTermForBuild(<q-args>)
 
