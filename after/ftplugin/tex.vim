@@ -8,6 +8,24 @@ let g:surround_{char2nr('\')} = "\\begin{\1environment: \1}\r\\end{\1\1}"
 " (Not the best key, but okayish mnemonic-wise)
 let g:surround_{char2nr('/')} = "\\\1command: \1{\r}"
 
+" After writing \begin{environment} use <c-j> to insert the corresponding \end
+" TODO Maybe look into tpopes endwise for a proper replacement
+function! CompleteBegin()
+  let line = getline('.')
+  let pos = getpos('.')
+  let matched = matchlist(line, '^\\begin{\(.*\)}$')
+  if len(matched) > 1 && pos[2] >= len(line)
+    exec printf('normal! o\end{%s}', get(matched, 1))
+    normal! O
+  else
+    " This is bad, but 'normal! i<c-j>' does not work for whatever reason
+    " When viewed at github, this might look like 'normal! i',
+    " but there is a ^M character following.
+    normal! i
+  endif
+endfunction
+inoremap <c-j> <c-o>:call CompleteBegin()<cr>
+
 " Semantic omnicompletion for my latex files.
 "
 " When cursor is on cite{
