@@ -73,7 +73,7 @@ nnoremap <c-m> :Make<cr>
 " a terminal and setup <c-m> to send the previously given command to it.
 " It only starts a new terminal if one is not already present, so you can use
 " it to update the build command.
-function OpenTermForBuild(buildcommand)
+function! OpenTermForBuild(buildcommand)
   if bufnr('!' . &shell) < 0
     let pos = getcurpos()
     let buffernumber = term_start(&shell, { 'term_rows': 10 })
