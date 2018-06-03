@@ -1,6 +1,13 @@
 " Set default latex compiler
 set makeprg=latexmk\ -pdf
 
+"" For vim-surround (see :h surround-customizing):
+" Use the \ character for begin/end pairs
+let g:surround_{char2nr('\')} = "\\begin{\1environment: \1}\r\\end{\1\1}"
+" Use the / character for inline \command{}
+" (Not the best key, but okayish mnemonic-wise)
+let g:surround_{char2nr('/')} = "\\\1command: \1{\r}"
+
 " Semantic omnicompletion for my latex files.
 "
 " When cursor is on cite{
