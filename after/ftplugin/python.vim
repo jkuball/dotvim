@@ -1,1 +1,2 @@
 let b:shebang = "#!/usr/bin/env python3\r# -*- coding: utf-8 -*-"
+autocmd CompleteDone * pclose
