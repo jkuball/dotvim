@@ -89,7 +89,7 @@ function! CompleteTex(findstart, base)
       for texfile in glob('**/*.tex', 0, 1)
         for line in readfile(texfile)
           " this does not match labels when a percentage sign is preceeding
-          let matched = matchlist(line, '\(%.*\)\@<!\\label{\(' . a:base . '[0-9a-zA-Z:]*\)}')
+          let matched = matchlist(line, '\(%.*\)\@<!\\label{\(' . a:base . '\p*\)}')
           if len(matched) > 1
             let item = {}
             let item.word = get(matched, 2)
@@ -122,7 +122,9 @@ function! s:LabelSection()
           \   [',', ''],
           \   ['?', ''],
           \   ['!', ''],
-          \   ['-', '']
+          \   ['-', ''],
+          \   ['(', ''],
+          \   [')', '']
           \ ]
       let label = substitute(label, pattern, replacement, 'ge')
     endfor
