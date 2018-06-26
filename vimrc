@@ -111,3 +111,9 @@ if executable("git")
   packadd vim-fugitive
   set statusline+=%([git:%{fugitive#head()}]%)
 endif
+
+" If ag is installed, use ack.vim
+if executable("ag")
+  packadd ack.vim
+  let g:ackprg = 'ag --vimgrep'
+endif
