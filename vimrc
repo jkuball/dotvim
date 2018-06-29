@@ -86,7 +86,7 @@ function! OpenTermForBuild(buildcommand)
   endif
   exec "nnoremap <c-m> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>"
 endfunction
-command! -nargs=1 ActivateTermBuild call OpenTermForBuild(<q-args>)
+command! -nargs=1 -complete=file ActivateTermBuild call OpenTermForBuild(<q-args>)
 
 " Supply the :Shebang command which inserts the contents of the
 " variable b:shebang. It needs to be set for each filetype in
