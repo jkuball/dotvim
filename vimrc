@@ -56,6 +56,9 @@ nnoremap gzz {jzt``
 " Re-generate helptags
 command! Helptags helptags ALL
 
+" Open windows below (escpically the preview window)
+set splitbelow
+
 " Map the build process to mnemonic keys (make, build, run).
 " They might be overwritten in specific filetypes depending on their context.
 " By default, all should just call vim-dispatches :Make command since it's the
