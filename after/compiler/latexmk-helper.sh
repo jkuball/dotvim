@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-latexmk -interaction=nonstopmode -pdf $1
+latexmk -interaction=nonstopmode -pdf
 
 p() {
   rubber-info --$2 $3 | while read line; do
@@ -8,7 +8,7 @@ p() {
   done
 }
 
-p CHECK check $1
-p ERROR errors $1
-p WARNING warnings $1
-p BOXES boxes $1
+p CHECK check "*.tex"
+p ERROR errors "*.tex"
+p WARNING warnings "*.tex"
+p BOXES boxes "*.tex"
