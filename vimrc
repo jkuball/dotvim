@@ -100,6 +100,20 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" Language Server Protocol
+"" Make an empty dictionary of language server clients.
+"" They're set in the appropriate ftplugins.
+let g:LanguageClient_serverCommands = {}
+"" Disable linting by default, I might turn it on at any time.
+let g:LanguageClient_diagnosticsEnable = 0
+"" Provide a command to call inside the ftplugin so we don't override
+"" important mappings and functions if we're not using a language server ..
+command -nargs=0 EnableLSP
+      \ nnoremap <buffer> <silent> K :call LanguageClient_textDocument_hover()<CR>
+      \| nnoremap <buffer> <silent> gd :call LanguageClient_textDocument_definition()<CR>
+      \| nnoremap <buffer> <silent> gs :call LanguageClient_textDocument_documentSymbols()<CR>
+      \| set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+
 " Set custom status line
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (mostly for plugins)

@@ -2,16 +2,12 @@ let b:shebang = "#!/usr/bin/env python3\r# -*- coding: utf-8 -*-"
 
 " If installed, use the language server
 if executable('pyls')
-  " Register LSP
-  autocmd User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
+  " Register language client
+  let g:LanguageClient_serverCommands.python = ['pyls']
 
-  " Disable Tag Generation
+  " Set up LSP Configuration
+  EnableLSP
+
+  " Disable ctags Tag Generation
   let g:gutentags_enabled = 0
-
-  " Jump to definition via tags
-  nnoremap <buffer> <C-]> :LspDefinition<CR>
 endif
