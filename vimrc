@@ -63,6 +63,12 @@ command! Helptags helptags ALL
 " Open windows below (escpically the preview window)
 set splitbelow
 
+" Define some digraphs for writing german text
+exec "digraphs ae " . char2nr('ä')
+exec "digraphs ue " . char2nr('ü')
+exec "digraphs oe " . char2nr('ö')
+exec "digraphs ss " . char2nr('ß')
+
 " Map the build process to mnemonic keys (make, build, run).
 " They might be overwritten in specific filetypes depending on their context.
 " By default, all should just call vim-dispatches :Make command since it's the
