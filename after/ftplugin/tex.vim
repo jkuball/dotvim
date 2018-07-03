@@ -1,5 +1,5 @@
 " Set default latex compiler
-set makeprg=latexmk\ -pdf
+compiler latexmk
 
 "" For vim-surround (see :h surround-customizing):
 " Use the \ character for begin/end pairs

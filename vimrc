@@ -69,15 +69,6 @@ exec "digraphs ue " . char2nr('ü')
 exec "digraphs oe " . char2nr('ö')
 exec "digraphs ss " . char2nr('ß')
 
-" Map the build process to mnemonic keys (make, build, run).
-" They might be overwritten in specific filetypes depending on their context.
-" By default, all should just call vim-dispatches :Make command since it's the
-" most versatile (and for the most filetypes I just have to set &makeprg).
-nnoremap <leader>m :Make<cr>
-nnoremap <leader>b :Make<cr>
-nnoremap <leader>r :Make<cr>
-nnoremap <c-m> :Make<cr>
-
 " Just a small convenience thing for myself that might be enough
 " to make into a proper plugin. I noticed a pattern in my workflow
 " where a simple :Make is not enough, so this helps with non-standard
