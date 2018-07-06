@@ -100,6 +100,11 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" vim-rsi
+"" Disable meta mappings because ä is the same as <M-d>.
+"" See https://github.com/tpope/vim-rsi/issues/14
+let g:rsi_no_meta = 1
+
 " Language Server Protocol
 "" Make an empty dictionary of language server clients.
 "" They're set in the appropriate ftplugins.
