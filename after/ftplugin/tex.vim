@@ -1,6 +1,9 @@
 " Set default latex compiler
 compiler latexmk
 
+" Disable ctags Tag Generation
+let g:gutentags_enabled = 0
+
 "" For vim-surround (see :h surround-customizing):
 " Use the \ character for begin/end pairs
 let g:surround_{char2nr('\')} = "\\begin{\1environment: \1}\r\\end{\1\1}"
@@ -116,15 +119,12 @@ function! s:LabelSection()
     for [pattern, replacement] in
           \ [
           \   [' ', '_'],
+          \   ['-', ''],
           \   ['ä', 'ae'],
           \   ['ö', 'oe'],
           \   ['ü', 'ue'],
-          \   [',', ''],
-          \   ['?', ''],
-          \   ['!', ''],
-          \   ['-', ''],
-          \   ['(', ''],
-          \   [')', '']
+          \   ['[,?!-()]', ''],
+          \   ['\\\w\+{\(.\+\)}', '\1']
           \ ]
       let label = substitute(label, pattern, replacement, 'ge')
     endfor
