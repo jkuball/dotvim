@@ -1,4 +1,11 @@
-let g:clang_compilation_database = './build'
-let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
-let g:clang_auto = 0
-autocmd CompleteDone * ClangCloseWindow
+" If installed, use the language server
+if executable('/Users/jonas/cquery/bin/cquery')
+  " Register language client
+  let g:LanguageClient_serverCommands.cpp = ['/Users/jonas/cquery/bin/cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cqueryCache/"}']
+
+  " Set up LSP Configuration
+  EnableLSP
+
+  " Disable ctags Tag Generation
+  let g:gutentags_enabled = 0
+endif
