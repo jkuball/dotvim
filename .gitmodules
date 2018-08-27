@@ -58,9 +58,6 @@
 [submodule "pack/plugins/start/vim-exchange"]
 	path = pack/plugins/start/vim-exchange
 	url = https://github.com/tommcdo/vim-exchange
-[submodule "pack/plugins/start/vim-clang"]
-	path = pack/plugins/start/vim-clang
-	url = https://github.com/justmao945/vim-clang
 [submodule "pack/plugins/opt/ack.vim"]
 	path = pack/plugins/opt/ack.vim
 	url = https://github.com/mileszs/ack.vim
