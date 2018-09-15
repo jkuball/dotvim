@@ -100,6 +100,23 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" vim-lsc
+"" Disable automatic completion
+let g:lsc_enable_autocomplete = 0
+"" Use sensible mappings for lsp-enabled filetypes
+let g:lsc_auto_map = 1
+"" Use omnifunc instead of completefunc
+let g:lsc_auto_map = {
+      \ 'defaults': 1,
+      \ 'Completion': "omnifunc"
+      \ }
+"" Disable diagnostics
+let g:lsc_enable_diagnostics = 0
+"" Define servers for filetypes
+let g:lsc_server_commands = {
+      \ 'python': 'pyls'
+      \ }
+
 " vim-rsi
 "" Disable meta mappings because ä is the same as <M-d>.
 "" See https://github.com/tpope/vim-rsi/issues/14
