@@ -114,7 +114,15 @@ let g:lsc_auto_map = {
 let g:lsc_enable_diagnostics = 0
 "" Define servers for filetypes
 let g:lsc_server_commands = {
-      \ 'python': 'pyls'
+      \   'python': 'pyls',
+      \   'cpp': {
+      \     'command': 'cquery --log-file /tmp/cquery.log',
+      \     'message_hooks': {
+      \       'initialize': {
+      \         'initializationOptions': { 'cacheDirectory': '/tmp/cquery-cache' }
+      \       }
+      \     }
+      \   }
       \ }
 
 " vim-rsi
