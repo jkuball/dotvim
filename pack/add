@@ -15,9 +15,7 @@ fi
 
 git submodule add https://github.com/$AUTHOR/$NAME pack/plugins/$TYPE/$NAME
 
-if [ $TYPE == "opt" ]; then
-  OPTIONAL="-c packadd $NAME"
+if [ -d pack/plugins/$TYPE/$NAME/doc ]; then
+  vim -u NONE -c "helptags pack/plugins/$TYPE/$NAME/doc" -c q
 fi
-
-vim -u NONE $OPTIONAL -c "helptags ALL" -c q
 

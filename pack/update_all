@@ -2,4 +2,4 @@
 
 git submodule update --recursive --remote
 
-echo "Remember that LanguageClient-neovim/ needs a rebuild via its ./install.sh script!" # That's something git submodules can't do ...
+vim -u NONE -c packloadall -c "helptags ALL" -c q
