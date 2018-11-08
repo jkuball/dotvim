@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+  echo $0: Removes the given plugin from the repository.
+  echo
+  echo The following removes the plugin contained in pack/plugins/start/foo/bar.
+  echo
+  echo Usage: $0 pack/plugins/start/foo/bar
+  exit -1
+fi
+
+git rm --force $1
+

@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+  echo $0: Updates all submodules and generates helptags.
+  echo
+  echo Usage: $0
+  exit -1
+fi
+
 git submodule update --recursive --remote
 
 vim -u NONE -c packloadall -c "helptags ALL" -c q
