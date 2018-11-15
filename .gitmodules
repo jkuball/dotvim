@@ -31,9 +31,6 @@
 [submodule "pack/plugins/start/vim-surround"]
 	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "pack/plugins/start/vim-clean"]
-	path = pack/plugins/start/vim-clean
-	url = https://github.com/camilstaps/vim-clean
 [submodule "pack/plugins/start/vim-abolish"]
 	path = pack/plugins/start/vim-abolish
 	url = https://github.com/tpope/vim-abolish
@@ -70,3 +67,6 @@
 [submodule "pack/plugins/start/a.vim"]
 	path = pack/plugins/start/a.vim
 	url = https://github.com/enricobacis/a.vim
+[submodule "pack/plugins/start/vim-clean"]
+	path = pack/plugins/start/vim-clean
+	url = https://gitlab.science.ru.nl/cstaps/vim-clean
