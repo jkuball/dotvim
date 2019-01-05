@@ -63,6 +63,11 @@ command! Helptags helptags ALL
 " Open windows below (escpically the preview window)
 set splitbelow
 
+" When on macOS, wildignore .DS_Store
+if has('mac')
+  set wildignore+=*.DS_Store
+endif
+
 " Define some digraphs for writing german text
 exec "digraphs ae " . char2nr('ä')
 exec "digraphs ue " . char2nr('ü')
