@@ -108,9 +108,7 @@ function! CompleteTex(findstart, base)
     endif
 
     " We need usepackage completion.
-    echom "blab"
     if line[start - 11:start] =~ "usepackage{"
-      echom "bla"
       if executable('kpsepath') && executable('basename') && executable('xargs') && executable('find') && executable('grep')
         let ssr = &shellredir
         set shellredir=>%s\ 2>/dev/null
