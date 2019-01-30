@@ -39,8 +39,11 @@ inoremap <c-j> <c-o>:call CompleteBegin()<cr>
 " When cursor is on ref{
 "   Scans all **/*.tex files for \label{}'s.
 "
-" Note, that it doesn't look for the backslash in \cite and \ref. That means,
-" it works on my usual defined commands like \secref{} etc.
+" When cursor is on usepackage{
+"   Use `kpsepath tex` to find all installed .sty files.
+"
+" Note, that it doesn't look for the backslash. That means, it works on
+" my usual defined commands like \secref{} etc.
 "
 function! CompleteTex(findstart, base)
   let line = getline(".")
@@ -52,7 +55,7 @@ function! CompleteTex(findstart, base)
       let start -= 1
     endwhile
 
-    if line[start - 5:start] =~ "cite{" || line[start - 4:start] =~ "ref{"
+    if line[start - 5:start] =~ "cite{" || line[start - 4:start] =~ "ref{" || line[start - 11:start] =~ "usepackage{"
       return start
     endif
 
@@ -102,6 +105,18 @@ function! CompleteTex(findstart, base)
           endif
         endfor
       endfor
+    endif
+
+    " We need usepackage completion.
+    echom "blab"
+    if line[start - 11:start] =~ "usepackage{"
+      echom "bla"
+      if executable('kpsepath') && executable('basename') && executable('xargs') && executable('find') && executable('grep')
+        let ssr = &shellredir
+        set shellredir=>%s\ 2>/dev/null
+        let completion.words = systemlist("find `kpsepath tex | tr ':' '\n' | tr -d '!'` -iname '*.sty' | xargs basename -s .sty | grep " . shellescape(a:base))
+        let &shellredir = ssr
+      endif
     endif
 
     return completion
