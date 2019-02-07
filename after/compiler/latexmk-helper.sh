@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ -z "`dirname $1`" ]]; then
+if [[ ! -z "`dirname $1`" ]]; then
   cd `dirname $1`
 fi
 
