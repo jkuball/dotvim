@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-latexmk -interaction=nonstopmode -pdf > /dev/null 2>&1
+if [[ -z "`dirname $1`" ]]; then
+  cd `dirname $1`
+fi
+
+latexmk -interaction=nonstopmode -pdf `basename $1` > /dev/null 2>&1
 rubber-info --errors *.tex

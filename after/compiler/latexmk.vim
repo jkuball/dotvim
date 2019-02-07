@@ -11,7 +11,7 @@ let b:current_compiler = "latexmk"
 " Set the compiler to a helper script which first compiles with latexmk and
 " then uses rubber-info to extract the warnings. Parsing latex compiler output
 " with vims scanf-based errorformat is really bad.
-CompilerSet makeprg=$HOME/.vim/after/compiler/latexmk-helper.sh
+CompilerSet makeprg=$HOME/.vim/after/compiler/latexmk-helper.sh\ %
 
 " rubber-info --errors
 CompilerSet errorformat=%f:%l:%m
