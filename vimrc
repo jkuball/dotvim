@@ -74,6 +74,9 @@ exec "digraphs ue " . char2nr('ü')
 exec "digraphs oe " . char2nr('ö')
 exec "digraphs ss " . char2nr('ß')
 
+" Set the tex flavor to latex since that's what I write the most
+let g:tex_flavor = "latex"
+
 " Just a small convenience thing for myself that might be enough
 " to make into a proper plugin. I noticed a pattern in my workflow
 " where a simple :Make is not enough, so this helps with non-standard
