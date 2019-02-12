@@ -4,6 +4,9 @@ compiler latexmk
 "" Add diverse metafiles to the wildignore list
 set wildignore+=*.aux,*.bbl,*.bcf,*.blg,*.fdb_latexmk,*.fls,*.log,*.out,*.run.xml
 
+"" Suffix for the bib file
+set suffixesadd=.bib
+
 "" For vim-surround (see :h surround-customizing):
 " Use the \ character for begin/end pairs
 let g:surround_{char2nr('\')} = "\\begin{\1environment: \1}\r\\end{\1\1}"
