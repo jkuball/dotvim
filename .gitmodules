@@ -73,3 +73,6 @@
 [submodule "pack/plugins/start/tabular"]
 	path = pack/plugins/start/tabular
 	url = https://github.com/godlygeek/tabular
+[submodule "pack/plugins/start/traces.vim"]
+	path = pack/plugins/start/traces.vim
+	url = https://github.com/markonm/traces.vim
