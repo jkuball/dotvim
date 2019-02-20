@@ -108,6 +108,29 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" Use :Redir to execute any Ex command and pipe the output to a scratch buffer
+" Adapted from reddit user /u/-romainl-
+" https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+function! Redir(cmd)
+  for win in range(1, winnr('$'))
+    if getwinvar(win, 'scratch')
+      execute win . 'windo close'
+    endif
+  endfor
+  if a:cmd =~ '^!'
+    let output = system(matchstr(a:cmd, '^!\zs.*'))
+  else
+    redir => output
+    execute a:cmd
+    redir END
+  endif
+  vnew
+  let w:scratch = 1
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+  call setline(1, split(output, "\n"))
+endfunction
+command! -nargs=1 -complete=command Redir silent call Redir(<q-args>)
+
 " vim-lsc
 "" Disable automatic completion
 let g:lsc_enable_autocomplete = 0
