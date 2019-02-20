@@ -5,7 +5,7 @@ compiler latexmk
 set wildignore+=*.aux,*.bbl,*.bcf,*.blg,*.fdb_latexmk,*.fls,*.log,*.out,*.run.xml
 
 "" Suffix for the bib file
-set suffixesadd=.bib
+setlocal suffixesadd=.bib
 
 "" For vim-surround (see :h surround-customizing):
 " Use the \ character for begin/end pairs
@@ -16,7 +16,7 @@ let g:surround_{char2nr('/')} = "\\\1command: \1{\r}"
 
 " After writing \begin{environment} use <c-j> to insert the corresponding \end
 " TODO Maybe look into tpopes endwise for a proper replacement
-function! CompleteBegin()
+function! s:CompleteBegin()
   let line = getline('.')
   let pos = getpos('.')
   let matched = matchlist(line, '^\\begin{\(.*\)}$')
@@ -30,7 +30,7 @@ function! CompleteBegin()
     normal! i
   endif
 endfunction
-inoremap <c-j> <c-o>:call CompleteBegin()<cr>
+inoremap <c-j> <c-o>:call <SID>CompleteBegin()<cr>
 
 " Semantic omnicompletion for my latex files.
 "
@@ -125,7 +125,7 @@ function! CompleteTex(findstart, base)
 
   endif
 endfun
-set omnifunc=CompleteTex
+setlocal omnifunc=CompleteTex
 
 " Make a label for the section definition under the cursor
 function! s:LabelSection()
