@@ -59,6 +59,7 @@ function! CompleteTex(findstart, base)
     endwhile
 
     if line[start - 5:start] =~ "cite{" || line[start - 4:start] =~ "ref{" || line[start - 11:start] =~ "usepackage{"
+      " TODO: Also match all cite.*{ variants
       return start
     endif
 
