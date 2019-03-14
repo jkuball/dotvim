@@ -140,6 +140,13 @@ function! InsertSkeleton()
 endfunction
 command! -nargs=0 Skeleton call InsertSkeleton()
 
+" When opening skeleton files, load the correct filetype by looking at
+" the folder name.
+augroup SkeletonFiles
+  au!
+  au BufReadPost *.skel let &l:ft = fnamemodify(expand('%:p:h'), ':t')
+augroup END
+
 " Use :Redir to execute any Ex command and pipe the output to a scratch buffer
 " Adapted from reddit user /u/-romainl-
 " https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
