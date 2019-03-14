@@ -1,0 +1,13 @@
+\documentclass[tikz]{standalone}
+
+% \usetikzlibrary{}
+
+\begin{document}
+
+\begin{tikzpicture}[
+  ]
+
+  \node {\LaTeX};
+\end{tikzpicture}
+
+\end{document}

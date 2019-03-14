@@ -108,6 +108,38 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" Supply the :Skeleton command which searches in
+" $HOME/.vim/skeleton/<filetype> for .skel files,
+" lets you choose one and inserts them into the buffer (ontop).
+function! InsertSkeleton()
+  let files = glob("$HOME/.vim/skeleton/" . expand(&ft) . "/*.skel", 0, 1)
+  if len(files) <= 0
+    echohl WarningMsg | echo "No skeleton files specified for " . expand(&ft) | echohl None
+  else
+    if len(files) == 1
+      exec "0read " . files[0]
+      normal 0d1
+    else
+      let skeletons = map(copy(files), "fnamemodify(v:val, ':t:r')")
+      for idx in range(len(skeletons))
+        let skeletons[idx] = (idx + 1) . ": " . skeletons[idx]
+      endfor
+      call insert(skeletons, "Select skeleton (empty cancels)", 0)
+      let index = inputlist(skeletons) - 1
+      try
+        if index < 0
+          throw 1
+        endif
+        exec "0read " . files[index]
+        normal 0d1
+      catch
+        echohl WarningMsg | echo "\nInvalid selection" | echohl None
+      endtry
+    endif
+  endif
+endfunction
+command! -nargs=0 Skeleton call InsertSkeleton()
+
 " Use :Redir to execute any Ex command and pipe the output to a scratch buffer
 " Adapted from reddit user /u/-romainl-
 " https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
