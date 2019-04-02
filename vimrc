@@ -4,9 +4,9 @@
 " Firstly, load sensible.vim to have sane defaults set
 packadd vim-sensible
 
-" Use vim-color-solarized in light mode by default
-set background=light
-colorscheme solarized
+" Use vim-colors-github
+let g:github_colors_block_diffmark = 0
+colorscheme github
 
 " Allow easy :argdo modifications etc.
 set hidden

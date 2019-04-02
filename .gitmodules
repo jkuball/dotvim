@@ -76,3 +76,6 @@
 [submodule "pack/plugins/start/traces.vim"]
 	path = pack/plugins/start/traces.vim
 	url = https://github.com/markonm/traces.vim
+[submodule "pack/plugins/start/vim-colors-github"]
+	path = pack/plugins/start/vim-colors-github
+	url = https://github.com/cormacrelf/vim-colors-github
