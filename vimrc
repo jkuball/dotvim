@@ -115,6 +115,7 @@ command! -nargs=0 Shebang if exists("b:shebang") |
 " Supply the :Skeleton command which searches in
 " $HOME/.vim/skeleton/<filetype> for .skel files,
 " lets you choose one and inserts them into the buffer (ontop).
+" Also evaluates vimscript code in the skeletons that is enclosed by <{ and }>.
 function! InsertSkeleton()
   let files = glob("$HOME/.vim/skeleton/" . expand(&ft) . "/*.skel", 0, 1)
   if len(files) <= 0
@@ -122,6 +123,7 @@ function! InsertSkeleton()
   else
     if len(files) == 1
       exec "0read " . files[0]
+      %s/<{\(.\{-}\)}>/\=eval(submatch(1))/g
       normal 0d1
     else
       let skeletons = map(copy(files), "fnamemodify(v:val, ':t:r')")
@@ -135,6 +137,7 @@ function! InsertSkeleton()
           throw 1
         endif
         exec "0read " . files[index]
+        %s/<{\(.\{-}\)}>/\=eval(submatch(1))/g
         normal 0d1
       catch
         echohl WarningMsg | echo "\nInvalid selection" | echohl None
