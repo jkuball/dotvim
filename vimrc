@@ -5,8 +5,12 @@
 packadd vim-sensible
 
 " Use vim-colors-github
+"" Better gutter marks
 let g:github_colors_block_diffmark = 0
+"" load colorscheme
 colorscheme github
+"" fix bad highlighting
+highlight StatusLineNC cterm=bold ctermfg=15 ctermbg=242 gui=bold guifg=White guibg=Grey40
 
 " Allow easy :argdo modifications etc.
 set hidden
@@ -173,8 +177,6 @@ command! -nargs=1 -complete=command Redir silent call Redir(<q-args>)
 " vim-lsc
 "" Disable automatic completion
 let g:lsc_enable_autocomplete = 0
-"" Use sensible mappings for lsp-enabled filetypes
-let g:lsc_auto_map = 1
 "" Use omnifunc instead of completefunc
 let g:lsc_auto_map = {
       \ 'defaults': 1,
