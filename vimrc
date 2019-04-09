@@ -174,21 +174,6 @@ function! Redir(cmd)
 endfunction
 command! -nargs=1 -complete=command Redir silent call Redir(<q-args>)
 
-" vim-lsc
-"" Disable automatic completion
-let g:lsc_enable_autocomplete = 0
-"" Use omnifunc instead of completefunc
-let g:lsc_auto_map = {
-      \ 'defaults': 1,
-      \ 'Completion': "omnifunc"
-      \ }
-"" Disable diagnostics
-let g:lsc_enable_diagnostics = 0
-"" Define servers for filetypes
-let g:lsc_server_commands = {
-      \   'python': 'pyls',
-      \ }
-
 " vim-rsi
 "" Disable meta mappings because ä is the same as <M-d>.
 "" See https://github.com/tpope/vim-rsi/issues/14
