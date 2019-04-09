@@ -1,0 +1,21 @@
+from .agent import Agent
+
+import numpy as np
+
+class <{toupper(expand('%:t:r')[0]) . tolower(expand('%:t:r')[1:])}>(Agent):
+    def info(self):
+        return """An agent that just chooses random actions every step."""
+
+    def train(self):
+        self.play()
+
+    def play(self):
+        observations = self.env.reset()
+
+        for t in range(50):
+            actions = []
+            for robot in range(self.env.cfg["teams::num_robots"] * 2):
+                actions.append(self.env.action_space.sample())
+            observations, rewards, dones, infos = self.env.step(actions)
+            self.env.render()
+
