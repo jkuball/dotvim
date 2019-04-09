@@ -152,6 +152,8 @@ command! -nargs=0 Skeleton call InsertSkeleton()
 augroup SkeletonFiles
   au!
   au BufReadPost *.skel let &l:ft = fnamemodify(expand('%:p:h'), ':t')
+  au BufReadPost *.skel highlight SkeletonCode term=reverse ctermfg=15 ctermbg=2 guifg=bg guibg=DarkGreen
+  au BufReadPost *.skel syntax region SkeletonCode start="<{"ms=s+2 end="}>"me=e-2
 augroup END
 
 " Use :Redir to execute any Ex command and pipe the output to a scratch buffer
