@@ -202,6 +202,9 @@ set statusline+=%= " everything below this is right justified (mostly for plugin
 if executable("git")
   packadd vim-fugitive
   set statusline+=%([git:%{fugitive#head()}]%)
+
+  " :Gstatus for the current file's repository in a new tab
+  nnoremap <leader>g :tabedit % \| :Gstatus \| :only<cr>
 endif
 
 " If ag is installed, use ack.vim
