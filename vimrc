@@ -152,7 +152,9 @@ command! -nargs=0 Skeleton call InsertSkeleton()
 augroup SkeletonFiles
   au!
   au BufReadPost *.skel let &l:ft = fnamemodify(expand('%:p:h'), ':t')
-  au BufReadPost *.skel highlight SkeletonCode term=reverse ctermfg=15 ctermbg=2 guifg=bg guibg=DarkGreen
+  au BufReadPost *.skel highlight SkeletonCode ctermfg=29 ctermbg=255 guifg=#22863a guibg=#fafbfc
+  au BufReadPost *.skel highlight SkeletonCodeDelim ctermfg=250 ctermbg=255 guifg=#babbbc guibg=#fafbfc
+  au BufReadPost *.skel syntax region SkeletonCodeDelim start="<{" end="}>" contains=SkeletonCode
   au BufReadPost *.skel syntax region SkeletonCode start="<{"ms=s+2 end="}>"me=e-2
 augroup END
 
