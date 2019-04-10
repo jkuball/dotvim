@@ -112,6 +112,17 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" Placeholders like this: <!!>
+" TODO dont select if nothing is found
+nnoremap <silent> <leader>n :call search('<!!>', 'z')<cr>v3l<c-g>
+nnoremap <silent> <leader>p :call search('<!!>', 'bz')<cr>v3l<c-g>
+nnoremap <silent> <leader>ip a<!!><esc>
+augroup Placeholder
+  au!
+  au syntax * highlight Placeholder ctermfg=26 ctermbg=255 guifg=#22863a guibg=#005cc5
+  au syntax * call matchadd("Placeholder", "<!!>")
+augroup END
+
 " Supply the :Skeleton command which searches in
 " $HOME/.vim/skeleton/<filetype> for .skel files,
 " lets you choose one and inserts them into the buffer (ontop).
@@ -154,8 +165,8 @@ augroup SkeletonFiles
   au BufReadPost *.skel let &l:ft = fnamemodify(expand('%:p:h'), ':t')
   au BufReadPost *.skel highlight SkeletonCode ctermfg=29 ctermbg=255 guifg=#22863a guibg=#fafbfc
   au BufReadPost *.skel highlight SkeletonCodeDelim ctermfg=250 ctermbg=255 guifg=#babbbc guibg=#fafbfc
-  au BufReadPost *.skel syntax region SkeletonCodeDelim start="<{" end="}>" contains=SkeletonCode
-  au BufReadPost *.skel syntax region SkeletonCode start="<{"ms=s+2 end="}>"me=e-2
+  au BufReadPost *.skel call matchadd("SkeletonCodeDelim", "<{.\\{-\}}>")
+  au BufReadPost *.skel call matchadd("SkeletonCode", "<{\\zs.\\{-\}\\ze}>")
 augroup END
 
 " Use :Redir to execute any Ex command and pipe the output to a scratch buffer
