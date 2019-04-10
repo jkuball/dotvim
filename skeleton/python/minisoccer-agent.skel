@@ -1,4 +1,4 @@
-from .agent import Agent
+from .multiagent import MultiAgent
 
 import numpy as np
 
@@ -7,15 +7,8 @@ class <{toupper(expand('%:t:r')[0]) . expand('%:t:r')[1:]}>(Agent):
         return """An agent that <!!>."""
 
     def train(self):
-        self.play()
+        raise NotImplementedError
 
     def play(self):
-        observations = self.env.reset()
-
-        for t in range(50):
-            actions = []
-            for robot in range(self.env.cfg["teams::num_robots"] * 2):
-                actions.append(self.env.action_space.sample())
-            observations, rewards, dones, infos = self.env.step(actions)
-            self.env.render()
+        raise NotImplementedError
 
