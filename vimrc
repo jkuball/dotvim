@@ -50,6 +50,9 @@ nnoremap XX :q!<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 
+" Open terminal in a tab
+nnoremap <leader>t :tabe \| :term ++curwin<cr>
+
 "" Better refactoring/multiple replacements. Thanks to
 "" kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
