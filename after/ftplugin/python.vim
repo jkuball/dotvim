@@ -1,5 +1,7 @@
 let b:shebang = "#!/usr/bin/env python3\r# -*- coding: utf-8 -*-"
 
+let b:linter = "pylint"
+
 setlocal expandtab
 setlocal tabstop=4
 setlocal shiftwidth=4

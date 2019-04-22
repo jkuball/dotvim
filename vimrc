@@ -115,6 +115,30 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echohl None |
       \ endif
 
+" Supply the :Lint command which fills the quickfix list with the output
+" of the shell program that's set in the variable b:linter. It needs to
+" be set for each filetype in after/ftplugin/filetype.vim
+"" TODO if needed, custom errorformat, read from stdin or not, etc
+function! Lint()
+  if !exists("b:linter")
+    echohl WarningMsg
+    echo "No linter specified for " . expand(&ft)
+    echohl None
+    return
+  endif
+  if !executable(b:linter)
+    echohl WarningMsg
+    echo "No such executable " . b:linter
+    echohl None
+    return
+  endif
+  cgetexpr system(b:linter . ' ' . expand('%'))
+  copen
+endfunction
+command! -nargs=0 Lint call Lint()
+nnoremap <leader>l :Lint<cr>
+
+" Placeholder Helper
 function! JumpToNextAndSelect(target, backwards)
   let l:flags = 'z'
   if a:backwards
@@ -125,6 +149,8 @@ function! JumpToNextAndSelect(target, backwards)
   endif
 endfunction
 
+" Define Placeholders that can be used everywhere, but mostly will be in the
+" Skeleton stuff below
 let g:placeholder = '<!!>'
 command! -nargs=1 Pnext call JumpToNextAndSelect(<f-args>, 0)
 command! -nargs=1 Pprev call JumpToNextAndSelect(<f-args>, 1)
