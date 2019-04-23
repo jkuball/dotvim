@@ -138,7 +138,11 @@ function! Lint(lintcmd)
     return
   endif
   cgetexpr system(l:linter . ' ' . expand('%'))
-  copen
+  if len(getqflist()) > 0
+    copen
+  else
+    echo "Linting done, output empty."
+  endif
 endfunction
 command! -nargs=? -complete=shellcmd Lint call Lint(<q-args>)
 nnoremap <leader>l :Lint<cr>
