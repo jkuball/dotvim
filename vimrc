@@ -131,7 +131,7 @@ function! Lint(lintcmd)
       let l:linter = b:linter
     endif
   endif
-  if !executable(l:linter)
+  if !executable(split(l:linter)[0])
     echohl WarningMsg
     echo "No such executable " . l:linter
     echohl None
