@@ -43,7 +43,7 @@ def python3jedicomplete():
       line, column = vim.current.window.cursor
       script = jedi.Script(source="\n".join(vim.current.buffer), line=line, column=column)
       type_order = { v: i for i, v in
-        enumerate([ "param", "statement", "module", "function", "instance", "class", "keyword" ])
+        enumerate([ "param", "statement", "module", "function", "class", "instance", "keyword" ])
       }
 
       completions = [ f"{{ 'abbr': '{clean_str(c.name_with_symbols)}', \
