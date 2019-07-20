@@ -100,7 +100,7 @@ function! OpenTermForBuild(buildcommand)
     let &l:winfixheight = 10
     call setpos('.', pos)
   endif
-  exec "nnoremap <silent> m<cr> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>"
+  exec "nnoremap <silent> m<cr> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-c>\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>"
 endfunction
 command! -nargs=1 -complete=file ActivateTermBuild call OpenTermForBuild(<q-args>)
 
