@@ -85,3 +85,6 @@
 [submodule "pack/plugins/start/vim-apathy"]
 	path = pack/plugins/start/vim-apathy
 	url = https://github.com/tpope/vim-apathy
+[submodule "pack/plugins/opt/jedi-vim"]
+	path = pack/plugins/opt/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
