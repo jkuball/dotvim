@@ -53,6 +53,12 @@ nnoremap <leader>q :q<cr>
 " Open terminal in a tab
 nnoremap <leader>t :tabe \| :term ++curwin<cr>
 
+" When on mac, set the insert mode cursor correctly
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
 "" Better refactoring/multiple replacements. Thanks to
 "" kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
