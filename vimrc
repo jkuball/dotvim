@@ -249,6 +249,15 @@ function! Redir(cmd)
 endfunction
 command! -nargs=1 -complete=command Redir silent call Redir(<q-args>)
 
+" For python, set the executable correctly, so vim-apathy sets the path
+" correctly. This can be removed on systems where the default python
+" IS python3, but that's just a dream (until macOS finally ditches all
+" scripting languages, which IS coming)
+augroup Python
+  au!
+  au BufReadPre *.py let g:python_executable = "python3"
+augroup END
+
 " vim-rsi
 "" Disable meta mappings because ä is the same as <M-d>.
 "" See https://github.com/tpope/vim-rsi/issues/14

@@ -34,8 +34,8 @@ if !has("nvim")
   let g:jedi#show_call_signatures_delay = 1000
   call jedi#configure_call_signatures()
   " .. and setup my own sensible mappings just for the useful features:
-  nnoremap <silent> <c-]> :call jedi#goto()<cr>
-  nnoremap <silent> K :call jedi#show_documentation()<cr>
+  nnoremap <silent> <buffer> <c-]> :call jedi#goto()<cr>
+  nnoremap <silent> <buffer> K :call jedi#show_documentation()<cr>
 endif
 
 python3 << PYTHONEOF
