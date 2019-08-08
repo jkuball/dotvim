@@ -88,3 +88,6 @@
 [submodule "pack/plugins/opt/jedi-vim"]
 	path = pack/plugins/opt/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim
+[submodule "pack/plugins/start/fugitive-gitlab.vim"]
+	path = pack/plugins/start/fugitive-gitlab.vim
+	url = https://github.com/shumphrey/fugitive-gitlab.vim

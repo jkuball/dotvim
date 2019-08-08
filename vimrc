@@ -258,6 +258,9 @@ augroup Python
   au BufReadPre *.py let g:python_executable = "python3"
 augroup END
 
+" fugitive-gitlab.vim
+let g:fugitive_gitlab_domains = ['https://gitlab.informatik.uni-bremen.de']
+
 " vim-rsi
 "" Disable meta mappings because ä is the same as <M-d>.
 "" See https://github.com/tpope/vim-rsi/issues/14
