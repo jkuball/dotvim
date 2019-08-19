@@ -191,8 +191,9 @@ function! InsertSkeleton()
   else
     if len(files) == 1
       exec "0read " . files[0]
-      %s/<{\(.\{-}\)}>/\=eval(submatch(1))/g
+      %s/<{\(.\{-}\)}>/\=eval(submatch(1))/ge
       normal 0d1
+      normal G
     else
       let skeletons = map(copy(files), "fnamemodify(v:val, ':t:r')")
       for idx in range(len(skeletons))
@@ -205,8 +206,9 @@ function! InsertSkeleton()
           throw 1
         endif
         exec "0read " . files[index]
-        %s/<{\(.\{-}\)}>/\=eval(submatch(1))/g
+        %s/<{\(.\{-}\)}>/\=eval(submatch(1))/ge
         normal 0d1
+        normal G
       catch
         echohl WarningMsg | echo "\nInvalid selection" | echohl None
       endtry
