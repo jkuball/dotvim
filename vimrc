@@ -28,9 +28,9 @@ set directory=$HOME/.vim/.swapfiles//
 set backupdir=$HOME/.vim/.backupfiles//
 set undodir=$HOME/.vim/.undofiles//
 
-" Set leader
+" Set leader(s)
 let mapleader="\<Space>"
-let maplocalleader="\<Space>"
+let maplocalleader=","
 
 " No mouse in insert mode
 set mouse=nv
@@ -51,7 +51,10 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
 
 " Open terminal in a tab
-nnoremap <leader>t :tabe \| :term ++curwin<cr>
+nnoremap <leader>t :tabedit \| :terminal ++curwin<cr>
+
+" Open a local TODO file
+nnoremap <leader>o :tabedit todo.org<cr>
 
 " When on mac, set the insert mode cursor correctly
 if $TERM_PROGRAM =~ "iTerm"

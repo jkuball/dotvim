@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
 TYPE=start
-AUTHOR=$1
-NAME=$2
 
-if [ -z $AUTHOR ] || [ -z $NAME ]; then
+if [ -z "$2" ]; then
+  AUTHOR=`echo $1 | cut -d/ -f1`
+  NAME=`echo $1 | cut -d/ -f2`
+else
+  AUTHOR=$1
+  NAME=$2
+fi
+
+if [ -z "$AUTHOR" ] || [ -z "$NAME" ]; then
   echo $0: Installs vim plugins from GitHub.
   echo The following fetches the repository from https://www.github.com/\$AUTHOR/\$NAME
   echo and installs it into pack/plugins/\$TYPE/\$NAME. The TYPE defaults to \"start\".

@@ -91,3 +91,9 @@
 [submodule "pack/plugins/start/fugitive-gitlab.vim"]
 	path = pack/plugins/start/fugitive-gitlab.vim
 	url = https://github.com/shumphrey/fugitive-gitlab.vim
+[submodule "pack/plugins/start/vim-orgmode"]
+	path = pack/plugins/start/vim-orgmode
+	url = https://github.com/jceb/vim-orgmode
+[submodule "pack/plugins/start/vim-speeddating"]
+	path = pack/plugins/start/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating
