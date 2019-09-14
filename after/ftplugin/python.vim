@@ -15,6 +15,11 @@ setlocal tabstop=4
 setlocal shiftwidth=4
 setlocal softtabstop=4
 
+nnoremap <localleader>b obreakpoint()<esc>
+nnoremap <localleader>B Obreakpoint()<esc>
+nnoremap <localleader>p oimport pdb; pdb.set_trace()<esc>
+nnoremap <localleader>P Oimport pdb; pdb.set_trace()<esc>
+
 " common typos
 iabbr slef self
 iabbr slfe self
