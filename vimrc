@@ -1,13 +1,17 @@
 " My ~/.vim/vimrc
 " Author: Jonas Kuball <jkuball@tzi.de>
 
+" Specify encodings, just in case.
+set encoding=utf-8
+scriptencoding utf-8
+
 " Firstly, load sensible.vim to have sane defaults set
 packadd vim-sensible
 
 " Never lose anything
-for type in ["swap", "backup", "undo"]
-  if !isdirectory(expand("$HOME/.vim/." . type . "files//"))
-    call mkdir(expand("$HOME/.vim/." . type . "files//"))
+for type in ['swap', 'backup', 'undo']
+  if !isdirectory(expand('$HOME/.vim/.' . type . 'files//'))
+    call mkdir(expand('$HOME/.vim/.' . type . 'files//'))
   endif
 endfor
 set backup
@@ -28,7 +32,7 @@ highlight StatusLineNC cterm=bold ctermfg=15 ctermbg=242 gui=bold guifg=White gu
 
 " Set leader(s)
 let mapleader="\<Space>"
-let maplocalleader=","
+let maplocalleader=','
 
 " Miscs
 set hidden " Allow easy :argdo modifications etc
@@ -49,7 +53,7 @@ if has('mac')
   set wildignore+=*.DS_Store
 
   " Set the insert mode cursor correctly
-  if $TERM_PROGRAM =~ "iTerm"
+  if $TERM_PROGRAM =~# 'iTerm'
       let &t_SI = "\<Esc>]50;CursorShape=1\x7"
       let &t_EI = "\<Esc>]50;CursorShape=0\x7"
   endif
@@ -109,13 +113,13 @@ command! -nargs=0 Shebang if exists("b:shebang") |
 """ }}}
 
 " Define some digraphs for writing german text
-exec "digraphs ae " . char2nr('ä')
-exec "digraphs ue " . char2nr('ü')
-exec "digraphs oe " . char2nr('ö')
-exec "digraphs ss " . char2nr('ß')
+exec 'digraphs ae ' . char2nr('ä')
+exec 'digraphs ue ' . char2nr('ü')
+exec 'digraphs oe ' . char2nr('ö')
+exec 'digraphs ss ' . char2nr('ß')
 
 " Set the tex flavor to latex since that's what I write the most
-let g:tex_flavor = "latex"
+let g:tex_flavor = 'latex'
 
 " Just a small convenience thing for myself that might be enough
 " to make into a proper plugin. I noticed a pattern in my workflow
@@ -137,45 +141,6 @@ function! OpenTermForBuild(buildcommand)
 endfunction
 command! -nargs=1 -complete=file ActivateTermBuild call OpenTermForBuild(<q-args>)
 
-" Supply the :Lint command which fills the quickfix list with the output
-" of the shell program that's set in the variable b:linter. It needs to
-" be set for each filetype in after/ftplugin/filetype.vim
-"" TODO if needed, custom errorformat, read from stdin or not, etc
-function! Lint(lintcmd)
-  let l:linter = a:lintcmd
-  if strlen(l:linter) <= 0
-    if !exists("b:linter")
-      echohl WarningMsg | echo "No linter specified for " . expand(&ft) | echohl None
-      return
-    else
-      let l:linter = b:linter
-    endif
-  endif
-  if !executable(split(l:linter)[0])
-    echohl WarningMsg | echo "No such executable " . l:linter | echohl None
-    return
-  endif
-  cgetexpr system(l:linter . ' ' . expand('%'))
-  if len(getqflist()) > 0
-    copen
-  else
-    echo "Linting done, output empty."
-  endif
-endfunction
-command! -nargs=? -complete=shellcmd Lint call Lint(<q-args>)
-nnoremap <leader>l :Lint<cr>
-
-" Placeholder Helper
-function! JumpToNextAndSelect(target, backwards)
-  let l:flags = 'z'
-  if a:backwards
-    let l:flags = 'b' . 'z'
-  endif
-  if search(a:target, l:flags)
-    exec "normal v" . (strlen(a:target)-1) . "l\<c-g>"
-  endif
-endfunction
-
 " Use :Redir to execute any Ex command and pipe the output to a scratch buffer
 " Adapted from reddit user /u/-romainl-
 " https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
@@ -185,7 +150,7 @@ function! Redir(cmd)
       execute win . 'windo close'
     endif
   endfor
-  if a:cmd =~ '^!'
+  if a:cmd =~? '^!'
     let output = system(matchstr(a:cmd, '^!\zs.*'))
   else
     redir => output
@@ -218,7 +183,7 @@ set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (mostly for plugins)
 
 " If git is installed, use vim-fugitive.
-if executable("git")
+if executable('git')
   packadd vim-fugitive
   set statusline+=%([git:%{fugitive#head()}]%)
 
@@ -230,7 +195,7 @@ if executable("git")
 endif
 
 " If ag is installed, use ack.vim
-if executable("ag")
+if executable('ag')
   packadd ack.vim
   let g:ackprg = 'ag --vimgrep'
 endif
