@@ -4,23 +4,6 @@
 " Firstly, load sensible.vim to have sane defaults set
 packadd vim-sensible
 
-" Use vim-colors-github
-"" Better gutter marks
-let g:github_colors_block_diffmark = 0
-"" load colorscheme
-colorscheme github
-"" fix bad highlighting
-highlight StatusLineNC cterm=bold ctermfg=15 ctermbg=242 gui=bold guifg=White guibg=Grey40
-
-" Allow easy :argdo modifications etc.
-set hidden
-
-" Default indentation, might be overwritten for specific filetypes
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-
 " Never lose anything
 for type in ["swap", "backup", "undo"]
   if !isdirectory(expand("$HOME/.vim/." . type . "files//"))
@@ -33,6 +16,26 @@ set directory=$HOME/.vim/.swapfiles//
 set backupdir=$HOME/.vim/.backupfiles//
 set undodir=$HOME/.vim/.undofiles//
 
+" Use vim-colors-github
+"" Better gutter marks
+let g:github_colors_block_diffmark = 0
+"" load colorscheme
+colorscheme github
+"" fix bad highlighting
+highlight StatusLineNC cterm=bold ctermfg=15 ctermbg=242 gui=bold guifg=White guibg=Grey40
+
+" Simple settings {{{1
+
+" Miscs
+setlocal foldmethod=marker " for this file, use .
+set hidden " Allow easy :argdo modifications etc.
+
+" Default indentation, might be overwritten for specific filetypes
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
 " Set leader(s)
 let mapleader="\<Space>"
 let maplocalleader=","
@@ -43,11 +46,27 @@ set mouse=nv
 " Line numbering
 set nu
 
-" No ex mode
-map Q gq
-
 " Set spelling languages
 set spelllang=de,en_us
+
+" Open windows below (escpically the preview window)
+set splitbelow
+
+" macOS specifics
+if has('mac')
+  " wildignore DS_Store files
+  set wildignore+=*.DS_Store
+
+  " Set the insert mode cursor correctly
+  if $TERM_PROGRAM =~ "iTerm"
+      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+endif
+
+" }}}
+
+" Simple mappings {{{1
 
 " Convenience Mappings
 nnoremap ZZ :wq<cr>
@@ -62,11 +81,8 @@ nnoremap <leader>t :tabedit \| :terminal ++curwin<cr>
 " Open a local TODO file
 nnoremap <leader>o :tabedit todo.org<cr>
 
-" When on mac, set the insert mode cursor correctly
-if $TERM_PROGRAM =~ "iTerm"
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
+" Align the paragraph with the top of the screen
+nnoremap gzz {jzt``
 
 "" Better refactoring/multiple replacements. Thanks to
 "" kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
@@ -76,30 +92,36 @@ nnoremap cN *''cgN
 vnoremap <expr> cn g:mc . "''cgn"
 vnoremap <expr> cN g:mc . "''cgN"
 
-" Align the paragraph with the top of the screen
-nnoremap gzz {jzt``
+" }}}
+
+""" Simple commands {{{1
 
 " Re-generate helptags
 command! Helptags helptags ALL
 
-" Open windows below (escpically the preview window)
-set splitbelow
-
-" When on macOS, wildignore .DS_Store
+" When on mac, define the :Dict command
 if has('mac')
-  set wildignore+=*.DS_Store
+  command! -nargs=1 Dict call execute("!open dict://" . <f-args>) | redraw!
 endif
+
+" Supply the :Shebang command which inserts the contents of the
+" variable b:shebang. It needs to be set for each filetype in
+" after/ftplugin/filetype.vim
+command! -nargs=0 Shebang if exists("b:shebang") |
+      \ exec 'normal!ggO' . b:shebang |
+      \ else |
+      \ echohl WarningMsg |
+      \ echo "No shebang specified for " . expand(&ft) |
+      \ echohl None |
+      \ endif
+
+""" }}}
 
 " Define some digraphs for writing german text
 exec "digraphs ae " . char2nr('ä')
 exec "digraphs ue " . char2nr('ü')
 exec "digraphs oe " . char2nr('ö')
 exec "digraphs ss " . char2nr('ß')
-
-" When on mac, define the :Dict command
-if has('mac')
-  command! -nargs=1 Dict call execute("!open dict://" . <f-args>) | redraw!
-endif
 
 " Set the tex flavor to latex since that's what I write the most
 let g:tex_flavor = "latex"
@@ -123,17 +145,6 @@ function! OpenTermForBuild(buildcommand)
   exec "nnoremap <silent> m<cr> :call term_sendkeys(bufnr('!' . &shell), \"\\<lt>c-c>\\<lt>c-l>" . a:buildcommand . "\\<lt>cr>\")<cr>"
 endfunction
 command! -nargs=1 -complete=file ActivateTermBuild call OpenTermForBuild(<q-args>)
-
-" Supply the :Shebang command which inserts the contents of the
-" variable b:shebang. It needs to be set for each filetype in
-" after/ftplugin/filetype.vim
-command! -nargs=0 Shebang if exists("b:shebang") |
-      \ exec 'normal!ggO' . b:shebang |
-      \ else |
-      \ echohl WarningMsg |
-      \ echo "No shebang specified for " . expand(&ft) |
-      \ echohl None |
-      \ endif
 
 " Supply the :Lint command which fills the quickfix list with the output
 " of the shell program that's set in the variable b:linter. It needs to
@@ -206,9 +217,6 @@ augroup Python
   au BufReadPre *.py let g:python_executable = "python3"
 augroup END
 
-" fugitive-gitlab.vim
-let g:fugitive_gitlab_domains = ['https://gitlab.informatik.uni-bremen.de']
-
 " vim-rsi
 "" Disable meta mappings because ä is the same as <M-d>.
 "" See https://github.com/tpope/vim-rsi/issues/14
@@ -222,6 +230,9 @@ set statusline+=%= " everything below this is right justified (mostly for plugin
 if executable("git")
   packadd vim-fugitive
   set statusline+=%([git:%{fugitive#head()}]%)
+
+  " fugitive-gitlab.vim
+  let g:fugitive_gitlab_domains = ['https://gitlab.informatik.uni-bremen.de']
 
   " :Gstatus for the current file's repository in a new tab
   nnoremap <leader>g :tabedit % \| :Gstatus \| :only<cr>
