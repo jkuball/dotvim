@@ -26,31 +26,22 @@ highlight StatusLineNC cterm=bold ctermfg=15 ctermbg=242 gui=bold guifg=White gu
 
 " Simple settings {{{1
 
+" Set leader(s)
+let mapleader="\<Space>"
+let maplocalleader=","
+
 " Miscs
-setlocal foldmethod=marker " for this file, use .
-set hidden " Allow easy :argdo modifications etc.
+set hidden " Allow easy :argdo modifications etc
+set mouse=nv " No mouse in insert mode
+set nu " Line numbering
+set spelllang=de,en_us " Set spelling languages
+set splitbelow " Open windows below (escpically the preview window)
 
 " Default indentation, might be overwritten for specific filetypes
 set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-
-" Set leader(s)
-let mapleader="\<Space>"
-let maplocalleader=","
-
-" No mouse in insert mode
-set mouse=nv
-
-" Line numbering
-set nu
-
-" Set spelling languages
-set spelllang=de,en_us
-
-" Open windows below (escpically the preview window)
-set splitbelow
 
 " macOS specifics
 if has('mac')
