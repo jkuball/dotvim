@@ -49,6 +49,7 @@ nnoremap ZZ :wq<cr>
 nnoremap XX :q!<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>q :q<cr>
+nnoremap S c$
 
 " Open terminal in a tab
 nnoremap <leader>t :tabedit \| :terminal ++curwin<cr>
@@ -90,6 +91,11 @@ exec "digraphs ue " . char2nr('ü')
 exec "digraphs oe " . char2nr('ö')
 exec "digraphs ss " . char2nr('ß')
 
+" When on mac, define the :Dict command
+if has('mac')
+  command! -nargs=1 Dict call execute("!open dict://" . <f-args>) | redraw!
+endif
+
 " Set the tex flavor to latex since that's what I write the most
 let g:tex_flavor = "latex"
 
@@ -98,7 +104,7 @@ let g:tex_flavor = "latex"
 " where a simple :Make is not enough, so this helps with non-standard
 " build commands. For instance, when in a python script, you can call
 " `:ActivateTermBuild python3 myscript.py --some --arguments 42` to open
-" a terminal and setup <c-m> to send the previously given command to it.
+" a terminal and setup m<cr> to send the previously given command to it.
 " It only starts a new terminal if one is not already present, so you can use
 " it to update the build command.
 function! OpenTermForBuild(buildcommand)

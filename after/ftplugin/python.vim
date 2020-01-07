@@ -5,10 +5,10 @@ let b:linter = "pylint"
 let g:surround_{char2nr('k')} = "\1Key from: \1[\"\r\"]"
 let g:surround_{char2nr('t')} = "try:\n\rexcept \1Except: \1 as e:\n" . g:placeholder
 
-set foldmethod=indent
-set foldnestmax=3
+setlocal foldmethod=indent
+setlocal foldnestmax=3
+setlocal foldlevel=99
 set foldlevelstart=99
-set foldlevel=99
 
 setlocal expandtab
 setlocal tabstop=4

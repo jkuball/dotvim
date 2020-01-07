@@ -7,6 +7,12 @@ set wildignore+=*.aux,*.bbl,*.bcf,*.blg,*.fdb_latexmk,*.fls,*.log,*.out,*.run.xm
 "" Suffix for the bib file
 setlocal suffixesadd=.bib
 
+"" Set the apple dictionary as keywordprg
+"" Unfortumately I couldn't get it to work without an extra 'script'
+if has('mac')
+  set keywordprg=$HOME/.vim/after/ftplugin/dict.sh
+endif
+
 "" For vim-surround (see :h surround-customizing):
 " Use the \ character for begin/end pairs
 let g:surround_{char2nr('\')} = "\\begin{\1environment: \1}\r\\end{\1\1}"
@@ -15,11 +21,12 @@ let g:surround_{char2nr('\')} = "\\begin{\1environment: \1}\r\\end{\1\1}"
 let g:surround_{char2nr('/')} = "\\\1command: \1{\r}"
 
 " After writing \begin{environment} use <c-j> to insert the corresponding \end
+" TODO ignore options like \begin{figure}[h!]
 " TODO Maybe look into tpopes endwise for a proper replacement
 function! s:CompleteBegin()
   let line = getline('.')
   let pos = getpos('.')
-  let matched = matchlist(line, '^\\begin{\(.*\)}$')
+  let matched = matchlist(line, '^.*\\begin{\(.*\)}$')
   if len(matched) > 1 && pos[2] >= len(line)
     exec printf('normal! o\end{%s}', get(matched, 1))
     normal! O
@@ -58,8 +65,7 @@ function! CompleteTex(findstart, base)
       let start -= 1
     endwhile
 
-    if line[start - 5:start] =~ "cite{" || line[start - 4:start] =~ "ref{" || line[start - 11:start] =~ "usepackage{"
-      " TODO: Also match all cite.*{ variants
+    if line[start - 5:start] =~ "cite{" || line[start - 6:start] =~ "cite[tp]{" || line[start - 4:start] =~ "ref{" || line[start - 11:start] =~ "usepackage{"
       return start
     endif
 
@@ -72,7 +78,7 @@ function! CompleteTex(findstart, base)
     let completion = { 'words': [], 'refresh': 'always' }
 
     " We need citation completion.
-    if line[start - 5:start] =~ "cite{"
+    if line[start - 5:start] =~ "cite{" || line[start - 6:start] =~ "cite[tp]{"
       for bibfile in glob('**/*.bib', 0, 1)
         let item = {}
         for line in readfile(bibfile)
