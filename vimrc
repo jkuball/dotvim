@@ -28,6 +28,10 @@ colorscheme github
 "" fix bad highlighting
 highlight StatusLineNC cterm=bold ctermfg=15 ctermbg=242 gui=bold guifg=White guibg=Grey40
 
+" Fast trailing whitespaces with 'list'
+set list
+set listchars=trail:~
+
 " Simple settings {{{1
 
 " Set leader(s)
@@ -109,6 +113,14 @@ command! -nargs=0 Shebang if exists("b:shebang") |
       \ echo "No shebang specified for " . expand(&ft) |
       \ echohl None |
       \ endif
+
+" Function directly copied from https://github.com/bronson/vim-trailing-whitespace/
+function! s:FixWhitespace(line1,line2)
+    let l:save_cursor = getpos(".")
+    silent! execute ':' . a:line1 . ',' . a:line2 . 's/\\\@<!\s\+$//'
+    call setpos('.', l:save_cursor)
+endfunction
+command! -range=% FixWhitespace call <SID>FixWhitespace(<line1>,<line2>)
 
 """ }}}
 
