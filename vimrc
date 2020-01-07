@@ -22,6 +22,11 @@ set shiftwidth=2
 set softtabstop=2
 
 " Never lose anything
+for type in ["swap", "backup", "undo"]
+  if !isdirectory(expand("$HOME/.vim/." . type . "files//"))
+    call mkdir(expand("$HOME/.vim/." . type . "files//"))
+  endif
+endfor
 set backup
 set undofile
 set directory=$HOME/.vim/.swapfiles//
