@@ -1,4 +1,0 @@
-#+TITLE: <{ expand('%:p:h:t') }> TODOs
-#+AUTHOR: Jonas Kuball <jkuball@tzi.de>
-#+DATE: <{ system('date +%d.\ %b\ %Y') }>
-
