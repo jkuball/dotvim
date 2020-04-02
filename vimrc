@@ -24,6 +24,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 
+" Language Server
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
 call plug#end()
 
 " Never lose anything
@@ -47,3 +51,33 @@ set shiftwidth=2
 set list
 set listchars=trail:~
 
+" Open windows more naturally for me
+set splitbelow
+set splitright
+
+" Configure Language Servers
+if executable('pyls') " TODO: Can this be moved to a filetype plugin
+  " pip install python-language-server
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
+" No diagnostics for now. I hate linters.
+let g:lsp_diagnostics_enabled = 0
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  " The <plug>-mappings seem to be broken? TODO: Test later again
+  " nnoremap <buffer> <c-]> <plug>(lsp-definition)
+  " nnoremap <buffer> K <plug>(lsp-hover)
+  nnoremap <buffer> <c-]> :LspDefinition<cr>
+  nnoremap <buffer> K :LspHover<cr>
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
