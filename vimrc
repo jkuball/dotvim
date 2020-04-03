@@ -55,7 +55,12 @@ set mouse=a
 set splitbelow
 set splitright
 
+" Set custom status line
+set statusline=%(%q%h%r\ %)%t\ %y%m
+set statusline+=%= " everything below this is right justified (for plugins)
+
 " Configure fugitive.vim
+set statusline+=%([git:%{fugitive#head()}]%)
 nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure LSP
