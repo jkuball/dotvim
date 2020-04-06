@@ -29,8 +29,9 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
 " Other plugins
-Plug 'vimwiki/vimwiki'
 Plug 'airblade/vim-gitgutter'
+Plug 'liuchengxu/vim-clap'
+Plug 'vimwiki/vimwiki'
 
 " Colorscheme
 Plug 'rakr/vim-one'
@@ -81,6 +82,9 @@ endif
 " Set custom status line
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
+
+" Configure Clap
+let g:clap_theme = 'atom_dark' " Dark theme on light background theme isn't too bad, I like it.
 
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
