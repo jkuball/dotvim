@@ -17,7 +17,6 @@ call plug#begin('~/.vim/pack')
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -29,6 +28,8 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
 " Other plugins
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dadbod'
 Plug 'airblade/vim-gitgutter'
 Plug 'liuchengxu/vim-clap'
 Plug 'vimwiki/vimwiki'
