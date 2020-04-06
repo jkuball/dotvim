@@ -1,5 +1,5 @@
 " My ~/.vim/vimrc
-" Author: Jonas Kuball <jkuball@tzi.de>
+" Author: Jonas Kuball <jkuball@uni-bremen.de>
 
 " Specify encodings, just in case.
 set encoding=utf-8
@@ -28,7 +28,19 @@ Plug 'tpope/vim-vinegar'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
+" Other plugins
+Plug 'vimwiki/vimwiki'
+Plug 'airblade/vim-gitgutter'
+
+" Colorscheme
+Plug 'rakr/vim-one'
+
 call plug#end()
+
+" Activate Colorscheme
+set background=light
+set termguicolors
+colorscheme one
 
 " Never lose anything
 for type in ['swap', 'backup', 'undo']
@@ -55,12 +67,37 @@ set mouse=a
 set splitbelow
 set splitright
 
+" macOS specifics
+if has('mac')
+  set wildignore+=*.DS_Store
+
+  " Set the insert mode cursor correctly
+  if $TERM_PROGRAM =~# 'iTerm'
+      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+endif
+
 " Set custom status line
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
 
-" Configure fugitive.vim
-set statusline+=%([git:%{fugitive#head()}]%)
+" Configure vimwiki
+"" Fix shadowing of Vinegars - which I prefer
+nnoremap _ <Plug>VimwikiRemoveHeaderLevel
+
+" Configure gitgutter
+function! GitStatus()
+  let [a, m, r] = GitGutterGetHunkSummary()
+  if (a + m + r) > 0
+    return printf('+%d ~%d -%d', a, m, r)
+  endif
+  return ""
+endfunction
+set statusline+=\ %([%{GitStatus()}]%)
+
+" Configure fugitive
+set statusline+=\ %([git:%{fugitive#head()}]%)
 nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure LSP
