@@ -5,16 +5,19 @@ let g:lsp_diagnostics_float_cursor = 1
 
 " Configure Language Servers
 if executable('pyls') " TODO: Can this be moved to a filetype plugin
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ 'workspace_config': {
-        \   'pyls': {
-        \     'configurationSources': ['flake8']
-        \   }
-        \ }
-        \ })
+  augroup LspInit
+    au!
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'pyls',
+          \ 'cmd': {server_info->['pyls']},
+          \ 'whitelist': ['python'],
+          \ 'workspace_config': {
+          \   'pyls': {
+          \     'configurationSources': ['flake8']
+          \   }
+          \ }
+          \ })
+  augroup END
 endif
 
 function! s:on_lsp_buffer_enabled() abort
@@ -24,6 +27,8 @@ function! s:on_lsp_buffer_enabled() abort
   " nnoremap <buffer> K <plug>(lsp-hover)
   nnoremap <buffer> <c-]> :LspDefinition<cr>
   nnoremap <buffer> K :LspHover<cr>
+  nnoremap <buffer> Q :LspDocumentFormat<cr>
+  setlocal formatexpr=lsp#ui#vim#document_range_format_sync()
 endfunction
 
 augroup lsp_install
