@@ -1,0 +1,5 @@
+repos:
+-   repo: https://github.com/Vimjas/vint
+    rev: v0.4a4
+    hooks:
+    -   id: vint
