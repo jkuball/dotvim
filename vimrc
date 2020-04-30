@@ -5,7 +5,7 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-" Check for 
+" Check for Plug.vim
 if !filereadable(expand('~/.vim/autoload/plug.vim'))
   echom "vimrc not loaded, please install plug.vim"
   finish
@@ -16,6 +16,7 @@ call plug#begin('~/.vim/pack')
 " Essential tpope plugins
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
@@ -69,6 +70,10 @@ set mouse=a
 set splitbelow
 set splitright
 
+" Set the leaders
+let mapleader = '\'
+let maplocalleader = ','
+
 " macOS specifics
 if has('mac')
   set wildignore+=*.DS_Store
@@ -86,6 +91,8 @@ set statusline+=%= " everything below this is right justified (for plugins)
 
 " Configure Clap
 let g:clap_theme = 'atom_dark' " Dark theme on light background theme isn't too bad, I like it.
+nnoremap <leader>cg :Clap grep<cr>
+nnoremap <leader>cf :Clap files<cr>
 
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
