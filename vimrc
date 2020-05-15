@@ -33,7 +33,6 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dadbod'
 Plug 'airblade/vim-gitgutter'
-Plug 'liuchengxu/vim-clap'
 Plug 'vimwiki/vimwiki'
 
 " Colorscheme
@@ -90,10 +89,6 @@ endif
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
 
-" Configure Clap
-let g:clap_theme = 'atom_dark' " Dark theme on light background theme isn't too bad, I like it.
-nnoremap <leader>cg :Clap grep<cr>
-nnoremap <leader>cf :Clap files<cr>
 
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
