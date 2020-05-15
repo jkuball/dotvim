@@ -75,15 +75,13 @@ set splitright
 let mapleader = '\'
 let maplocalleader = ','
 
-" macOS specifics
-if has('mac')
-  set wildignore+=*.DS_Store
+" Wildignore DS_Store files on all systems
+set wildignore+=*.DS_Store
 
-  " Set the insert mode cursor correctly
-  if $TERM_PROGRAM =~# 'iTerm'
-      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-  endif
+" Set the insert mode cursor correctly
+if $TERM_PROGRAM =~# 'iTerm'
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 " Set custom status line
