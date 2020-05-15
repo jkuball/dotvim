@@ -35,6 +35,8 @@ Plug 'tpope/vim-dadbod'
 Plug 'airblade/vim-gitgutter'
 Plug 'vimwiki/vimwiki'
 Plug 'jpalardy/vim-slime'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Colorscheme
 Plug 'rakr/vim-one'
