@@ -18,6 +18,7 @@ Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -110,6 +111,10 @@ set statusline+=\ %([%{GitStatus()}]%)
 
 " Configure fugitive
 set statusline+=\ %([git:%{fugitive#head()}]%)
+nnoremap <leader>g :tabedit % \| :G \| :only<cr>
+
+" Configure obsession
+set statusline+=%(%{ObsessionStatus('\ [session\ running]','')}%)
 nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure LSP
