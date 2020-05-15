@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dadbod'
 Plug 'airblade/vim-gitgutter'
 Plug 'vimwiki/vimwiki'
+Plug 'jpalardy/vim-slime'
 
 " Colorscheme
 Plug 'rakr/vim-one'
@@ -89,6 +90,15 @@ endif
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
 
+" Configure vim-slime to use the terminal
+let g:slime_target = "vimterminal"
+let g:slime_vimterminal_cmd = "ipython"
+let g:slime_python_ipython = 1
+let g:slime_vimterminal_config = { "term_name": "Slime.vim", "vertical": 1, "term_finish": "close" }
+let g:slime_cell_delimiter = "# === #"
+nmap <leader><c-c><c-c> <Plug>SlimeSendCell
+nnoremap <leader><c-c>O O# === #<cr><esc>
+nnoremap <leader><c-c>o o<cr># === #<esc>
 
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
