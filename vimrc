@@ -105,17 +105,17 @@ nnoremap <leader><c-c>o o<cr># === #<esc>
 nnoremap _ <Plug>VimwikiRemoveHeaderLevel
 
 " Configure gitgutter
-function! GitStatus()
+function! GitGutterStatus()
   let [a, m, r] = GitGutterGetHunkSummary()
   if (a + m + r) > 0
     return printf('+%d ~%d -%d', a, m, r)
   endif
   return ""
 endfunction
-set statusline+=\ %([%{GitStatus()}]%)
+set statusline+=\ %([%{GitGutterStatus()}]%)
 
 " Configure fugitive
-set statusline+=\ %([git:%{fugitive#head()}]%)
+set statusline+=\ %([git:\ %{fugitive#head()}]%)
 nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure obsession
@@ -124,4 +124,5 @@ nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure LSP
 runtime lsp_conf.vim
+set statusline+=%(\ %{LspStatusline()}%)
 

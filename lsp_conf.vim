@@ -35,3 +35,13 @@ augroup lsp_install
   au!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+function! LspStatusline()
+  let servers = lsp#get_whitelisted_servers()
+  if len(servers)
+    let server = servers[0] " TODO use all servers
+    let status = lsp#get_server_status(server)
+    return printf('[%s: %s]', server, status)
+  endif
+  return ''
+endfunction
