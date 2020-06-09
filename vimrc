@@ -100,6 +100,28 @@ nmap <leader><c-c><c-c> <Plug>SlimeSendCell
 nnoremap <leader><c-c>O O# === #<cr><esc>
 nnoremap <leader><c-c>o o<cr># === #<esc>
 
+" Supply OnSaved command for fast development
+function! SendKeys(args)
+  let terms = filter(range(1, bufnr('$')), 'bufexists(v:val) && getbufvar(v:val, "&buftype") ==# "terminal"')
+  if len(terms)
+    let termbuf = terms[0]
+  else
+    let termbuf = term_start($SHELL)
+  endif
+  call term_sendkeys(termbuf, "clear\<cr>" . a:args . "\<cr>")
+endfunction
+
+function! OnSaved(args)
+  augroup OnSavedMiniPlugin
+    au!
+    exec "au BufWritePost " . expand("%:t") . " call SendKeys('" . expand(a:args) . "')"
+  augroup END
+  call SendKeys(a:args)
+endfunction
+
+" TODO: complete=shellcmd for the first arg and after that complete=file
+command! -complete=file -nargs=+ OnSaved call OnSaved(<q-args>)
+
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
 nnoremap _ <Plug>VimwikiRemoveHeaderLevel
