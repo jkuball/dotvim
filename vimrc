@@ -122,6 +122,9 @@ endfunction
 " TODO: complete=shellcmd for the first arg and after that complete=file
 command! -complete=file -nargs=+ OnSaved call OnSaved(<q-args>)
 
+" Configure FZF
+nnoremap <c-p> :Files<cr>
+
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
 nnoremap _ <Plug>VimwikiRemoveHeaderLevel
@@ -142,7 +145,7 @@ nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure obsession
 set statusline+=%(%{ObsessionStatus('\ [session\ running]','')}%)
-nnoremap <leader>g :tabedit % \| :G \| :only<cr>
+set sessionoptions-=buffers
 
 " Configure LSP
 runtime lsp_conf.vim
