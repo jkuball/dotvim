@@ -31,7 +31,6 @@ Plug 'prabirshrestha/vim-lsp'
 
 " Other plugins
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dadbod'
 Plug 'airblade/vim-gitgutter'
 Plug 'vimwiki/vimwiki'
 Plug 'jpalardy/vim-slime'
@@ -80,6 +79,9 @@ let maplocalleader = ','
 " Wildignore DS_Store files on all systems
 set wildignore+=*.DS_Store
 
+" Format the full file with Q
+nnoremap Q gggqG<c-o><c-o>
+
 " Set the insert mode cursor correctly
 if $TERM_PROGRAM =~# 'iTerm'
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -112,6 +114,12 @@ function! SendKeys(args)
 endfunction
 
 function! OnSaved(args)
+  if (!a:args)
+    augroup OnSavedMiniPlugin
+      au!
+    augroup END
+    return
+  endif
   augroup OnSavedMiniPlugin
     au!
     exec "au BufWritePost " . expand("%:t") . " call SendKeys('" . expand(a:args) . "')"
@@ -120,7 +128,7 @@ function! OnSaved(args)
 endfunction
 
 " TODO: complete=shellcmd for the first arg and after that complete=file
-command! -complete=file -nargs=+ OnSaved call OnSaved(<q-args>)
+command! -complete=file -nargs=* OnSaved call OnSaved(<q-args>)
 
 " Configure FZF
 nnoremap <c-p> :Files<cr>
