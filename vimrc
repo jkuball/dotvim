@@ -24,12 +24,16 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-abolish'
+
+" Essential other plugins
+Plug 'markonm/traces.vim'
 
 " Language Server
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 
-" Other plugins
+" Toolkit plugins
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'vimwiki/vimwiki'
