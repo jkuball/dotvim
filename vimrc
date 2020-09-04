@@ -29,10 +29,6 @@ Plug 'tpope/vim-abolish'
 " Essential other plugins
 Plug 'markonm/traces.vim'
 
-" Language Server
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-
 " Toolkit plugins
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -189,8 +185,3 @@ nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 " Configure obsession
 set statusline+=%(%{ObsessionStatus('\ [session\ running]','')}%)
 set sessionoptions-=buffers
-
-" Configure LSP
-runtime lsp_conf.vim
-set statusline+=%(\ %{LspStatusline()}%)
-
