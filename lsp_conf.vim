@@ -25,6 +25,17 @@ if executable('pyls')
   augroup END
 endif
 
+if executable('rls')
+  augroup LspInit
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'rls',
+          \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+          \ 'workspace_config': {'rust': {'clippy_preference': 'on'}},
+          \ 'whitelist': ['rust'],
+          \ })
+  augroup END
+endif
+
 if executable('typescript-language-server')
   augroup LspInit
     au User lsp_setup call lsp#register_server({
