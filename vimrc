@@ -29,9 +29,6 @@ Plug 'tpope/vim-abolish'
 " Essential other plugins
 Plug 'markonm/traces.vim'
 
-" Language Server
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-
 " Toolkit plugins
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -170,10 +167,6 @@ nnoremap <c-p> :Files<cr>
 " Configure vimwiki
 "" Fix shadowing of Vinegars - which I prefer
 nnoremap _ <Plug>VimwikiRemoveHeaderLevel
-
-" Configure coc
-runtime! coc-conf.vim
-set statusline+=\ %(%{StatusDiagnostic()}%)
 
 " Configure gitgutter
 function! GitGutterStatus()
