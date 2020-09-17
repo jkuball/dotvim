@@ -7,7 +7,7 @@ scriptencoding utf-8
 
 " Check for Plug.vim
 if !filereadable(expand('~/.vim/autoload/plug.vim'))
-  echom "vimrc not loaded, please install plug.vim"
+  echom 'vimrc not loaded, please install plug.vim'
   finish
 endif
 
@@ -92,11 +92,11 @@ if $TERM_PROGRAM =~# 'iTerm'
 endif
 
 " Configure vim-slime to use the terminal
-let g:slime_target = "vimterminal"
-let g:slime_vimterminal_cmd = "ipython"
+let g:slime_target = 'vimterminal'
+let g:slime_vimterminal_cmd = 'ipython'
 let g:slime_python_ipython = 1
-let g:slime_vimterminal_config = { "term_name": "Slime.vim", "vertical": 1, "term_finish": "close" }
-let g:slime_cell_delimiter = "# === #"
+let g:slime_vimterminal_config = { 'term_name': 'Slime.vim', 'vertical': 1, 'term_finish': 'close' }
+let g:slime_cell_delimiter = '# === #'
 nmap <leader><c-c><c-c> <Plug>SlimeSendCell
 nnoremap <leader><c-c>O O# === #<cr><esc>
 nnoremap <leader><c-c>o o<cr># === #<esc>
@@ -121,7 +121,7 @@ function! OnSaved(args)
   endif
   augroup OnSavedMiniPlugin
     au!
-    exec "au BufWritePost " . expand("%:t") . " call SendKeys('" . expand(a:args) . "')"
+    exec 'au BufWritePost ' . expand('%:t') . " call SendKeys('" . expand(a:args) . "')"
   augroup END
   call SendKeys(a:args)
 endfunction
@@ -133,8 +133,8 @@ function! Redir(cmd, rng, start, end)
       execute win . 'windo close'
     endif
   endfor
-  if a:cmd =~ '^!'
-    let cmd = a:cmd =~' %'
+  if a:cmd =~? '^!'
+    let cmd = a:cmd =~? ' %'
           \ ? matchstr(substitute(a:cmd, ' %', ' ' . expand('%:p'), ''), '^!\zs.*')
           \ : matchstr(a:cmd, '^!\zs.*')
     if a:rng == 0
@@ -142,7 +142,7 @@ function! Redir(cmd, rng, start, end)
     else
       let joined_lines = join(getline(a:start, a:end), '\n')
       let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
-      let output = systemlist(cmd . " <<< $" . cleaned_lines)
+      let output = systemlist(cmd . ' <<< $' . cleaned_lines)
     endif
   else
     redir => output
@@ -174,13 +174,22 @@ set statusline+=%= " everything below this is right justified (for plugins)
 " Configure LSP
 let g:lsp_diagnostics_enabled = 0
 
+" Clear the LSP augroup and then dynamically add
+" registering servers if they are installed
+
+augroup LSP
+  au!
+augroup END
+
 if executable('pyls')
   " pip install python-language-server
-  au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'allowlist': ['python'],
-        \ })
+  augroup LSP
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'pyls',
+          \ 'cmd': {server_info->['pyls']},
+          \ 'allowlist': ['python'],
+          \ })
+  augroup END
 endif
 
 function! s:on_lsp_buffer_enabled() abort
@@ -222,8 +231,8 @@ let g:ale_fixers = {
       \ 'python': ['isort', 'black'],
       \ '*': ['trim_whitespace', 'remove_trailing_lines'],
       \ }
-let g:ale_python_isort_options="--trailing-comma --multi-line 3 --line-width 116"
-let g:ale_python_black_options="--line-length 116"
+let g:ale_python_isort_options='--trailing-comma --multi-line 3 --line-width 116'
+let g:ale_python_black_options='--line-length 116'
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -244,7 +253,7 @@ function! GitGutterStatus()
   if (a + m + r) > 0
     return printf('+%d ~%d -%d', a, m, r)
   endif
-  return ""
+  return ''
 endfunction
 set statusline+=%([%{GitGutterStatus()}]%)
 
