@@ -245,7 +245,7 @@ function! LinterStatus() abort
   \   all_errors
   \)
 endfunction
-set statusline+=\ %(%{LinterStatus()}%)
+set statusline+=%(%{LinterStatus()}%)
 
 " Configure gitgutter
 function! GitGutterStatus()
@@ -258,7 +258,7 @@ endfunction
 set statusline+=%([%{GitGutterStatus()}]%)
 
 " Configure fugitive
-set statusline+=\ %([git:\ %{fugitive#head()}]%)
+set statusline+=%([git:\ %{fugitive#head()}]%)
 nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure obsession
