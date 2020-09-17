@@ -13,6 +13,9 @@ endif
 
 call plug#begin('~/.vim/pack')
 
+" Colorscheme
+Plug 'rakr/vim-one'
+
 " Essential tpope plugins
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
@@ -26,7 +29,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-abolish'
 
-" Essential other plugins
+" Other vim-only plugins
 Plug 'markonm/traces.vim'
 
 " Toolkit plugins
@@ -37,8 +40,11 @@ Plug 'jpalardy/vim-slime'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Colorscheme
-Plug 'rakr/vim-one'
+" Language Aware Tools:
+"" Using vim-lsp for language server completion features
+"" and ale for linting and fixing, which I don't like
+Plug 'prabirshrestha/vim-lsp'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -79,18 +85,11 @@ let maplocalleader = ','
 " Wildignore DS_Store files on all systems
 set wildignore+=*.DS_Store
 
-" Format the full file with Q
-nnoremap Q gggqG<c-o><c-o>
-
 " Set the insert mode cursor correctly
 if $TERM_PROGRAM =~# 'iTerm'
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-
-" Set custom status line
-set statusline=%(%q%h%r\ %)%t\ %y%m
-set statusline+=%= " everything below this is right justified (for plugins)
 
 " Configure vim-slime to use the terminal
 let g:slime_target = "vimterminal"
@@ -168,6 +167,77 @@ nnoremap <c-p> :Files<cr>
 "" Fix shadowing of Vinegars - which I prefer
 nnoremap _ <Plug>VimwikiRemoveHeaderLevel
 
+" Set custom status line
+set statusline=%(%q%h%r\ %)%t\ %y%m
+set statusline+=%= " everything below this is right justified (for plugins)
+
+" Configure LSP
+let g:lsp_diagnostics_enabled = 0
+
+if executable('pyls')
+  " pip install python-language-server
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal tagfunc=lsp#tagfunc
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <f6> <plug>(lsp-rename)
+  nmap <buffer> K <plug>(lsp-hover)
+endfunction
+
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+function! LspStatusline()
+  let servers = lsp#get_whitelisted_servers()
+  if len(servers)
+    let server = servers[0] " TODO use all servers
+    let status = lsp#get_server_status(server)
+    return printf('[%s: %s]', server, status)
+  endif
+  return ''
+endfunction
+set statusline+=\ %(%{LspStatusline()}%)
+
+" Configure ALE
+nnoremap Q :ALEFix<cr>
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+      \ 'python': ['flake8', 'mypy'],
+      \ 'vim': ['vint'],
+      \ }
+let g:ale_fixers = {
+      \ 'python': ['isort', 'black'],
+      \ '*': ['trim_whitespace', 'remove_trailing_lines'],
+      \ }
+let g:ale_python_isort_options="--trailing-comma --multi-line 3 --line-width 116"
+let g:ale_python_black_options="--line-length 116"
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '' : printf(
+  \   '[%dW %dE]',
+  \   all_non_errors,
+  \   all_errors
+  \)
+endfunction
+set statusline+=\ %(%{LinterStatus()}%)
+
 " Configure gitgutter
 function! GitGutterStatus()
   let [a, m, r] = GitGutterGetHunkSummary()
@@ -176,7 +246,7 @@ function! GitGutterStatus()
   endif
   return ""
 endfunction
-set statusline+=\ %([%{GitGutterStatus()}]%)
+set statusline+=%([%{GitGutterStatus()}]%)
 
 " Configure fugitive
 set statusline+=\ %([git:\ %{fugitive#head()}]%)
