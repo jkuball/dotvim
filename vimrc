@@ -198,6 +198,39 @@ if executable('rls')
   augroup END
 endif
 
+if executable('typescript-language-server')
+  augroup LspInit
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'tsls',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+          \ 'whitelist': ['typescript', 'typescript.tsx', 'typescriptreact'],
+          \ 'root_uri': {
+          \   server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))
+          \ }
+          \ })
+  augroup END
+endif
+
+if executable('css-languageserver')
+  augroup LspInit
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'cssls',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+          \ 'whitelist': ['css', 'scss'],
+          \ })
+  augroup END
+endif
+
+if executable('html-languageserver')
+  augroup LspInit
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'htmls',
+          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'html-languageserver --stdio']},
+          \ 'whitelist': ['html'],
+          \ })
+  augroup END
+endif
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal tagfunc=lsp#tagfunc
