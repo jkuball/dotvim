@@ -167,6 +167,10 @@ nnoremap <c-p> :Files<cr>
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
 
+" Configure vimwiki
+"" Fix shadowing of Vinegars dash mapping which I prefer
+nnoremap _ <Plug>VimwikiRemoveHeaderLevel
+
 " Configure LSP
 let g:lsp_diagnostics_enabled = 0
 runtime! language_servers.vim
