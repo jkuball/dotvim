@@ -207,11 +207,11 @@ function! LspStatusline()
   if len(servers)
     let server = servers[0] " TODO use all servers
     let status = lsp#get_server_status(server)
-    return printf('[%s: %s]', server, status)
+    return printf(' [%s: %s]', server, status)
   endif
   return ''
 endfunction
-set statusline+=\ %(%{LspStatusline()}%)
+set statusline+=%(%{LspStatusline()}%)
 
 " Configure ALE
 nnoremap Q :ALEFix<cr>
@@ -233,7 +233,7 @@ function! LinterStatus() abort
   let l:all_non_errors = l:counts.total - l:all_errors
 
   return l:counts.total == 0 ? '' : printf(
-  \   '[%dW %dE]',
+  \   ' [%dW %dE]',
   \   all_non_errors,
   \   all_errors
   \)
@@ -244,14 +244,21 @@ set statusline+=%(%{LinterStatus()}%)
 function! GitGutterStatus()
   let [a, m, r] = GitGutterGetHunkSummary()
   if (a + m + r) > 0
-    return printf('+%d ~%d -%d', a, m, r)
+    return printf(' [+%d ~%d -%d]', a, m, r)
   endif
   return ''
 endfunction
-set statusline+=%([%{GitGutterStatus()}]%)
+set statusline+=%(%{GitGutterStatus()}%)
 
 " Configure fugitive
-set statusline+=%([git:\ %{fugitive#head()}]%)
+function! FugitiveStatus() abort
+  let l:head = fugitive#head()
+  if l:head ==# ''
+    return ''
+  endif
+  return '[git:' . l:head . ']'
+endfunction
+set statusline+=%(%{FugitiveStatus()}%)
 nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure obsession
