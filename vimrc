@@ -188,6 +188,16 @@ if executable('pyls')
   augroup END
 endif
 
+if executable('rls')
+  augroup LSP
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'rls',
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
+        \ 'whitelist': ['rust'],
+        \ })
+  augroup END
+endif
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal tagfunc=lsp#tagfunc
@@ -218,10 +228,12 @@ nnoremap Q :ALEFix<cr>
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
       \ 'python': ['flake8', 'mypy'],
+      \ 'rust': ['rustc', 'cargo'],
       \ 'vim': ['vint'],
       \ }
 let g:ale_fixers = {
       \ 'python': ['isort', 'black'],
+      \ 'rust': ['rustfmt'],
       \ '*': ['trim_whitespace', 'remove_trailing_lines'],
       \ }
 let g:ale_python_isort_options='--trailing-comma --multi-line 3 --line-width 116'
