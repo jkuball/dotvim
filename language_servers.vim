@@ -9,7 +9,7 @@ if executable('pyls')
   augroup LSP
     au User lsp_setup call lsp#register_server({
           \ 'name': 'pyls',
-          \ 'cmd': {server_info->[&shell, &shellcmdflag, 'pyls']},
+          \ 'cmd': {server_info->['pyls']},
           \ 'allowlist': ['python'],
           \ })
   augroup END
@@ -19,7 +19,7 @@ if executable('rls')
   augroup LSP
     au User lsp_setup call lsp#register_server({
         \ 'name': 'rls',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rustup', 'run', 'stable', 'rls']},
+        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
         \ 'whitelist': ['rust'],
         \ })
   augroup END
