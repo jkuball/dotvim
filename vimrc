@@ -163,10 +163,6 @@ command! -complete=file -nargs=* OnSaved call OnSaved(<q-args>)
 " Configure FZF
 nnoremap <c-p> :Files<cr>
 
-" Configure vimwiki
-"" Fix shadowing of Vinegars - which I prefer
-nnoremap _ <Plug>VimwikiRemoveHeaderLevel
-
 " Set custom status line
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
@@ -196,9 +192,6 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal tagfunc=lsp#tagfunc
   nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gi <plug>(lsp-implementation)
-  nmap <buffer> gt <plug>(lsp-type-definition)
   nmap <buffer> <f6> <plug>(lsp-rename)
   nmap <buffer> K <plug>(lsp-hover)
 endfunction
