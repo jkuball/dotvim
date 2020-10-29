@@ -18,17 +18,18 @@ Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
 
 " Essential tpope plugins
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-abolish'
 
 " Other vim-only plugins
 Plug 'markonm/traces.vim'
