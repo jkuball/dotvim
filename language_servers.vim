@@ -57,3 +57,14 @@ if executable('html-languageserver')
           \ })
   augroup END
 endif
+
+if executable('texlab')
+  augroup LSP
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'texlab',
+          \ 'cmd': {server_info->['texlab']},
+          \ 'whitelist': ['tex'],
+          \ })
+  augroup END
+endif
+

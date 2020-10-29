@@ -13,8 +13,9 @@ endif
 
 call plug#begin('~/.vim/pack')
 
-" Colorscheme
+" Colors
 Plug 'rakr/vim-one'
+Plug 'sheerun/vim-polyglot'
 
 " Essential tpope plugins
 Plug 'tpope/vim-apathy'
@@ -101,31 +102,6 @@ nmap <leader><c-c><c-c> <Plug>SlimeSendCell
 nnoremap <leader><c-c>O O# === #<cr><esc>
 nnoremap <leader><c-c>o o<cr># === #<esc>
 
-" Supply OnSaved command for fast development
-function! SendKeys(args)
-  let terms = filter(range(1, bufnr('$')), 'bufexists(v:val) && getbufvar(v:val, "&buftype") ==# "terminal"')
-  if len(terms)
-    let termbuf = terms[0]
-  else
-    let termbuf = term_start($SHELL)
-  endif
-  call term_sendkeys(termbuf, "clear\<cr>" . a:args . "\<cr>")
-endfunction
-
-function! OnSaved(args)
-  if (!a:args)
-    augroup OnSavedMiniPlugin
-      au!
-    augroup END
-    return
-  endif
-  augroup OnSavedMiniPlugin
-    au!
-    exec 'au BufWritePost ' . expand('%:t') . " call SendKeys('" . expand(a:args) . "')"
-  augroup END
-  call SendKeys(a:args)
-endfunction
-
 " the :Redir command from https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 function! Redir(cmd, rng, start, end)
   for win in range(1, winnr('$'))
@@ -157,8 +133,11 @@ function! Redir(cmd, rng, start, end)
 endfunction
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 
-" TODO: complete=shellcmd for the first arg and after that complete=file
-command! -complete=file -nargs=* OnSaved call OnSaved(<q-args>)
+if executable('fswatch')
+  " TODO triggers twice sometimes, but this seems like a problem of fswatch
+  " TODO supply -bang to clear the screen beforehand
+  command! -complete=shellcmd -nargs=* OnSaved :term sh -c "fswatch -0 -o % | xargs -0 -n1 -I {} <args>"
+endif
 
 " Configure FZF
 nnoremap <c-p> :Files<cr>
@@ -203,13 +182,15 @@ set statusline+=%(%{LspStatusline()}%)
 nnoremap Q :ALEFix<cr>
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-      \ 'python': ['flake8', 'mypy'],
+      \ 'python': ['pyright', 'prospector'],
       \ 'rust': ['rustc', 'cargo'],
+      \ 'tex': ['chktex'],
       \ 'vim': ['vint'],
       \ }
 let g:ale_fixers = {
       \ 'python': ['isort', 'black'],
       \ 'rust': ['rustfmt'],
+      \ 'yaml': ['prettier'],
       \ '*': ['trim_whitespace', 'remove_trailing_lines'],
       \ }
 let g:ale_python_isort_options='--trailing-comma --multi-line 3 --line-width 116'
