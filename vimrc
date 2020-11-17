@@ -134,11 +134,15 @@ function! Redir(cmd, rng, start, end)
 endfunction
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 
-if executable('fswatch')
-  " TODO triggers twice sometimes, but this seems like a problem of fswatch
-  " TODO supply -bang to clear the screen beforehand
-  command! -complete=shellcmd -nargs=* OnSaved :term sh -c "fswatch -0 -o % | xargs -0 -n1 -I {} <args>"
-endif
+" TODO supply -bang to remove the current autocmd
+" TODO allow multiple files
+function GhettoOnSaved(args)
+  augroup on_saved
+    au!
+    exe "autocmd BufWritePost " . expand("%") . " SlimeSend1 " . substitute(a:args, '%', {m -> expand('%')}, 'g')
+  augroup END
+endfunction
+command! -complete=shellcmd -bang -nargs=* OnSaved call GhettoOnSaved("<args>")
 
 " Configure FZF
 nnoremap <c-p> :Files<cr>
