@@ -67,4 +67,3 @@ if executable('texlab')
           \ })
   augroup END
 endif
-
