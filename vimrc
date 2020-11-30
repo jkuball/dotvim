@@ -33,6 +33,7 @@ Plug 'tpope/vim-vinegar'
 
 " Other vim-only plugins
 Plug 'markonm/traces.vim'
+Plug 'justinmk/vim-dirvish'
 
 " Toolkit plugins
 Plug 'tpope/vim-fugitive'
