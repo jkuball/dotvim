@@ -239,3 +239,14 @@ nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 " Configure obsession
 set statusline+=%(%{ObsessionStatus('\ [session\ running]','')}%)
 set sessionoptions-=buffers
+
+" Configure dirvish
+augroup dirvish_config
+  autocmd!
+  " File creation like netrw
+  autocmd FileType dirvish
+        \ nnoremap % :edit %
+  " Tree-like opening (see :h dirvish-faq). Keep in mind that this deactivates the concealing
+  autocmd FileType dirvish
+        \ nnoremap <silent><buffer> <tab> ddO<Esc>:let @"=substitute(@", '\n', '', 'g')<CR>:r ! find "<C-R>"" -maxdepth 1 -print0 \| xargs -0 ls -Fd<CR>:silent! keeppatterns %s/\/\//\//g<CR>:silent! keeppatterns %s/[^a-zA-Z0-9\/]$//g<CR>:silent! keeppatterns g/^$/d<CR>:noh<CR>
+augroup END
