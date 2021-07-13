@@ -1,5 +1,8 @@
 " TODO {swap,backup,undo}-files
 
+" By default format with `formatprg` via Q
+nnoremap Q gggqG<c-o><c-o>
+
 " Use 2 spaces as default indentation
 set expandtab
 set tabstop=2
