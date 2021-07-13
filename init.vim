@@ -13,6 +13,7 @@ endif
 
 call plug#begin(stdpath('data') . '/plugged')
 
+" Load vim/nvim common plugins
 exec 'source ' . stdpath('config') . '/common/plugins.vim'
 
 Plug 'neovim/nvim-lspconfig'
@@ -21,6 +22,7 @@ Plug 'marko-cerovac/material.nvim'
 
 call plug#end()
 
+" Load vim/nvim common settings
 exec 'source ' . stdpath('config') . '/common/settings.vim'
 
 " Never lose anything
@@ -77,13 +79,19 @@ local on_attach = function(client, bufnr)
 
 end
 
-
 local flags = { debounce_text_changes = 150 }
 
-nvim_lsp.pyright.setup {
-  on_attach = on_attach,
-  flags = flags,
-}
+-- default configured servers here
+
+local servers = { "pyright", "yamlls" }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = flags,
+  }
+end
+
+-- servers with special needs below
 
 nvim_lsp.pylsp.setup {
   on_attach = on_attach,
