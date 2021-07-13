@@ -23,6 +23,12 @@ call plug#end()
 
 exec 'source ' . stdpath('config') . '/common/settings.vim'
 
+" Never lose anything
+call mkdir(stdpath('data') . '/backupfiles', 'p')
+exec 'set backupdir=' . stdpath('data') . '/backupfiles'
+set backup
+set undofile
+
 lua << EOF
 -- Configure Colorscheme
 vim.g.material_style = 'lighter'
