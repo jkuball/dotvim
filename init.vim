@@ -36,12 +36,14 @@ lua << EOF
 vim.g.material_style = 'lighter'
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
-vim.g.material_italic_functions = true
+vim.g.material_italic_functions = false
 vim.g.material_italic_variables = false
 vim.g.material_contrast = true
 vim.g.material_borders = false
 vim.g.material_disable_background = false
---vim.g.material_custom_colors = { black = "#000000", bg = "#0F111A" }
+vim.g.material_custom_colors = {
+  highlight = "#F6A434" -- low contrast lighter theme yellow
+}
 require('material').set()
 
 local nvim_lsp = require('lspconfig')
@@ -83,7 +85,7 @@ local flags = { debounce_text_changes = 150 }
 
 -- default configured servers here
 
-local servers = { "pyright", "yamlls" }
+local servers = { "pyright" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -92,6 +94,11 @@ for _, lsp in ipairs(servers) do
 end
 
 -- servers with special needs below
+nvim_lsp.yamlls.setup {
+  on_attach = on_attach,
+  flags = flags,
+  filetypes = { "yaml", "yaml.docker-compose" }
+}
 
 nvim_lsp.pylsp.setup {
   on_attach = on_attach,
