@@ -1,5 +1,3 @@
-" TODO {swap,backup,undo}-files
-
 " By default format with `formatprg` via Q
 nnoremap Q gggqG<c-o><c-o>
 
@@ -56,17 +54,6 @@ function! GitGutterStatus()
   return ''
 endfunction
 set statusline+=%(%{GitGutterStatus()}%)
-
-" Configure fugitive
-function! FugitiveStatus() abort
-  let l:head = fugitive#head()
-  if l:head ==# ''
-    return ''
-  endif
-  return '[git:' . l:head . ']'
-endfunction
-set statusline+=%(%{FugitiveStatus()}%)
-nnoremap <leader>g :tabedit % \| :G \| :only<cr>
 
 " Configure fugitive
 function! FugitiveStatus() abort

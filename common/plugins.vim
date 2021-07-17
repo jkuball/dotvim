@@ -1,7 +1,3 @@
-" Colors
-Plug 'rakr/vim-one'
-Plug 'sheerun/vim-polyglot'
-
 " Essential tpope plugins
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-apathy'
@@ -19,6 +15,7 @@ Plug 'tpope/vim-vinegar'
 " Other vim-only plugins
 Plug 'markonm/traces.vim'
 Plug 'justinmk/vim-dirvish'
+Plug 'sheerun/vim-polyglot'
 
 " Toolkit plugins
 Plug 'tpope/vim-fugitive'
