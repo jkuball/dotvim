@@ -38,11 +38,12 @@ vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
 vim.g.material_italic_functions = false
 vim.g.material_italic_variables = false
-vim.g.material_contrast = true
-vim.g.material_borders = false
+vim.g.material_contrast = false
+vim.g.material_borders = true
 vim.g.material_disable_background = false
 vim.g.material_custom_colors = {
-  highlight = "#F6A434" -- low contrast lighter theme yellow
+  highlight = "#F6A434", -- low contrast lighter theme yellow
+  border = "#91B859", -- low contrast lighter theme green
 }
 require('material').set()
 
@@ -73,11 +74,18 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ popup_opts = { border = "rounded" }})<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "rounded" }})<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "rounded" }})<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "Q", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap('n', 'Q', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover,
+    {
+      border = "rounded"
+    }
+  )
 
 end
 
@@ -85,7 +93,7 @@ local flags = { debounce_text_changes = 150 }
 
 -- default configured servers here
 
-local servers = { "pyright" }
+local servers = { "pyright", "texlab" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -94,6 +102,7 @@ for _, lsp in ipairs(servers) do
 end
 
 -- servers with special needs below
+
 nvim_lsp.yamlls.setup {
   on_attach = on_attach,
   flags = flags,
