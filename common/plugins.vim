@@ -16,6 +16,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'markonm/traces.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'sheerun/vim-polyglot'
+Plug 'machakann/vim-swap'
 
 " Toolkit plugins
 Plug 'tpope/vim-fugitive'
