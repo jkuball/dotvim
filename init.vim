@@ -24,6 +24,7 @@ call plug#end()
 
 " Load vim/nvim common settings
 exec 'source ' . stdpath('config') . '/common/settings.vim'
+exec 'source ' . stdpath('config') . '/common/abbreviations.vim'
 
 " Never lose anything
 call mkdir(stdpath('data') . '/backupfiles', 'p')
