@@ -17,6 +17,7 @@ call plug#begin(stdpath('data') . '/plugged')
 exec 'source ' . stdpath('config') . '/common/plugins.vim'
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'simrat39/symbols-outline.nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'marko-cerovac/material.nvim'
 
@@ -25,12 +26,16 @@ call plug#end()
 " Load vim/nvim common settings
 exec 'source ' . stdpath('config') . '/common/settings.vim'
 exec 'source ' . stdpath('config') . '/common/abbreviations.vim'
+exec 'source ' . stdpath('config') . '/common/commands.vim'
 
 " Never lose anything
 call mkdir(stdpath('data') . '/backupfiles', 'p')
 exec 'set backupdir=' . stdpath('data') . '/backupfiles'
 set backup
 set undofile
+
+" toggle lsp outline
+nnoremap <silent> <space>s :SymbolsOutline<CR>
 
 lua << EOF
 -- Configure Colorscheme
@@ -48,6 +53,10 @@ vim.g.material_custom_colors = {
 }
 require('material').set()
 
+-- set inactive statusline backgrounds to not be invisible
+vim.cmd [[ highlight StatusLineNC guifg=#546E7A guibg=#E7E7E8 ]]
+vim.cmd [[ highlight StatusLineTermNC guifg=#94A7B0 guibg=#E7E7E8 ]]
+
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -56,10 +65,10 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
+  -- Set omnifunc
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
+  -- Set mappings
   local opts = { noremap=true, silent=true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -67,18 +76,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ popup_opts = { border = "rounded" }})<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "rounded" }})<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "rounded" }})<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', 'Q', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -87,7 +90,6 @@ local on_attach = function(client, bufnr)
       border = "rounded"
     }
   )
-
 end
 
 local flags = { debounce_text_changes = 150 }

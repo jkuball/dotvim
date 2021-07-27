@@ -21,10 +21,11 @@ Plug 'rakr/vim-one'
 call plug#end()
 
 source ~/.vim/common/settings.vim
+source ~/.vim/common/abbreviations.vim
+source ~/.vim/common/commands.vim
 
 " Activate Colorscheme
 set background=light
-set termguicolors
 colorscheme one
 
 " Never lose anything

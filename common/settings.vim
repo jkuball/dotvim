@@ -22,21 +22,13 @@ let maplocalleader = ','
 set wildignore+=*.DS_Store
 
 " Configure completion
-set completeopt=menu,menuone
+set completeopt=menuone,noinsert,noselect
 
 " Set the insert mode cursor correctly
 if $TERM_PROGRAM =~# 'iTerm'
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-
-" Add abbreviations for things that I can't just get right.
-" For some reason :Abolish isn't available at vimrc load time,
-" so this augroup has to do.
-augroup abolish
-  au!
-  autocmd FileType * Abolish {U,u}nkown {}nknown
-augroup END
 
 " Configure FZF
 nnoremap <c-p> :Files<cr>
