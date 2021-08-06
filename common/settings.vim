@@ -22,7 +22,7 @@ let maplocalleader = ','
 set wildignore+=*.DS_Store
 
 " Configure completion
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone
 
 " Set the insert mode cursor correctly
 if $TERM_PROGRAM =~# 'iTerm'
