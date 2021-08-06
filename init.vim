@@ -82,7 +82,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ popup_opts = { border = "rounded" }})<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "rounded" }})<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "rounded" }})<CR>', opts)
-  buf_set_keymap('n', 'Q', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', 'Q', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover,
@@ -96,7 +96,7 @@ local flags = { debounce_text_changes = 150 }
 
 -- default configured servers here
 
-local servers = { "pyright", "texlab" }
+local servers = { "texlab", "jsonls", "pyright" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
