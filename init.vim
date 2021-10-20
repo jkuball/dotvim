@@ -17,9 +17,14 @@ call plug#begin(stdpath('data') . '/plugged')
 exec 'source ' . stdpath('config') . '/common/plugins.vim'
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'simrat39/symbols-outline.nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'marko-cerovac/material.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'simrat39/rust-tools.nvim'
+Plug 'mfussenegger/nvim-dap'
 
 call plug#end()
 
@@ -34,11 +39,43 @@ exec 'set backupdir=' . stdpath('data') . '/backupfiles'
 set backup
 set undofile
 
-" toggle lsp outline
-nnoremap <silent> <space>s :SymbolsOutline<CR>
-
+" configure telescope
 lua << EOF
--- Configure Colorscheme
+local actions = require "telescope.actions"
+
+vim.cmd [[ nnoremap <c-p> <cmd>lua require('telescope.builtin').find_files()<cr> ]]
+vim.cmd [[ nnoremap g<c-p> <cmd>lua require('telescope.builtin').live_grep()<cr> ]]
+vim.cmd [[ nnoremap <space>s <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr> ]]
+vim.cmd [[ nnoremap <space>fb <cmd>lua require('telescope.builtin').buffers()<cr> ]]
+vim.cmd [[ nnoremap <space>fh <cmd>lua require('telescope.builtin').help_tags()<cr> ]]
+
+require('telescope').setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<c-k>"] = actions.move_selection_previous,
+        ["<c-j>"] = actions.move_selection_next,
+        ["<esc>"] = actions.close,
+      },
+    },
+  }
+}
+EOF
+
+" configure tree-sitter
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+
+" configure colors
+lua << EOF
 vim.g.material_style = 'lighter'
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
@@ -96,7 +133,7 @@ local flags = { debounce_text_changes = 150 }
 
 -- default configured servers here
 
-local servers = { "texlab", "jsonls", "pyright" }
+local servers = { "texlab", "jsonls", "pyright", "tsserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -125,4 +162,13 @@ nvim_lsp.pylsp.setup {
     },
   },
 }
+
+-- extra special needs: rust-tools sets up the ls for me
+require('rust-tools').setup({
+  server = {
+    cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
+    on_attach = on_attach,
+    flags = flags,
+  }
+})
 EOF
