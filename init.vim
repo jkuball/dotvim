@@ -88,7 +88,7 @@ vim.g.material_custom_colors = {
   highlight = "#F6A434", -- low contrast lighter theme yellow
   border = "#91B859", -- low contrast lighter theme green
 }
-require('material').set()
+vim.cmd [[ colorscheme material ]]
 
 -- set inactive statusline backgrounds to not be invisible
 vim.cmd [[ highlight StatusLineNC guifg=#546E7A guibg=#E7E7E8 ]]
