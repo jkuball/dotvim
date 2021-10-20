@@ -5,5 +5,6 @@
 augroup abolish
   au!
   autocmd FileType * Abolish {U,u}nkown {}nknown
+  autocmd FileType * Abolish {P,p}ipline {}ipeline
 augroup END
 

@@ -21,7 +21,4 @@ Plug 'machakann/vim-swap'
 " Toolkit plugins
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'wellle/tmux-complete.vim'
-

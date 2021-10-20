@@ -1,5 +1,5 @@
 " By default format with `formatprg` via Q
-nnoremap Q gggqG<c-o><c-o>
+nnoremap Q gggqG
 
 " Use 2 spaces as default indentation
 set expandtab
@@ -24,14 +24,22 @@ set wildignore+=*.DS_Store
 " Configure completion
 set completeopt=menuone
 
+" Configure folding
+set foldlevelstart=99
+ 
 " Set the insert mode cursor correctly
 if $TERM_PROGRAM =~# 'iTerm'
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
-" Configure FZF
-nnoremap <c-p> :Files<cr>
+" sorting for specific text files
+" This could be a 'formatexpr' somehow.
+augroup sorting_Q
+  autocmd!
+  autocmd BufReadPost requirements.txt nnoremap <buffer> Q :sort<cr>
+  autocmd BufReadPost spelling_wordlist.txt nnoremap <buffer> Q :sort<cr>
+augroup END
 
 " Set custom status line
 set statusline=%(%q%h%r\ %)%t\ %y%m

@@ -15,6 +15,10 @@ call plug#begin('~/.vim/pack')
 
 source ~/.vim/common/plugins.vim
 
+" fzf for normal vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 " Colors
 Plug 'rakr/vim-one'
 
@@ -39,3 +43,7 @@ set undofile
 set directory=$HOME/.vim/.swapfiles//
 set backupdir=$HOME/.vim/.backupfiles//
 set undodir=$HOME/.vim/.undofiles//
+
+" Configure FZF
+nnoremap <c-p> :Files<cr>
+
