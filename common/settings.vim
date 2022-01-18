@@ -33,7 +33,12 @@ if $TERM_PROGRAM =~# 'iTerm'
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
-" sorting for specific text files
+" If pyenv is installed, use pyenv's python3.
+if executable('pyenv')
+  let g:python3_host_prog = trim(system('pyenv root')) . '/shims/python3'
+endif
+
+" Sorting for specific text files
 " This could be a 'formatexpr' somehow.
 augroup sorting_Q
   autocmd!
