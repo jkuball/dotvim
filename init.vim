@@ -107,7 +107,7 @@ local flags = { debounce_text_changes = 150 }
 
 -- default configured servers here
 
-local servers = { "texlab", "jsonls", "pyright", "tsserver" }
+local servers = { "texlab", "jsonls", "tsserver", "dockerls", "vimls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -121,6 +121,13 @@ nvim_lsp.yamlls.setup {
   on_attach = on_attach,
   flags = flags,
   filetypes = { "yaml", "yaml.docker-compose" }
+}
+
+nvim_lsp.pyright.setup {
+  on_attach = on_attach,
+  flags = flags,
+  settings = {
+  },
 }
 
 nvim_lsp.pylsp.setup {
@@ -143,6 +150,13 @@ require('rust-tools').setup({
     cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
     on_attach = on_attach,
     flags = flags,
-  }
+    settings = {
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          command = "clippy"
+        },
+      },
+    },
+  },
 })
 EOF
