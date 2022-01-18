@@ -15,10 +15,6 @@ call plug#begin('~/.vim/pack')
 
 source ~/.vim/common/plugins.vim
 
-" fzf for normal vim
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
 " Colors
 Plug 'rakr/vim-one'
 
