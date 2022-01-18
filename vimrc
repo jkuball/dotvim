@@ -39,7 +39,3 @@ set undofile
 set directory=$HOME/.vim/.swapfiles//
 set backupdir=$HOME/.vim/.backupfiles//
 set undodir=$HOME/.vim/.undofiles//
-
-" Configure FZF
-nnoremap <c-p> :Files<cr>
-
