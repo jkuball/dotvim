@@ -24,3 +24,5 @@ Plug 'airblade/vim-gitgutter'
 Plug 'wellle/tmux-complete.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }

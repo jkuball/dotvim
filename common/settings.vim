@@ -54,6 +54,21 @@ set statusline+=%= " everything below this is right justified (for plugins)
 nnoremap <silent> <c-p> :Files<cr>
 nnoremap <silent> <space><c-p> :Rg<cr>
 
+" Configure vim-test and vim-ultest
+let test#strategy = "dispatch"
+nnoremap <silent> <space>T :Ultest<cr>
+nnoremap <silent> <space>t :UltestNearest<cr>
+nnoremap <silent> <space>K :call ultest#output#jumpto()<cr>
+nnoremap <silent> ]t :call ultest#positions#next()<cr>
+nnoremap <silent> [t :call ultest#positions#prev()<cr>
+let g:ultest_icons = 1
+let g:ultest_max_threads = 4
+let g:ultest_output_on_line = 0
+let g:ultest_pass_sign = g:ultest_icons ? "✔" : "O"
+let g:ultest_fail_sign = g:ultest_icons ? "✖" : "X"
+let g:ultest_running_sign = g:ultest_icons ? "⏳" : ">"
+let g:ultest_not_run_sign = g:ultest_icons ? "?" : "~"
+
 " Configure gitgutter
 function! GitGutterStatus()
   let [a, m, r] = GitGutterGetHunkSummary()
