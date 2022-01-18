@@ -19,9 +19,6 @@ exec 'source ' . stdpath('config') . '/common/plugins.vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'folke/lsp-colors.nvim'
 Plug 'marko-cerovac/material.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'simrat39/rust-tools.nvim'
 Plug 'mfussenegger/nvim-dap'
@@ -38,29 +35,6 @@ call mkdir(stdpath('data') . '/backupfiles', 'p')
 exec 'set backupdir=' . stdpath('data') . '/backupfiles'
 set backup
 set undofile
-
-" configure telescope
-lua << EOF
-local actions = require "telescope.actions"
-
-vim.cmd [[ nnoremap <c-p> <cmd>lua require('telescope.builtin').find_files()<cr> ]]
-vim.cmd [[ nnoremap g<c-p> <cmd>lua require('telescope.builtin').live_grep()<cr> ]]
-vim.cmd [[ nnoremap <space>s <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr> ]]
-vim.cmd [[ nnoremap <space>fb <cmd>lua require('telescope.builtin').buffers()<cr> ]]
-vim.cmd [[ nnoremap <space>fh <cmd>lua require('telescope.builtin').help_tags()<cr> ]]
-
-require('telescope').setup{
-  defaults = {
-    mappings = {
-      i = {
-        ["<c-k>"] = actions.move_selection_previous,
-        ["<c-j>"] = actions.move_selection_next,
-        ["<esc>"] = actions.close,
-      },
-    },
-  }
-}
-EOF
 
 " configure tree-sitter
 set foldmethod=expr
