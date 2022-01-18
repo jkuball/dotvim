@@ -50,6 +50,10 @@ augroup END
 set statusline=%(%q%h%r\ %)%t\ %y%m
 set statusline+=%= " everything below this is right justified (for plugins)
 
+" Configure fzf
+nnoremap <silent> <c-p> :Files<cr>
+nnoremap <silent> <space><c-p> :Rg<cr>
+
 " Configure gitgutter
 function! GitGutterStatus()
   let [a, m, r] = GitGutterGetHunkSummary()
