@@ -83,7 +83,7 @@ set statusline+=%(%{GitGutterStatus()}%)
 
 " Configure fugitive
 function! FugitiveStatus() abort
-  let l:head = fugitive#head()
+  let l:head = FugitiveHead()
   if l:head ==# ''
     return ''
   endif

@@ -33,11 +33,12 @@ npm i -g typescript typescript-language-server
 npm i -g vim-language-server
 npm i -g vscode-langservers-extracted
 npm i -g yaml-language-server
+npm i -g graphql-language-service-cli
+npm i -g diagnostic-languageserver
+
+pipx install black isort
+pipx install python-lsp-server
 
 rustup component add rust-src
 rustup +nightly component add rust-analyzer-preview
-
-pipx install python-lsp-server[all]
-pipx install 'python-lsp-server[mccabe,pycodestyle,pydocstyle,pylint,rope]'
-pipx inject python-lsp-server pyls-isort python-lsp-black pylsp-rope pyls-memestra
 ```

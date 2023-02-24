@@ -17,11 +17,13 @@ call plug#begin(stdpath('data') . '/plugged')
 exec 'source ' . stdpath('config') . '/common/plugins.vim'
 
 Plug 'neovim/nvim-lspconfig'
+Plug 'creativenull/diagnosticls-configs-nvim'
 Plug 'folke/lsp-colors.nvim'
 Plug 'marko-cerovac/material.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'simrat39/rust-tools.nvim'
 Plug 'mfussenegger/nvim-dap'
+Plug 'nvim-lua/plenary.nvim'
 
 call plug#end()
 
@@ -41,9 +43,11 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
+  ignore_install = { "phpdoc" },
   highlight = {
     enable = true,
+    additional_vim_regex_highlighting = true,
   },
 }
 EOF
@@ -91,8 +95,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ popup_opts = { border = "rounded" }})<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev({ popup_opts = { border = "rounded" }})<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next({ popup_opts = { border = "rounded" }})<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev({ popup_opts = { border = "rounded" }})<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next({ popup_opts = { border = "rounded" }})<CR>', opts)
   buf_set_keymap('n', 'Q', '<cmd>lua vim.lsp.buf.formatting_sync()<CR>', opts)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -103,11 +107,17 @@ local on_attach = function(client, bufnr)
   )
 end
 
+local on_attach_no_format = function(client, bufnr)
+  client.resolved_capabilities.document_formatting = false
+  client.resolved_capabilities.document_range_formatting = false
+  on_attach(client, bufnr)
+end
+
 local flags = { debounce_text_changes = 150 }
 
 -- default configured servers here
 
-local servers = { "texlab", "jsonls", "tsserver", "dockerls", "vimls" }
+local servers = { "dockerls", "esbonio", "jsonls", "texlab", "tsserver", "vimls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -117,34 +127,61 @@ end
 
 -- servers with special needs below
 
+nvim_lsp.taplo.setup {
+  on_attach = on_attach,
+  flags = flags,
+  filetypes = { "toml", "config" },
+  root_dir = nvim_lsp.util.root_pattern("*.toml", ".git", "Pipfile"),
+}
+
 nvim_lsp.yamlls.setup {
   on_attach = on_attach,
   flags = flags,
-  filetypes = { "yaml", "yaml.docker-compose" }
+  filetypes = { "yaml", "yaml.docker-compose" },
+  settings = {
+    yaml = {
+      customTags = {
+        "!type scalar",
+        "!ref scalar",
+      },
+    },
+  },
 }
 
 nvim_lsp.pyright.setup {
   on_attach = on_attach,
   flags = flags,
   settings = {
-  },
-}
-
-nvim_lsp.pylsp.setup {
-  on_attach = on_attach,
-  flags = flags,
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          maxLineLength = 116
-        },
-      },
+    python = {
+      analysis = "strict",
     },
   },
 }
 
--- extra special needs: rust-tools sets up the ls for me
+nvim_lsp.pylsp.setup {
+  on_attach = on_attach_no_format,
+  flags = flags,
+  settings = {
+  },
+}
+
+-- extra special needs: LSPs that have their own init function
+
+local dlsconfig = require 'diagnosticls-configs'
+local black = require 'diagnosticls-configs.formatters.black'
+local isort = require 'diagnosticls-configs.formatters.isort'
+local autoimport = require 'diagnosticls-configs.formatters.autoimport'
+
+dlsconfig.init {
+  on_attach = on_attach,
+}
+
+dlsconfig.setup {
+  ['python'] = {
+    formatter = { isort, black } --, autoimport }
+  },
+}
+
 require('rust-tools').setup({
   server = {
     cmd = { 'rustup', 'run', 'nightly', 'rust-analyzer' },
