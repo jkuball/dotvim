@@ -36,7 +36,14 @@ function Module.setup()
 
     -- Plugins
     local function plugins(use)
-        use({ "wbthomason/packer.nvim" })
+        use("wbthomason/packer.nvim")
+
+        use({
+            "neovim/nvim-lspconfig",
+            config = function()
+                require("config.lspconfig").setup()
+            end,
+        })
 
         if packer_bootstrap then
             print("Restart Neovim required after installation!")
