@@ -38,6 +38,11 @@ function Module.setup()
     local function plugins(use)
         use("wbthomason/packer.nvim")
 
+        use("https://github.com/tpope/vim-unimpaired")
+
+        -- TODO: https://github.com/kylechui/nvim-surround
+        -- TODO: https://github.com/numToStr/Comment.nvim
+
         use({
             "neovim/nvim-lspconfig",
             config = function()
