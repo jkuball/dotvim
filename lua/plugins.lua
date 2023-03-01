@@ -44,6 +44,16 @@ function Module.setup()
         -- TODO: https://github.com/numToStr/Comment.nvim
 
         use({
+            "nvim-tree/nvim-tree.lua",
+            requires = {
+                "nvim-tree/nvim-web-devicons",
+            },
+            config = function()
+                require("config.tree").setup()
+            end,
+        })
+
+        use({
             "neovim/nvim-lspconfig",
             config = function()
                 require("config.lspconfig").setup()
