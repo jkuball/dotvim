@@ -3,8 +3,6 @@ local Module = {}
 function Module.plugins(use)
     use("https://github.com/tpope/vim-unimpaired")
 
-    -- TODO: https://github.com/numToStr/Comment.nvim
-
     use({
         "nvim-tree/nvim-tree.lua",
         requires = {
@@ -19,6 +17,13 @@ function Module.plugins(use)
         "neovim/nvim-lspconfig",
         config = function()
             require("config.lspconfig").setup()
+        end,
+    })
+
+    use({
+        "numToStr/Comment.nvim",
+        config = function()
+            require("config.comment").setup()
         end,
     })
 
