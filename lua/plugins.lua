@@ -33,6 +33,16 @@ function Module.plugins(use)
             require("config.surround").setup()
         end,
     })
+
+    use({
+        "TimUntersberger/neogit",
+        requires = {
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            require("config.neogit").setup()
+        end,
+    })
 end
 
 return Module
