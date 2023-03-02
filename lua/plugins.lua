@@ -35,12 +35,13 @@ function Module.setup()
     end
 
     -- Plugins
+    -- TODO: Since the rest of this file is more or less just boilerplate,
+    -- I want to extract this to it's own file.
     local function plugins(use)
         use("wbthomason/packer.nvim")
 
         use("https://github.com/tpope/vim-unimpaired")
 
-        -- TODO: https://github.com/kylechui/nvim-surround
         -- TODO: https://github.com/numToStr/Comment.nvim
 
         use({
@@ -57,6 +58,13 @@ function Module.setup()
             "neovim/nvim-lspconfig",
             config = function()
                 require("config.lspconfig").setup()
+            end,
+        })
+
+        use({
+            "kylechui/nvim-surround",
+            config = function()
+                require("config.surround").setup()
             end,
         })
 
