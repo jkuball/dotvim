@@ -2,6 +2,7 @@ local Module = {}
 
 function Module.plugins(use)
     use("https://github.com/tpope/vim-unimpaired")
+    use("tpope/vim-vinegar")
 
     use({
         "neovim/nvim-lspconfig",
