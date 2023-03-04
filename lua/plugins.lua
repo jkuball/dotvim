@@ -26,6 +26,16 @@ function Module.plugins(use)
     })
 
     use({
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+            require("nvim-treesitter.install").update({ with_sync = true })()
+        end,
+        config = function()
+            require("config.treesitter").setup()
+        end,
+    })
+
+    use({
         "TimUntersberger/neogit",
         requires = {
             "nvim-lua/plenary.nvim",
