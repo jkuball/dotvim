@@ -1,7 +1,17 @@
 local Module = {}
 
 function Module.on_attach(client, bufnr)
-    -- TODO: Do something here.
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
+    -- Use LSP as 'keywordprg' replacement.
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+
+    -- Goto de{fini,clara}tions
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+
+    -- Rename symbols. TODO: Find a(nother?) sensible bind for this.
+    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
 end
 
 function Module.setup()
@@ -17,6 +27,7 @@ function Module.setup()
                 },
                 diagnostics = {
                     -- Get the language server to recognize the `vim` global
+                    -- TODO: This doesn't work, I think.
                     globals = { "vim" },
                 },
                 workspace = {
