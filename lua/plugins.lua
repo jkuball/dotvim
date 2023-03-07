@@ -5,6 +5,13 @@ function Module.plugins(use)
     use("tpope/vim-vinegar")
 
     use({
+        "tamton-aquib/staline.nvim",
+        config = function()
+            require("config.staline").setup()
+        end,
+    })
+
+    use({
         "neovim/nvim-lspconfig",
         config = function()
             require("config.lspconfig").setup()
