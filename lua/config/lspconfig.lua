@@ -17,6 +17,9 @@ end
 function Module.setup()
     local lsp = require("lspconfig")
 
+    -- TODO: Split this function, maybe into different files.
+    -- What about 'lua/config/lsp/$LANGUAGE.lua'?
+
     lsp.lua_ls.setup({
         on_attach = Module.on_attach,
         settings = {
@@ -36,8 +39,8 @@ function Module.setup()
                     -- Silence annoying messages (See https://github.com/neovim/nvim-lspconfig/issues/1700)
                     checkThirdParty = false,
                 },
-                -- Do not send telemetry data containing a randomized but unique identifier
                 telemetry = {
+                    -- Do not send telemetry data containing a randomized but unique identifier
                     enable = false,
                 },
             },
