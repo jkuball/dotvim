@@ -47,6 +47,15 @@ function Module.plugins(use)
     })
 
     use({
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.x",
+        config = function()
+            require("config.telescope").setup()
+        end,
+        requires = { "nvim-lua/plenary.nvim" },
+    })
+
+    use({
         "nvim-treesitter/nvim-treesitter",
         run = function()
             require("nvim-treesitter.install").update({ with_sync = true })()
