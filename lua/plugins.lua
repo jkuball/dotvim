@@ -1,6 +1,13 @@
 local Module = {}
 
 function Module.plugins(use)
+    use({
+        "NTBBloodbath/doom-one.nvim",
+        config = function()
+            require("config.doom-one").setup()
+        end,
+    })
+
     use("tpope/vim-unimpaired")
     use("tpope/vim-vinegar")
 
