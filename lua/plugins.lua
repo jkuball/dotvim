@@ -19,6 +19,13 @@ function Module.plugins(use)
     })
 
     use({
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("config.lsp_lines").setup()
+        end,
+    })
+
+    use({
         "numToStr/Comment.nvim",
         config = function()
             require("config.comment").setup()
