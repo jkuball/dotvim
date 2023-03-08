@@ -26,6 +26,13 @@ function Module.plugins(use)
     })
 
     use({
+        "j-hui/fidget.nvim",
+        config = function()
+            require("config.fidget").setup()
+        end,
+    })
+
+    use({
         "numToStr/Comment.nvim",
         config = function()
             require("config.comment").setup()
