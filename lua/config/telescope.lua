@@ -15,8 +15,13 @@ function Module.setup()
             gitmoji = {
                 action = function(entry)
                     local emoji = entry.value.value
-                    -- Copy emoji to the unnamed register.
+                    -- Copy emoji to the unnamed register
                     vim.fn.setreg('"', emoji)
+
+                    -- When writing a commit message, just insert the selected emoji in the headline
+                    if vim.fn.expand("%:t") == "COMMIT_EDITMSG" then
+                        vim.cmd.normal("gg0P")
+                    end
                 end,
             },
         },
