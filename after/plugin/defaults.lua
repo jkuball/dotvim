@@ -12,3 +12,7 @@ vim.opt.splitbelow = true
 
 -- Only show a completion menu, don't open a preview window.
 vim.opt.completeopt = "menuone"
+
+-- Enable undo persistence
+vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+vim.opt.undofile = true
