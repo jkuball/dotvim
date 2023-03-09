@@ -59,7 +59,10 @@ function Module.plugins(use)
         config = function()
             require("config.telescope").setup()
         end,
-        requires = { "nvim-lua/plenary.nvim" },
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "olacin/telescope-gitmoji.nvim",
+        },
     })
 
     use({

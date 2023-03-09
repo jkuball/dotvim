@@ -11,7 +11,18 @@ function Module.setup()
                 },
             },
         },
+        extensions = {
+            gitmoji = {
+                action = function(entry)
+                    local emoji = entry.value.value
+                    -- Copy emoji to the unnamed register.
+                    vim.fn.setreg('"', emoji)
+                end,
+            },
+        },
     })
+
+    require("telescope").load_extension("gitmoji")
 end
 
 return Module
