@@ -30,7 +30,11 @@ function Module.setup()
                 },
                 diagnostics = {
                     -- Get the language server to recognize the `vim` global
-                    -- TODO: This doesn't work, I think.
+                    -- TODO: It looks like there are more usual gobals (pairs, etc.)
+                    -- that are not recognized by the language server.
+                    -- Maybe that is because of this setting?
+                    -- Also, there is no introspection of the vim global,
+                    -- is there something else I have to configure?
                     globals = { "vim" },
                 },
                 workspace = {
@@ -46,6 +50,8 @@ function Module.setup()
             },
         },
     })
+
+    lsp.pyright.setup({})
 end
 
 return Module
