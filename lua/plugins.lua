@@ -91,6 +91,13 @@ function Module.plugins(use)
             require("config.neogit").setup()
         end,
     })
-end
 
+    use({
+        "folke/trouble.nvim",
+        requires = "nvim-tree/nvim-web-devicons",
+        config = function()
+            require("config.trouble").setup()
+        end,
+    })
+end
 return Module
