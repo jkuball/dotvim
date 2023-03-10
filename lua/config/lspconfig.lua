@@ -47,6 +47,7 @@ function Module.setup()
                     -- Maybe that is because of this setting?
                     -- Also, there is no introspection of the vim global,
                     -- is there something else I have to configure?
+                    -- Maybe this helps: https://github.com/LuaLS/lua-language-server/wiki/Configuration-File#neovim-with-built-in-lsp-client
                     globals = { "vim" },
                 },
                 workspace = {
@@ -58,6 +59,10 @@ function Module.setup()
                 telemetry = {
                     -- Do not send telemetry data containing a randomized but unique identifier
                     enable = false,
+                },
+                completion = {
+                    -- When there are no completions, don't fallback to mimic <c-x><c-n>
+                    showWord = "Disable",
                 },
             },
         },
