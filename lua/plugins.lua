@@ -61,8 +61,12 @@ function Module.plugins(use)
         end,
         requires = {
             "nvim-lua/plenary.nvim",
-            "olacin/telescope-gitmoji.nvim",
         },
+    })
+
+    use({
+        "olacin/telescope-gitmoji.nvim",
+        module = "telescope",
     })
 
     use({
