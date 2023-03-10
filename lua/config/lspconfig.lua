@@ -31,6 +31,7 @@ function Module.setup()
     -- TODO: Split this function, maybe into different files.
     -- What about 'lua/config/lsp/$LANGUAGE.lua'?
 
+    -- $ brew install lua-language-server
     lsp.lua_ls.setup({
         on_attach = Module.on_attach,
         settings = {
@@ -62,6 +63,7 @@ function Module.setup()
         },
     })
 
+    -- $ brew install pyright
     lsp.pyright.setup({})
 end
 

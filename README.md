@@ -11,3 +11,4 @@ This file is mostly for my future self if I need to set up a new dev environment
 
 ```bash
 git clone git@github.com:geratheon/dotvim.git ~/.config/nvim
+```
