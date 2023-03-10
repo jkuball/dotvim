@@ -76,6 +76,13 @@ function Module.plugins(use)
     })
 
     use({
+        "mfussenegger/nvim-lint",
+        config = function()
+            require("config.lint").setup()
+        end,
+    })
+
+    use({
         "TimUntersberger/neogit",
         requires = {
             "nvim-lua/plenary.nvim",
