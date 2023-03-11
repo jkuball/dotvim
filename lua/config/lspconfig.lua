@@ -69,7 +69,16 @@ function Module.setup()
     })
 
     -- $ brew install pyright
-    lsp.pyright.setup({})
+    lsp.pyright.setup({
+        on_attach = Module.on_attach,
+        settings = {},
+    })
+
+    -- $ brew install yaml-language-server
+    lsp.yamlls.setup({
+        on_attach = Module.on_attach,
+        settings = {},
+    })
 end
 
 return Module
