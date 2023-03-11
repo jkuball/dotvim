@@ -1,15 +1,26 @@
 local Module = {}
 
+-- Consider changing back from Neogit to fugitive.
+-- - https://github.com/tpope/vim-fugitive
+-- - https://github.com/tpope/vim-rhubarb
+
 function Module.plugins(use)
+    -- tpope essentials
+    use("tpope/vim-apathy")
+    use("tpope/vim-characterize")
+    use("tpope/vim-eunuch")
+    use("tpope/vim-repeat")
+    use("tpope/vim-rsi")
+    use("tpope/vim-speeddating")
+    use("tpope/vim-unimpaired")
+    use("tpope/vim-vinegar")
+
     use({
         "NTBBloodbath/doom-one.nvim",
         config = function()
             require("config.doom-one").setup()
         end,
     })
-
-    use("tpope/vim-unimpaired")
-    use("tpope/vim-vinegar")
 
     use({
         "tamton-aquib/staline.nvim",
@@ -104,4 +115,5 @@ function Module.plugins(use)
         end,
     })
 end
+
 return Module
