@@ -9,11 +9,14 @@ function Module.plugins(use)
     use("tpope/vim-apathy")
     use("tpope/vim-characterize")
     use("tpope/vim-eunuch")
+    use("tpope/vim-fugitive")
     use("tpope/vim-repeat")
     use("tpope/vim-rsi")
     use("tpope/vim-speeddating")
     use("tpope/vim-unimpaired")
     use("tpope/vim-vinegar")
+
+    use("airblade/vim-gitgutter")
 
     use({
         "NTBBloodbath/doom-one.nvim",
