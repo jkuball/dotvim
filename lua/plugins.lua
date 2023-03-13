@@ -98,16 +98,6 @@ function Module.plugins(use)
     })
 
     use({
-        "TimUntersberger/neogit",
-        requires = {
-            "nvim-lua/plenary.nvim",
-        },
-        config = function()
-            require("config.neogit").setup()
-        end,
-    })
-
-    use({
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
         config = function()
