@@ -1,7 +1,8 @@
 local Module = {}
 
 function Module.setup()
-    require("telescope").setup({
+    local telescope = require("telescope")
+    telescope.setup({
         defaults = {
             mappings = {
                 i = {
@@ -27,7 +28,21 @@ function Module.setup()
         },
     })
 
-    require("telescope").load_extension("gitmoji")
+    local gitmoji = telescope.load_extension("gitmoji")
+
+    local opt = { silent = true, noremap = true }
+    local builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<C-p><C-p>", builtin.builtin, opt)
+    vim.keymap.set("n", "<C-p>f", builtin.find_files, opt)
+    vim.keymap.set("n", "<C-p>g", builtin.live_grep, opt)
+    vim.keymap.set("n", "<C-p>*", builtin.grep_string, opt)
+    vim.keymap.set("n", "<C-p>t", builtin.treesitter, opt)
+    vim.keymap.set("n", "<C-p>c", builtin.commands, opt)
+    vim.keymap.set("n", "<C-p>/", builtin.search_history, opt)
+    vim.keymap.set("n", "<C-p>s", builtin.spell_suggest, opt)
+    vim.keymap.set("n", "<C-p>b", builtin.buffers, opt)
+    vim.keymap.set("n", "<C-p>d", builtin.diagnostics, opt)
+    vim.keymap.set("n", "<C-p>e", gitmoji.gitmoji, opt)
 end
 
 return Module
