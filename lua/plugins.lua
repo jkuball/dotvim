@@ -19,16 +19,20 @@ function Module.plugins(use)
     use("airblade/vim-gitgutter")
 
     use({
-        "NTBBloodbath/doom-one.nvim",
+        "rebelot/heirline.nvim",
+        -- You can optionally lazy-load heirline on UiEnter
+        -- to make sure all required plugins and colorschemes are loaded before setup
+        -- event = "UiEnter",
+        requires = "nvim-tree/nvim-web-devicons",
         config = function()
-            require("config.doom-one").setup()
+            require("config.heirline").setup()
         end,
     })
 
     use({
-        "tamton-aquib/staline.nvim",
+        "NTBBloodbath/doom-one.nvim",
         config = function()
-            require("config.staline").setup()
+            require("config.doom-one").setup()
         end,
     })
 
