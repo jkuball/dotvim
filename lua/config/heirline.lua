@@ -15,18 +15,42 @@ function Module.setup()
     local Align = { provider = "%=" }
     local Spacing = { provider = "  " }
 
+    local DefaultStatusLine = {
+        Module.ViMode(),
+        Spacing,
+        Module.FileNameBlock(conditions, utils),
+        Spacing,
+        Module.GitBlock(conditions, utils),
+        Align,
+        Module.FileEncodingBlock(conditions, utils),
+        Spacing,
+        Module.FileTypeBlock(conditions, utils),
+    }
+
+    local InactiveStatusLine = {
+        condition = conditions.is_not_active,
+        { provider = "   " },
+        Spacing,
+        Module.FileNameBlock(conditions, utils),
+    }
+
+    local StatusLines = {
+        hl = function()
+            if conditions.is_active() then
+                return "StatusLine"
+            else
+                return "StatusLineNC"
+            end
+        end,
+        -- the first statusline with no condition, or which condition returns true is used.
+        -- think of it as a switch case with breaks to stop fallthrough.
+        fallthrough = false,
+        InactiveStatusLine,
+        DefaultStatusLine,
+    }
+
     require("heirline").setup({
-        statusline = {
-            Module.ViMode(),
-            Spacing,
-            Module.FileNameBlock(conditions, utils),
-            Spacing,
-            Module.GitBlock(conditions, utils),
-            Align,
-            Module.FileEncodingBlock(conditions, utils),
-            Spacing,
-            Module.FileTypeBlock(conditions, utils),
-        },
+        statusline = StatusLines,
         -- winbar = {},
         -- tabline = {},
         -- statuscolumn = {},
@@ -92,8 +116,8 @@ function Module.FileNameBlock(conditions, utils)
             self.filename = vim.api.nvim_buf_get_name(0)
         end,
     }
-    -- We can now define some children separately and add them later
 
+    -- We can now define some children separately and add them later
     local FileIcon = {
         init = function(self)
             local filename = self.filename
@@ -149,7 +173,6 @@ function Module.FileNameBlock(conditions, utils)
     -- modified. Of course, we could do that directly using the FileName.hl field,
     -- but we'll see how easy it is to alter existing components using a "modifier"
     -- component
-
     local FileNameModifer = {
         hl = function()
             if vim.bo.modified then
@@ -183,6 +206,7 @@ function Module.ViMode()
         init = function(self)
             self.mode = vim.fn.mode(1) -- :h mode()
         end,
+
         -- Now we define some dictionaries to map the output of mode() to the
         -- corresponding string and color. We can put these into `static` to compute
         -- them at initialisation time.
@@ -239,6 +263,7 @@ function Module.ViMode()
                 t = "red",
             },
         },
+
         -- We can now access the value of mode() that, by now, would have been
         -- computed by `init()` and use it to index our strings dictionary.
         -- note how `static` fields become just regular attributes once the
@@ -246,11 +271,13 @@ function Module.ViMode()
         provider = function(self)
             return "%-3( " .. self.mode_names[self.mode] .. " %)"
         end,
+
         -- Same goes for the highlight. Now the foreground will change according to the current mode.
         hl = function(self)
             local mode = self.mode:sub(1, 1) -- get only the first mode character
             return { bg = self.mode_colors[mode], bold = true }
         end,
+
         -- Re-evaluate the component only on ModeChanged event!
         -- Also allows the statusline to be re-evaluated when entering operator-pending mode
         update = {
