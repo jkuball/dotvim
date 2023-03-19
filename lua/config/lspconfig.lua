@@ -79,6 +79,14 @@ function Module.setup()
         on_attach = Module.on_attach,
         settings = {},
     })
+
+    -- $ brew install rust-analyzer
+    lsp.rust_analyzer.setup({
+        on_attach = Module.on_attach,
+        settings = {
+            ["rust-analyzer"] = {},
+        },
+    })
 end
 
 return Module
