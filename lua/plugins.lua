@@ -8,6 +8,7 @@ function Module.plugins(use)
     -- tpope essentials
     use("tpope/vim-apathy")
     use("tpope/vim-characterize")
+    use("tpope/vim-dispatch")
     use("tpope/vim-eunuch")
     use("tpope/vim-fugitive")
     use("tpope/vim-repeat")
