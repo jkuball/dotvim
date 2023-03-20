@@ -3,15 +3,22 @@ local Module = {}
 function Module.on_attach(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-    -- Use LSP as 'keywordprg' replacement.
+    -- Inspect the symbol under the cursor. Replace 'keywordprg'.
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+    vim.keymap.set("n", "<c-K>", vim.lsp.buf.signature_help, bufopts)
 
-    -- Goto de{fini,clara}tions
+    -- Goto definitions, declarations, references, etc
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 
-    -- Rename symbols. TODO: Find a(nother?) sensible bind for this.
+    -- Rename symbols.
     vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, bufopts)
+
+    -- Use LSP Code Actions.
+    vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
 end
 
 function Module.setup()
