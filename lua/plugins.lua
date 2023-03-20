@@ -1,8 +1,25 @@
 local Module = {}
 
--- Consider changing back from Neogit to fugitive.
--- - https://github.com/tpope/vim-fugitive
--- - https://github.com/tpope/vim-rhubarb
+-- Look into the whole org x nvim situation
+-- - https://github.com/nvim-neorg/neorg
+-- - https://github.com/nvim-orgmode/orgmode
+-- - what about org-roam?
+-- - https://github.com/renerocksai/telekasten.nvim
+
+-- Consider replacing vim-gitgutter with gitsigns.nvim.
+-- - https://github.com/lewis6991/gitsigns.nvim
+
+-- Look into null-ls
+-- - https://github.com/jose-elias-alvarez/null-ls.nvim
+
+-- Look into an auto-completion plugin.
+-- In the past I was against this, but working with VSCode might have changed me.
+-- - https://github.com/hrsh7th/nvim-cmp/
+
+-- Look into build mechanisms.
+-- Is it good enough to use 'makeprg' with vim-dispatch?
+-- Do I want something more neovim-native?
+-- - https://github.com/neomake/neomake
 
 function Module.plugins(use)
     -- tpope essentials
