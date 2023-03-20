@@ -1,26 +1,5 @@
 local Module = {}
 
-function Module.on_attach(client, bufnr)
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
-    -- Inspect the symbol under the cursor. Replace 'keywordprg'.
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-    vim.keymap.set("n", "<c-K>", vim.lsp.buf.signature_help, bufopts)
-
-    -- Goto definitions, declarations, references, etc
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-
-    -- Rename symbols.
-    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, bufopts)
-
-    -- Use LSP Code Actions.
-    vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
-end
-
 function Module.setup()
     local lsp = require("lspconfig")
 
@@ -40,7 +19,6 @@ function Module.setup()
 
     -- $ brew install lua-language-server
     lsp.lua_ls.setup({
-        on_attach = Module.on_attach,
         settings = {
             Lua = {
                 runtime = {
@@ -77,22 +55,45 @@ function Module.setup()
 
     -- $ brew install pyright
     lsp.pyright.setup({
-        on_attach = Module.on_attach,
         settings = {},
     })
 
     -- $ brew install yaml-language-server
     lsp.yamlls.setup({
-        on_attach = Module.on_attach,
         settings = {},
     })
 
     -- $ brew install rust-analyzer
     lsp.rust_analyzer.setup({
-        on_attach = Module.on_attach,
         settings = {
             ["rust-analyzer"] = {},
         },
+    })
+
+    vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+        callback = function(event)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+            local bufopts = { noremap = true, silent = true, buffer = event.buf }
+
+            -- Inspect the symbol under the cursor. Replace 'keywordprg'.
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+            vim.keymap.set("n", "<c-K>", vim.lsp.buf.signature_help, bufopts)
+
+            -- Goto definitions, declarations, references, etc
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+            vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+
+            -- Rename symbols.
+            vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
+            vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, bufopts)
+
+            -- Use LSP Code Actions.
+            vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
+        end,
     })
 end
 
