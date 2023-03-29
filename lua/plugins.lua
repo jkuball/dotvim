@@ -26,6 +26,7 @@ local Module = {}
 
 -- Look into a Highlighter plugin, might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
+
 function Module.plugins(use)
     -- tpope essentials
     use("tpope/vim-apathy")
