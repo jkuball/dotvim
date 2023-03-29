@@ -22,7 +22,13 @@ vim.opt.autoread = true
 vim.opt.updatetime = 300
 vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
     callback = function()
-        vim.cmd.checktime()
+        local buf = vim.api.nvim_win_get_buf(0)
+        local name = vim.api.nvim_buf_get_name(buf)
+        -- Only call :checktime when the file attached to the buffer exists.
+        -- This is needed because it throws an error when you are in the vim command-line window (q:).
+        if vim.fn.filereadable(vim.fn.expand(name)) == 1 then
+            vim.cmd.checktime()
+        end
     end,
 })
 
