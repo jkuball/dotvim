@@ -58,6 +58,11 @@ function Module.setup()
         settings = {},
     })
 
+    -- pip install -U jedi-language-server
+    lsp.jedi_language_server.setup({
+        settings = {},
+    })
+
     -- $ brew install yaml-language-server
     lsp.yamlls.setup({
         settings = {},
