@@ -69,9 +69,34 @@ function Module.setup()
     })
 
     -- $ brew install rust-analyzer
+    -- NOTE: This only runs diagnostics on-save, since it relies on an external call to 'cargo check/clippy'.
+    -- I tried some things to make it more feasible to use, but it seems like this is just something you have to work with.
+    -- Auto-Save might be a solution, but a autogroup with vim.cmd.write() didn't trigger a re-run of the ckeck command.
+    -- Maybe this auto-save plugin works?
+    -- - https://github.com/Pocco81/auto-save.nvim
+    -- But looking at the source code, it also just uses vim.cmd.write().
+    -- TODO: Find out why rust-analyzer reacts when I type ':w' but not if it is called via api.
     lsp.rust_analyzer.setup({
         settings = {
-            ["rust-analyzer"] = {},
+            ["rust-analyzer"] = {
+                imports = {
+                    granularity = {
+                        group = "module",
+                    },
+                    prefix = "self",
+                },
+                cargo = {
+                    buildScripts = {
+                        enable = true,
+                    },
+                },
+                procMacro = {
+                    enable = true,
+                },
+                check = {
+                    command = "clippy",
+                },
+            },
         },
     })
 
