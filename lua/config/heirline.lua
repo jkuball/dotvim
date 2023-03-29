@@ -8,6 +8,9 @@ local Module = {}
 -- and require("config.heirline.components") to load another.
 -- Nearly every plugin does it like that, so it is possible -- but how?
 
+-- NOTE: An idea would be to make a "🔴 REC" component if a recording is going on.
+-- See :h reg_recording().
+
 function Module.setup()
     local conditions = require("heirline.conditions")
     local utils = require("heirline.utils")
