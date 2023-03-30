@@ -2,7 +2,7 @@ local Module = {}
 
 function Module.setup()
     require("nvim-treesitter.configs").setup({
-        -- A list of parser names, or "all" (the five listed parsers should always be installed)
+        -- A list of parser names, or "all"
         ensure_installed = "all",
 
         -- Install parsers synchronously (only applied to `ensure_installed`)

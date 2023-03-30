@@ -1,9 +1,5 @@
 local Module = {}
 
--- Look into lazy.vim.
--- Why does everyone love it?
--- - https://github.com/folke/lazy.nvim
-
 -- Find out why nvim-surround can not be updated anymore.
 -- Maybe switch to the good old plugin from tpope?
 
@@ -32,127 +28,112 @@ local Module = {}
 -- That might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
 
-function Module.plugins(use)
-    -- tpope essentials
-    use("tpope/vim-apathy")
-    use("tpope/vim-characterize")
-    use("tpope/vim-dispatch")
-    use("tpope/vim-eunuch")
-    use("tpope/vim-fugitive")
-    use("tpope/vim-repeat")
-    use("tpope/vim-rsi")
-    use("tpope/vim-speeddating")
-    use("tpope/vim-unimpaired")
-    use("tpope/vim-vinegar")
+-- Look into neodev, and how they configure the lua language server.
+-- - https://github.com/folke/neodev.nvim
 
-    use("airblade/vim-gitgutter")
-
-    use({
-        "rebelot/heirline.nvim",
-        -- You can optionally lazy-load heirline on UiEnter
-        -- to make sure all required plugins and colorschemes are loaded before setup
-        -- event = "UiEnter",
-        requires = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("config.heirline").setup()
-        end,
-    })
-
-    use({
-        "NTBBloodbath/doom-one.nvim",
-        config = function()
-            require("config.doom-one").setup()
-        end,
-    })
-
-    use({
-        "neovim/nvim-lspconfig",
-        config = function()
-            require("config.lspconfig").setup()
-        end,
-    })
-
-    use({
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("config.lsp_lines").setup()
-        end,
-    })
-
-    use({
-        "glepnir/lspsaga.nvim",
-        branch = "main",
-        config = function()
-            require("config.lspsaga").setup()
-        end,
-        requires = {
-            { "nvim-tree/nvim-web-devicons" },
-            --Please make sure you install markdown and markdown_inline parser
-            { "nvim-treesitter/nvim-treesitter" },
+function Module.plugins()
+    return {
+        "tpope/vim-apathy",
+        "tpope/vim-characterize",
+        "tpope/vim-dispatch",
+        "tpope/vim-eunuch",
+        "tpope/vim-fugitive",
+        "tpope/vim-repeat",
+        "tpope/vim-rsi",
+        "tpope/vim-speeddating",
+        "tpope/vim-unimpaired",
+        "tpope/vim-vinegar",
+        "airblade/vim-gitgutter",
+        {
+            "rebelot/heirline.nvim",
+            config = function()
+                require("config.heirline").setup()
+            end,
+            dependencies = { "nvim-tree/nvim-web-devicons" },
         },
-    })
-
-    use({
-        "j-hui/fidget.nvim",
-        config = function()
-            require("config.fidget").setup()
-        end,
-    })
-
-    use({
-        "numToStr/Comment.nvim",
-        config = function()
-            require("config.comment").setup()
-        end,
-    })
-
-    use({
-        "kylechui/nvim-surround",
-        config = function()
-            require("config.surround").setup()
-        end,
-    })
-
-    use({
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.x",
-        config = function()
-            require("config.telescope").setup()
-        end,
-        requires = {
-            "nvim-lua/plenary.nvim",
+        {
+            "NTBBloodbath/doom-one.nvim",
+            config = function()
+                require("config.doom-one").setup()
+            end,
         },
-    })
-
-    use({
-        "olacin/telescope-gitmoji.nvim",
-        module = "telescope",
-    })
-
-    use({
-        "nvim-treesitter/nvim-treesitter",
-        run = function()
-            require("nvim-treesitter.install").update({ with_sync = true })()
-        end,
-        config = function()
-            require("config.treesitter").setup()
-        end,
-    })
-
-    use({
-        "mfussenegger/nvim-lint",
-        config = function()
-            require("config.lint").setup()
-        end,
-    })
-
-    use({
-        "folke/trouble.nvim",
-        requires = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("config.trouble").setup()
-        end,
-    })
+        {
+            "neovim/nvim-lspconfig",
+            config = function()
+                require("config.lspconfig").setup()
+            end,
+        },
+        {
+            "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+            config = function()
+                require("config.lsp_lines").setup()
+            end,
+        },
+        {
+            "glepnir/lspsaga.nvim",
+            branch = "main",
+            config = function()
+                require("config.lspsaga").setup()
+            end,
+            dependencies = {
+                { "nvim-tree/nvim-web-devicons" },
+                -- Please make sure you install markdown and markdown_inline parser
+                -- TODO: let lazy.vim make sure
+                { "nvim-treesitter/nvim-treesitter" },
+            },
+        },
+        {
+            "j-hui/fidget.nvim",
+            config = function()
+                require("config.fidget").setup()
+            end,
+        },
+        {
+            "numToStr/Comment.nvim",
+            config = function()
+                require("config.comment").setup()
+            end,
+        },
+        {
+            "kylechui/nvim-surround",
+            config = function()
+                require("config.surround").setup()
+            end,
+        },
+        {
+            "nvim-telescope/telescope.nvim",
+            version = "0.1.x",
+            config = function()
+                require("config.telescope").setup()
+            end,
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "olacin/telescope-gitmoji.nvim",
+            },
+        },
+        {
+            "nvim-treesitter/nvim-treesitter",
+            build = function()
+                require("nvim-treesitter.install").update({ with_sync = true })()
+            end,
+            config = function()
+                require("config.treesitter").setup()
+            end,
+        },
+        {
+            "mfussenegger/nvim-lint",
+            config = function()
+                require("config.lint").setup()
+            end,
+        },
+        {
+            "folke/trouble.nvim",
+            config = function()
+                require("config.trouble").setup()
+            end,
+            dependencies = { "nvim-tree/nvim-web-devicons" },
+        },
+    }
 end
 
 return Module
