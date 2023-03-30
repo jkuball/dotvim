@@ -1,6 +1,13 @@
 local Module = {}
 
--- Look into the whole org x nvim situation
+-- Look into lazy.vim.
+-- Why does everyone love it?
+-- - https://github.com/folke/lazy.nvim
+
+-- Find out why nvim-surround can not be updated anymore.
+-- Maybe switch to the good old plugin from tpope?
+
+-- Look into the whole org x nvim situation.
 -- - https://github.com/nvim-neorg/neorg
 -- - https://github.com/nvim-orgmode/orgmode
 -- - what about org-roam?
@@ -9,7 +16,7 @@ local Module = {}
 -- Consider replacing vim-gitgutter with gitsigns.nvim.
 -- - https://github.com/lewis6991/gitsigns.nvim
 
--- Look into null-ls
+-- Look into null-ls.
 -- - https://github.com/jose-elias-alvarez/null-ls.nvim
 
 -- Look into an auto-completion plugin.
@@ -21,7 +28,8 @@ local Module = {}
 -- Do I want something more neovim-native?
 -- - https://github.com/neomake/neomake
 
--- Look into a Highlighter plugin, might be helpful for pair programming and such.
+-- Look into a Highlighter plugin.
+-- That might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
 
 function Module.plugins(use)
