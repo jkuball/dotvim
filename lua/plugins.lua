@@ -21,9 +21,6 @@ local Module = {}
 -- Do I want something more neovim-native?
 -- - https://github.com/neomake/neomake
 
--- Look into LspSaga
--- - https://github.com/glepnir/lspsaga.nvim
-
 -- Look into a Highlighter plugin, might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
 
@@ -72,6 +69,19 @@ function Module.plugins(use)
         config = function()
             require("config.lsp_lines").setup()
         end,
+    })
+
+    use({
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        config = function()
+            require("config.lspsaga").setup()
+        end,
+        requires = {
+            { "nvim-tree/nvim-web-devicons" },
+            --Please make sure you install markdown and markdown_inline parser
+            { "nvim-treesitter/nvim-treesitter" },
+        },
     })
 
     use({

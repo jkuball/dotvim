@@ -105,24 +105,8 @@ function Module.setup()
         callback = function(event)
             -- Enable completion triggered by <c-x><c-o>
             vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-            local bufopts = { noremap = true, silent = true, buffer = event.buf }
 
-            -- Inspect the symbol under the cursor. Replace 'keywordprg'.
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-            vim.keymap.set("n", "<c-K>", vim.lsp.buf.signature_help, bufopts)
-
-            -- Goto definitions, declarations, references, etc
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-            vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-
-            -- Rename symbols.
-            vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
-            vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, bufopts)
-
-            -- Use LSP Code Actions.
-            vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts)
+            -- NOTE: Mappings are all defined in `lspsaga.lua`.
         end,
     })
 end
