@@ -1,21 +1,8 @@
-local Module = {}
-
-function Module.setup()
+local function load_language_servers()
     local lsp = require("lspconfig")
 
-    local signs = {
-        { name = "DiagnosticSignError", text = "" },
-        { name = "DiagnosticSignWarn", text = "" },
-        { name = "DiagnosticSignHint", text = "" },
-        { name = "DiagnosticSignInfo", text = "" },
-    }
-
-    for _, sign in ipairs(signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-    end
-
     -- TODO: Split this function, maybe into different files.
-    -- What about 'lua/config/lsp/$LANGUAGE.lua'?
+    -- What about 'lua/lsp/$LANGUAGE.lua'?
 
     -- $ brew install lua-language-server
     lsp.lua_ls.setup({
@@ -99,16 +86,84 @@ function Module.setup()
             },
         },
     })
-
-    vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-        callback = function(event)
-            -- Enable completion triggered by <c-x><c-o>
-            vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-            -- NOTE: Mappings are all defined in `lspsaga.lua`.
-        end,
-    })
 end
 
-return Module
+return {
+    {
+        "j-hui/fidget.nvim",
+        opts = {},
+    },
+    {
+        "neovim/nvim-lspconfig",
+        init = function()
+            local signs = {
+                { name = "DiagnosticSignError", text = "" },
+                { name = "DiagnosticSignWarn", text = "" },
+                { name = "DiagnosticSignHint", text = "" },
+                { name = "DiagnosticSignInfo", text = "" },
+            }
+
+            for _, sign in ipairs(signs) do
+                vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+            end
+
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+                callback = function(event)
+                    -- Enable completion triggered by <c-x><c-o>
+                    vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+                    -- NOTE: Mappings are all defined in `lspsaga.lua`.
+                end,
+            })
+        end,
+        config = load_language_servers,
+    },
+    {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        opts = {},
+        init = function()
+            vim.diagnostic.config({
+                virtual_text = true,
+                virtual_lines = { only_current_line = true },
+            })
+        end,
+    },
+    {
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        opts = {
+            lightbulb = {
+                sign = false,
+                virtual_text = true,
+            },
+        },
+        init = function()
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("UserLspsagaConfig", {}),
+                callback = function(event)
+                    local bufopts = { noremap = true, silent = true, buffer = event.buf }
+
+                    -- Use LSP Code Actions.
+                    vim.keymap.set("n", "<Leader>ca", "<cmd>Lspsaga code_action<cr>", bufopts)
+
+                    -- Rename symbols.
+                    vim.keymap.set("n", "<F2>", "<cmd>Lspsaga rename ++project<cr>", bufopts)
+                    vim.keymap.set("n", "<Leader>rn", "<cmd>Lspsaga rename ++project<cr>", bufopts)
+
+                    -- Goto definition.
+                    vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<cr>", bufopts)
+
+                    -- Inspect the symbol under the cursor. Replace 'keywordprg'.
+                    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", bufopts)
+                end,
+            })
+        end,
+        dependencies = {
+            { "nvim-tree/nvim-web-devicons" },
+            -- Please make sure you install markdown and markdown_inline parser
+            -- TODO: let lazy.nvim make sure
+            { "nvim-treesitter/nvim-treesitter" },
+        },
+    },
+}

@@ -55,37 +55,6 @@ return {
         end,
     },
     {
-        "neovim/nvim-lspconfig",
-        config = function()
-            require("config.lspconfig").setup()
-        end,
-    },
-    {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("config.lsp_lines").setup()
-        end,
-    },
-    {
-        "glepnir/lspsaga.nvim",
-        branch = "main",
-        config = function()
-            require("config.lspsaga").setup()
-        end,
-        dependencies = {
-            { "nvim-tree/nvim-web-devicons" },
-            -- Please make sure you install markdown and markdown_inline parser
-            -- TODO: let lazy.vim make sure
-            { "nvim-treesitter/nvim-treesitter" },
-        },
-    },
-    {
-        "j-hui/fidget.nvim",
-        config = function()
-            require("config.fidget").setup()
-        end,
-    },
-    {
         "numToStr/Comment.nvim",
         config = function()
             require("config.comment").setup()
