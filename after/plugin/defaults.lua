@@ -31,10 +31,3 @@ vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
         end
     end,
 })
-
--- Setting both leader keys.
--- NOTE: I might revisit this in the future, but I am used to the Spacebar right now (and I think it is a good key for that).
--- For now, the localleader will be something explicitly different than the normal Leader, just to see how often I use/need it.
--- I feel like it won't be that often -- unless I decide that I want LSP functionality behind that, which might be reasonable.
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
