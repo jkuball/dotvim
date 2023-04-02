@@ -108,12 +108,10 @@ return {
             end
 
             vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+                group = vim.api.nvim_create_augroup("UserEnableOmnifunc", {}),
                 callback = function(event)
                     -- Enable completion triggered by <c-x><c-o>
                     vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-                    -- NOTE: Mappings are all defined in `lspsaga.lua`.
                 end,
             })
         end,
@@ -121,6 +119,10 @@ return {
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        -- Disabled for now.
+        -- I really love the visuals, but they are disorienting while editing something.
+        -- TODO: Maybe make this plugin toggleable?
+        enabled = false,
         opts = {},
         init = function()
             vim.diagnostic.config({
@@ -156,6 +158,11 @@ return {
 
                     -- Inspect the symbol under the cursor. Replace 'keywordprg'.
                     vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", bufopts)
+
+                    -- Jump between diagnostics marks (overridden by lspsaga plugin)
+                    local common_map_options = { noremap = true, silent = true }
+                    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_next<cr>", common_map_options)
+                    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", common_map_options)
                 end,
             })
         end,
