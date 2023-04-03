@@ -16,6 +16,15 @@ return {
         end,
     },
     {
+        "https://github.com/rcarriga/nvim-notify",
+        opts = {
+            top_down = false,
+        },
+        init = function()
+            vim.notify = require("notify")
+        end,
+    },
+    {
         "rebelot/heirline.nvim",
         config = function()
             require("config.heirline").setup()
