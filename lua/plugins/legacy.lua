@@ -29,6 +29,21 @@
 -- Look into neodev, and how they configure the lua language server.
 -- - https://github.com/folke/neodev.nvim
 
+-- Add Todo-Comments, which looks really nice, incl. Trouble & Telescope support.
+-- - https://github.com/folke/todo-comments.nvim
+
+-- Look into using sessions.
+-- - https://github.com/folke/persistence.nvim
+-- - https://github.com/tpope/vim-obsession
+
+-- Look into mason.nvim.
+-- - https://github.com/williamboman/mason.nvim
+
+-- Interesting other plugins I want to look into:
+-- - https://github.com/nvim-pack/nvim-spectre
+-- - https://github.com/RRethy/vim-illuminate
+-- - https://github.com/echasnovski/mini.nvim
+
 return {
     "tpope/vim-apathy",
     "tpope/vim-characterize",
