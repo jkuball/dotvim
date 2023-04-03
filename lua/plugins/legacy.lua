@@ -10,9 +10,6 @@
 -- Consider replacing vim-gitgutter with gitsigns.nvim.
 -- - https://github.com/lewis6991/gitsigns.nvim
 
--- Look into null-ls.
--- - https://github.com/jose-elias-alvarez/null-ls.nvim
-
 -- Look into an auto-completion plugin.
 -- In the past I was against this, but working with VSCode might have changed me.
 -- - https://github.com/hrsh7th/nvim-cmp/
@@ -86,12 +83,6 @@ return {
         end,
         config = function()
             require("config.treesitter").setup()
-        end,
-    },
-    {
-        "mfussenegger/nvim-lint",
-        config = function()
-            require("config.lint").setup()
         end,
     },
     {

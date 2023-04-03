@@ -27,9 +27,9 @@
     "branch": "main",
     "commit": "abb0e427ffd70cb5b240f17d996b7c84cd55d001"
   },
-  "nvim-lint": {
-    "branch": "master",
-    "commit": "b16e6e424ddfb12d4b3a699c1dc41ba0f3b503da"
+  "null-ls.nvim": {
+    "branch": "main",
+    "commit": "defa0518762abb32279d601443344fb9773f9330"
   },
   "nvim-lspconfig": {
     "branch": "master",
