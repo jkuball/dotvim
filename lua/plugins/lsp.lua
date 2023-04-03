@@ -1,11 +1,13 @@
 local function load_language_servers()
     local lsp = require("lspconfig")
+    local lsp_format = require("lsp-format")
 
     -- TODO: Split this function, maybe into different files.
     -- What about 'lua/lsp/$LANGUAGE.lua'?
 
     -- $ brew install lua-language-server
     lsp.lua_ls.setup({
+        on_attach = lsp_format.on_attach,
         settings = {
             Lua = {
                 runtime = {
@@ -42,16 +44,19 @@ local function load_language_servers()
 
     -- $ brew install pyright
     lsp.pyright.setup({
+        on_attach = lsp_format.on_attach,
         settings = {},
     })
 
     -- pip install -U jedi-language-server
     lsp.jedi_language_server.setup({
+        on_attach = lsp_format.on_attach,
         settings = {},
     })
 
     -- $ brew install yaml-language-server
     lsp.yamlls.setup({
+        on_attach = lsp_format.on_attach,
         settings = {},
     })
 
@@ -64,6 +69,7 @@ local function load_language_servers()
     -- But looking at the source code, it also just uses vim.cmd.write().
     -- TODO: Find out why rust-analyzer reacts when I type ':w' but not if it is called via api.
     lsp.rust_analyzer.setup({
+        on_attach = lsp_format.on_attach,
         settings = {
             ["rust-analyzer"] = {
                 imports = {
@@ -116,6 +122,7 @@ return {
             })
         end,
         config = load_language_servers,
+        dependencies = { "lukas-reineke/lsp-format.nvim" },
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",

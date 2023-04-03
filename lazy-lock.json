@@ -19,9 +19,9 @@
     "branch": "main",
     "commit": "57cce98dfdb2f2dd05a0567d89811e6d0505e13b"
   },
-  "lsp_lines.nvim": {
-    "branch": "main",
-    "commit": "dcff567b3a2d730f31b6da229ca3bb40640ec5a6"
+  "lsp-format.nvim": {
+    "branch": "master",
+    "commit": "ca0df5c8544e51517209ea7b86ecc522c98d4f0a"
   },
   "lspsaga.nvim": {
     "branch": "main",
