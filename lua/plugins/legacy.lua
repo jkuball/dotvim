@@ -63,19 +63,6 @@ return {
         end,
     },
     {
-        "rebelot/heirline.nvim",
-        config = function()
-            require("config.heirline").setup()
-        end,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-    {
-        "NTBBloodbath/doom-one.nvim",
-        config = function()
-            require("config.doom-one").setup()
-        end,
-    },
-    {
         "numToStr/Comment.nvim",
         config = function()
             require("config.comment").setup()

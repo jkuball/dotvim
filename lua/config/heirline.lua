@@ -209,7 +209,6 @@ function Module.ViMode()
         init = function(self)
             self.mode = vim.fn.mode(1) -- :h mode()
         end,
-
         -- Now we define some dictionaries to map the output of mode() to the
         -- corresponding string and color. We can put these into `static` to compute
         -- them at initialisation time.
@@ -266,7 +265,6 @@ function Module.ViMode()
                 t = "red",
             },
         },
-
         -- We can now access the value of mode() that, by now, would have been
         -- computed by `init()` and use it to index our strings dictionary.
         -- note how `static` fields become just regular attributes once the
@@ -274,13 +272,11 @@ function Module.ViMode()
         provider = function(self)
             return "%-3( " .. self.mode_names[self.mode] .. " %)"
         end,
-
         -- Same goes for the highlight. Now the foreground will change according to the current mode.
         hl = function(self)
             local mode = self.mode:sub(1, 1) -- get only the first mode character
             return { bg = self.mode_colors[mode], bold = true }
         end,
-
         -- Re-evaluate the component only on ModeChanged event!
         -- Also allows the statusline to be re-evaluated when entering operator-pending mode
         update = {
