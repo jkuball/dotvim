@@ -12,6 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Enables 24-bit RGB color in the terminal
+vim.opt.termguicolors = true
+
 -- Setting both leader keys.
 -- NOTE: I might revisit this in the future, but I am used to the Spacebar right now (and I think it is a good key for that).
 -- For now, the localleader will be something explicitly different than the normal Leader, just to see how often I use/need it.
