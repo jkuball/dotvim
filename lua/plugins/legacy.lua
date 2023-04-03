@@ -57,6 +57,12 @@ return {
     "tpope/vim-vinegar",
     "airblade/vim-gitgutter",
     {
+        "https://github.com/rcarriga/nvim-notify",
+        init = function()
+            vim.notify = require("notify")
+        end,
+    },
+    {
         "rebelot/heirline.nvim",
         config = function()
             require("config.heirline").setup()
