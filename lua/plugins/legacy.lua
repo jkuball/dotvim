@@ -1,14 +1,8 @@
--- Find out why nvim-surround can not be updated anymore.
--- Maybe switch to the good old plugin from tpope?
-
 -- Look into the whole org x nvim situation.
 -- - https://github.com/nvim-neorg/neorg
 -- - https://github.com/nvim-orgmode/orgmode
 -- - what about org-roam?
 -- - https://github.com/renerocksai/telekasten.nvim
-
--- Consider replacing vim-gitgutter with gitsigns.nvim.
--- - https://github.com/lewis6991/gitsigns.nvim
 
 -- Look into an auto-completion plugin.
 -- In the past I was against this, but working with VSCode might have changed me.
@@ -26,7 +20,7 @@
 -- Look into neodev, and how they configure the lua language server.
 -- - https://github.com/folke/neodev.nvim
 
--- Add Todo-Comments, which looks really nice, incl. Trouble & Telescope support.
+-- Add Todo-Comments, which looks really nice (incl. Trouble & Telescope support).
 -- - https://github.com/folke/todo-comments.nvim
 
 -- Look into using sessions.
@@ -35,6 +29,9 @@
 
 -- Look into mason.nvim.
 -- - https://github.com/williamboman/mason.nvim
+
+-- Think about whether which-key is something I want.
+-- - https://github.com/folke/which-key.nvim
 
 -- Interesting other plugins I want to look into:
 -- - https://github.com/nvim-pack/nvim-spectre
@@ -46,13 +43,11 @@ return {
     "tpope/vim-characterize",
     "tpope/vim-dispatch",
     "tpope/vim-eunuch",
-    "tpope/vim-fugitive",
     "tpope/vim-repeat",
     "tpope/vim-rsi",
     "tpope/vim-speeddating",
     "tpope/vim-unimpaired",
     "tpope/vim-vinegar",
-    "airblade/vim-gitgutter",
     {
         "numToStr/Comment.nvim",
         config = function()
