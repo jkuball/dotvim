@@ -17,9 +17,6 @@
 -- That might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
 
--- Look into neodev, and how they configure the lua language server.
--- - https://github.com/folke/neodev.nvim
-
 -- Add Todo-Comments, which looks really nice (incl. Trouble & Telescope support).
 -- - https://github.com/folke/todo-comments.nvim
 

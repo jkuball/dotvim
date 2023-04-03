@@ -10,20 +10,6 @@ local function load_language_servers()
         on_attach = lsp_format.on_attach,
         settings = {
             Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                    version = "LuaJIT",
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    -- TODO: It looks like there are more usual gobals (pairs, etc.)
-                    -- that are not recognized by the language server.
-                    -- Maybe that is because of this setting?
-                    -- Also, there is no introspection of the vim global,
-                    -- is there something else I have to configure?
-                    -- Maybe this helps: https://github.com/LuaLS/lua-language-server/wiki/Configuration-File#neovim-with-built-in-lsp-client
-                    globals = { "vim" },
-                },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = vim.api.nvim_get_runtime_file("", true),
@@ -118,6 +104,9 @@ return {
         end,
     },
     {
+        "folke/neodev.nvim",
+    },
+    {
         "neovim/nvim-lspconfig",
         init = function()
             local signs = {
@@ -140,7 +129,7 @@ return {
             })
         end,
         config = load_language_servers,
-        dependencies = { "lukas-reineke/lsp-format.nvim" },
+        dependencies = { "lukas-reineke/lsp-format.nvim", "folke/neodev.nvim" },
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",

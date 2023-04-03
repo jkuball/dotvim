@@ -27,6 +27,10 @@
     "branch": "main",
     "commit": "abb0e427ffd70cb5b240f17d996b7c84cd55d001"
   },
+  "neodev.nvim": {
+    "branch": "main",
+    "commit": "024d1a0548a0d61687e00c94dd362a1878d3ac2a"
+  },
   "null-ls.nvim": {
     "branch": "main",
     "commit": "defa0518762abb32279d601443344fb9773f9330"
