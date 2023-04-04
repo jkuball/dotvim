@@ -7,6 +7,7 @@
 -- Look into an auto-completion plugin.
 -- In the past I was against this, but working with VSCode might have changed me.
 -- - https://github.com/hrsh7th/nvim-cmp/
+-- - https://github.com/ms-jpq/coq_nvim
 
 -- Look into build mechanisms.
 -- Is it good enough to use 'makeprg' with vim-dispatch?

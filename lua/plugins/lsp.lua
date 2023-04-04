@@ -1,13 +1,19 @@
 local function load_language_servers()
     local lsp = require("lspconfig")
     local lsp_format = require("lsp-format")
+    local navbuddy = require("nvim-navbuddy")
 
     -- TODO: Split this function, maybe into different files.
     -- What about 'lua/lsp/$LANGUAGE.lua'?
 
+    local on_attach = function(client, bufnr)
+        lsp_format.on_attach(client)
+        navbuddy.attach(client, bufnr)
+    end
+
     -- $ brew install lua-language-server
     lsp.lua_ls.setup({
-        on_attach = lsp_format.on_attach,
+        on_attach = on_attach,
         settings = {
             Lua = {
                 workspace = {
@@ -30,19 +36,19 @@ local function load_language_servers()
 
     -- $ brew install pyright
     lsp.pyright.setup({
-        on_attach = lsp_format.on_attach,
+        on_attach = on_attach,
         settings = {},
     })
 
     -- pip install -U jedi-language-server
     lsp.jedi_language_server.setup({
-        on_attach = lsp_format.on_attach,
+        on_attach = on_attach,
         settings = {},
     })
 
     -- $ brew install yaml-language-server
     lsp.yamlls.setup({
-        on_attach = lsp_format.on_attach,
+        on_attach = on_attach,
         settings = {},
     })
 
@@ -55,7 +61,7 @@ local function load_language_servers()
     -- But looking at the source code, it also just uses vim.cmd.write().
     -- TODO: Find out why rust-analyzer reacts when I type ':w' but not if it is called via api.
     lsp.rust_analyzer.setup({
-        on_attach = lsp_format.on_attach,
+        on_attach = on_attach,
         settings = {
             ["rust-analyzer"] = {
                 imports = {
@@ -129,7 +135,7 @@ return {
             })
         end,
         config = load_language_servers,
-        dependencies = { "lukas-reineke/lsp-format.nvim", "folke/neodev.nvim" },
+        dependencies = { "lukas-reineke/lsp-format.nvim", "folke/neodev.nvim", "SmiteshP/nvim-navbuddy" },
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -144,6 +150,10 @@ return {
                 virtual_lines = { only_current_line = true },
             })
         end,
+    },
+    {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
     },
     {
         "glepnir/lspsaga.nvim",
