@@ -11,9 +11,13 @@ local function load_language_servers()
         navbuddy.attach(client, bufnr)
     end
 
+    -- TODO: Order?
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
     -- $ brew install lua-language-server
     lsp.lua_ls.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {
             Lua = {
                 workspace = {
@@ -37,18 +41,21 @@ local function load_language_servers()
     -- $ brew install pyright
     lsp.pyright.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {},
     })
 
     -- pip install -U jedi-language-server
     lsp.jedi_language_server.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {},
     })
 
     -- $ brew install yaml-language-server
     lsp.yamlls.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {},
     })
 
@@ -62,6 +69,7 @@ local function load_language_servers()
     -- TODO: Find out why rust-analyzer reacts when I type ':w' but not if it is called via api.
     lsp.rust_analyzer.setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {
             ["rust-analyzer"] = {
                 imports = {

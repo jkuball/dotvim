@@ -3,6 +3,18 @@
     "branch": "master",
     "commit": "8d3aa5c22c2d45e788c7a5fe13ad77368b783c20"
   },
+  "cmp-nvim-lsp": {
+    "branch": "main",
+    "commit": "0e6b2ed705ddcff9738ec4ea838141654f12eeef"
+  },
+  "cmp-path": {
+    "branch": "main",
+    "commit": "91ff86cd9c29299a64f968ebb45846c485725f23"
+  },
+  "cmp-snippy": {
+    "branch": "master",
+    "commit": "9af1635fe40385ffa3dabf322039cb5ae1fd7d35"
+  },
   "doom-one.nvim": {
     "branch": "main",
     "commit": "a43528cbd7908ccec7af4587ec8e18be149095bd"
@@ -39,6 +51,10 @@
     "branch": "main",
     "commit": "defa0518762abb32279d601443344fb9773f9330"
   },
+  "nvim-cmp": {
+    "branch": "main",
+    "commit": "777450fd0ae289463a14481673e26246b5e38bf2"
+  },
   "nvim-lspconfig": {
     "branch": "master",
     "commit": "c34522092bee6e4abf68ed3b24dceee4bd5a48fc"
@@ -54,6 +70,10 @@
   "nvim-notify": {
     "branch": "master",
     "commit": "50d037041ada0895aeba4c0215cde6d11b7729c4"
+  },
+  "nvim-snippy": {
+    "branch": "master",
+    "commit": "8ada65df34610f0dbfdbd036dfddf7ad3b67523b"
   },
   "nvim-surround": {
     "branch": "main",
