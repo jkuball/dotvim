@@ -43,6 +43,8 @@ function Module.setup()
     vim.keymap.set("n", "<C-p>b", builtin.buffers, opt)
     vim.keymap.set("n", "<C-p>d", builtin.diagnostics, opt)
     vim.keymap.set("n", "<C-p>e", gitmoji.gitmoji, opt)
+    vim.keymap.set("n", "<C-p>l", builtin.lsp_document_symbols, opt)
+    vim.keymap.set("n", "<C-p>L", builtin.lsp_workspace_symbols, opt)
 end
 
 return Module
