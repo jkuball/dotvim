@@ -4,16 +4,6 @@
 -- - what about org-roam?
 -- - https://github.com/renerocksai/telekasten.nvim
 
--- Look into an auto-completion plugin.
--- In the past I was against this, but working with VSCode might have changed me.
--- - https://github.com/hrsh7th/nvim-cmp/
--- - https://github.com/ms-jpq/coq_nvim
-
--- Look into build mechanisms.
--- Is it good enough to use 'makeprg' with vim-dispatch?
--- Do I want something more neovim-native?
--- - https://github.com/neomake/neomake
-
 -- Look into a Highlighter plugin.
 -- That might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
