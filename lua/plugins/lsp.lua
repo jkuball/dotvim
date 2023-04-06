@@ -143,7 +143,12 @@ return {
             })
         end,
         config = load_language_servers,
-        dependencies = { "lukas-reineke/lsp-format.nvim", "folke/neodev.nvim", "SmiteshP/nvim-navbuddy" },
+        dependencies = {
+            "lukas-reineke/lsp-format.nvim",
+            "folke/neodev.nvim",
+            "SmiteshP/nvim-navbuddy",
+            { "williamboman/mason-lspconfig.nvim", opts = {} },
+        },
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
