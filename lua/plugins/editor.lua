@@ -1,4 +1,7 @@
 return {
+    "tpope/vim-unimpaired",
+    "tpope/vim-rsi",
+    "tpope/vim-speeddating",
     {
         "hrsh7th/nvim-cmp",
         config = function()
@@ -36,5 +39,17 @@ return {
             "hrsh7th/cmp-path",
             "dcampos/nvim-snippy",
         },
+    },
+    {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("config.comment").setup()
+        end,
+    },
+    {
+        "kylechui/nvim-surround",
+        config = function()
+            require("config.surround").setup()
+        end,
     },
 }

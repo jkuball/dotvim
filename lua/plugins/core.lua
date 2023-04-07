@@ -32,22 +32,7 @@ return {
     "tpope/vim-dispatch",
     "tpope/vim-eunuch",
     "tpope/vim-repeat",
-    "tpope/vim-rsi",
-    "tpope/vim-speeddating",
-    "tpope/vim-unimpaired",
     "tpope/vim-vinegar",
-    {
-        "numToStr/Comment.nvim",
-        config = function()
-            require("config.comment").setup()
-        end,
-    },
-    {
-        "kylechui/nvim-surround",
-        config = function()
-            require("config.surround").setup()
-        end,
-    },
     {
         "nvim-telescope/telescope.nvim",
         version = "0.1.x",
