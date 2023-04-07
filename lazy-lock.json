@@ -15,6 +15,10 @@
     "branch": "master",
     "commit": "9af1635fe40385ffa3dabf322039cb5ae1fd7d35"
   },
+  "crates.nvim": {
+    "branch": "main",
+    "commit": "1d4bb1e7a0fe8bae3f97061be5fbf6f9081a27e2"
+  },
   "doom-one.nvim": {
     "branch": "main",
     "commit": "a43528cbd7908ccec7af4587ec8e18be149095bd"
@@ -26,6 +30,10 @@
   "heirline.nvim": {
     "branch": "master",
     "commit": "18394c46ff3c9fa52629dba358fa79244dc84ae3"
+  },
+  "hover.nvim": {
+    "branch": "main",
+    "commit": "7aed88b45b5f5a201a78b4393144fef9c88f37f7"
   },
   "lazy.nvim": {
     "branch": "main",

@@ -1,3 +1,6 @@
+-- I am not a fan of Lspsaga's show_line_diagnostics,
+-- maybe there is a better way / plugin?
+
 local function load_language_servers()
     local lsp = require("lspconfig")
     local lsp_format = require("lsp-format")
@@ -193,9 +196,6 @@ return {
                     -- Goto definition.
                     vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<cr>", bufopts)
 
-                    -- Inspect the symbol under the cursor. Replace 'keywordprg'.
-                    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<cr>", bufopts)
-
                     -- Jump between diagnostics marks (overridden by lspsaga plugin)
                     local common_map_options = { noremap = true, silent = true }
                     vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_next<cr>", common_map_options)
@@ -228,5 +228,69 @@ return {
                 end,
             })
         end,
+    },
+    {
+        "lewis6991/hover.nvim",
+        init = function()
+            -- Setup keymaps
+            vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+            vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+        end,
+        opts = {
+            init = function()
+                require("hover.providers.lsp")
+                require("hover.providers.gh")
+                require("hover.providers.gh_user")
+                require("hover.providers.man")
+                -- require('hover.providers.dictionary')
+            end,
+        },
+    },
+    {
+        "Saecki/crates.nvim",
+        opts = {
+            null_ls = {
+                enabled = true,
+                name = "crates.nvim",
+            },
+        },
+        init = function()
+            -- Setup completion via nvim-cmp.
+            local cmp = require("cmp")
+            vim.api.nvim_create_autocmd("BufRead", {
+                group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+                pattern = "Cargo.toml",
+                callback = function()
+                    cmp.setup.buffer({ sources = { { name = "crates" } } })
+                end,
+            })
+
+            -- Custom Hover Source
+            require("hover").register({
+                name = "Crates",
+                enabled = function()
+                    return vim.fn.expand("%:t") == "Cargo.toml"
+                end,
+                priority = 9001,
+                execute = function(done)
+                    -- TODO: This circumvents hover.nvim and just calls show_popup() from crates.nvim.
+                    -- It has some problems, and maybe it is better to move this logic to K itself.
+
+                    if require("crates").popup_available() then
+                        require("crates").show_popup()
+                    end
+
+                    -- This stops other hover handlers from being called, but it opens two different popups at the same time.
+                    -- Fortunately, it seems like the crates popup is always in front.
+                    done({ lines = { "Press `<C-W><C-W>` to get to the crates hover." }, filetype = "markdown" })
+                end,
+            })
+        end,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
+            "jose-elias-alvarez/null-ls.nvim",
+            "lewis6991/hover.nvim",
+        },
     },
 }
