@@ -18,6 +18,7 @@ vim.opt.undofile = true
 vim.opt.autoread = true
 vim.opt.updatetime = 300
 vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
+    group = vim.api.nvim_create_augroup("UserAutoChecktime", {}),
     callback = function()
         local buf = vim.api.nvim_win_get_buf(0)
         local name = vim.api.nvim_buf_get_name(buf)
@@ -26,5 +27,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
         if vim.fn.filereadable(vim.fn.expand(name)) == 1 then
             vim.cmd.checktime()
         end
+    end,
+})
+
+-- Enable signcolumn and number for all files that I have a language server for.
+-- The rationale for this is to reduce the flicker while the signs are reloaded.
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserEnableSigncolumn", {}),
+    callback = function()
+        vim.cmd.setlocal("number")
+        vim.cmd.setlocal("signcolumn=yes")
     end,
 })
