@@ -26,6 +26,7 @@ return {
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
                     { name = "snippy" },
                     { name = "path" },
                 }, {
@@ -41,6 +42,7 @@ return {
             "dcampos/cmp-snippy",
             "hrsh7th/cmp-path",
             "dcampos/nvim-snippy",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
         },
     },
     {
