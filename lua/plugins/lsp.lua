@@ -198,8 +198,8 @@ return {
 
                     -- Jump between diagnostics marks (overridden by lspsaga plugin)
                     local common_map_options = { noremap = true, silent = true }
-                    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_next<cr>", common_map_options)
-                    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", common_map_options)
+                    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", common_map_options)
+                    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", common_map_options)
                 end,
             })
         end,
