@@ -30,12 +30,11 @@ vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold" }, {
     end,
 })
 
--- Enable signcolumn and number for all files that I have a language server for.
+-- Always show signcolumn in files where diagnostics came up.
 -- The rationale for this is to reduce the flicker while the signs are reloaded.
-vim.api.nvim_create_autocmd("LspAttach", {
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
     group = vim.api.nvim_create_augroup("UserEnableSigncolumn", {}),
     callback = function()
-        vim.cmd.setlocal("number")
         vim.cmd.setlocal("signcolumn=yes")
     end,
 })
