@@ -58,14 +58,10 @@ return {
     },
     {
         "numToStr/Comment.nvim",
-        config = function()
-            require("config.comment").setup()
-        end,
+        opts = {},
     },
     {
         "kylechui/nvim-surround",
-        config = function()
-            require("config.surround").setup()
-        end,
+        opts = {},
     },
 }
