@@ -17,6 +17,7 @@ return {
     },
     {
         "https://github.com/rcarriga/nvim-notify",
+        event = "VimEnter",
         opts = {
             top_down = false,
         },
@@ -26,6 +27,7 @@ return {
     },
     {
         "rebelot/heirline.nvim",
+        event = "VimEnter",
         config = function()
             require("config.heirline").setup()
         end,
