@@ -15,9 +15,6 @@
 -- - https://github.com/folke/persistence.nvim
 -- - https://github.com/tpope/vim-obsession
 
--- Look into mason.nvim.
--- - https://github.com/williamboman/mason.nvim
-
 -- Think about whether which-key is something I want.
 -- - https://github.com/folke/which-key.nvim
 
