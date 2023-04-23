@@ -63,8 +63,10 @@ return {
                 end,
             })
 
-            local opt = { silent = true, noremap = true }
-            vim.keymap.set("n", "<Leader>of", require("telescope").extensions.orgmode.search_headings, opt)
+            local wk = require("which-key")
+            wk.register({
+                ["<Leader>of"] = { require("telescope").extensions.orgmode.search_headings, "org heading" },
+            })
         end,
     },
 }

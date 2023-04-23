@@ -29,6 +29,14 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-vinegar",
     {
+        "folke/which-key.nvim",
+        opts = {
+            window = {
+                border = "single",
+            },
+        },
+    },
+    {
         "nvim-telescope/telescope.nvim",
         version = "0.1.x",
         config = function()

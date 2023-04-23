@@ -198,5 +198,9 @@
   "vim-vinegar": {
     "branch": "master",
     "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6"
+  },
+  "which-key.nvim": {
+    "branch": "main",
+    "commit": "94cb020ff33a1e0e22fac1c41663d2c439741f17"
   }
 }

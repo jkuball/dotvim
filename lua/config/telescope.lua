@@ -30,21 +30,25 @@ function Module.setup()
 
     local gitmoji = telescope.load_extension("gitmoji")
 
-    local opt = { silent = true, noremap = true }
+    -- Setup Mappings
+    local wk = require("which-key")
     local builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<C-p><C-p>", builtin.builtin, opt)
-    vim.keymap.set("n", "<C-p>f", builtin.find_files, opt)
-    vim.keymap.set("n", "<C-p>g", builtin.live_grep, opt)
-    vim.keymap.set("n", "<C-p>*", builtin.grep_string, opt)
-    vim.keymap.set("n", "<C-p>t", builtin.treesitter, opt)
-    vim.keymap.set("n", "<C-p>c", builtin.commands, opt)
-    vim.keymap.set("n", "<C-p>/", builtin.search_history, opt)
-    vim.keymap.set("n", "<C-p>s", builtin.spell_suggest, opt)
-    vim.keymap.set("n", "<C-p>b", builtin.buffers, opt)
-    vim.keymap.set("n", "<C-p>d", builtin.diagnostics, opt)
-    vim.keymap.set("n", "<C-p>e", gitmoji.gitmoji, opt)
-    vim.keymap.set("n", "<C-p>l", builtin.lsp_document_symbols, opt)
-    vim.keymap.set("n", "<C-p>L", builtin.lsp_workspace_symbols, opt)
+    wk.register({
+        name = "Find and pick stuff.",
+        ["<C-p>"] = { builtin.builtin, "Finders / Pickers" },
+        f = { builtin.find_files, "Find files" },
+        g = { builtin.live_grep, "Live grep" },
+        ["*"] = { builtin.grep_string, "Live Grep for <cword>" },
+        t = { builtin.treesitter, "Treesitter node" },
+        c = { builtin.commands, "Vim command" },
+        ["/"] = { builtin.search_history, "Search history" },
+        s = { builtin.spell_suggest, "Spell suggestion" },
+        b = { builtin.buffers, "Buffers" },
+        d = { builtin.diagnostics, "Diagnostics" },
+        e = { gitmoji.gitmoji, "Gitmoji" },
+        l = { builtin.lsp_document_symbols, "Lsp Document Symbols" },
+        L = { builtin.lsp_workspace_symbols, "Lsp Workspace Symbols" },
+    }, { prefix = "<C-p>" })
 end
 
 return Module

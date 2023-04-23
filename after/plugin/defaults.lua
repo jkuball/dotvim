@@ -1,7 +1,10 @@
+local wk = require("which-key")
+
 -- Jump between diagnostics marks (overridden by lspsaga plugin)
-local common_map_options = { noremap = true, silent = true }
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, common_map_options)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, common_map_options)
+wk.register({
+    ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
+    ["[d"] = { vim.diagnostic.goto_prev, "Previous Diagnostic" },
+})
 
 -- Open splits in a more natural order (for me)
 vim.opt.splitright = true
