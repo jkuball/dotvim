@@ -3,9 +3,9 @@
     "branch": "master",
     "commit": "a89339ffbee677ab0521a483b6dac7e2e67c907e"
   },
-  "calendar-vim": {
-    "branch": "master",
-    "commit": "a7e73e02c92566bf427b2a1d6a61a8f23542cc21"
+  "cmp-buffer": {
+    "branch": "main",
+    "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa"
   },
   "cmp-nvim-lsp": {
     "branch": "main",
@@ -119,6 +119,22 @@
     "branch": "master",
     "commit": "4ec26d67d419c12a4abaea02f1b6c57b40c08d7e"
   },
+  "org-bullets.nvim": {
+    "branch": "main",
+    "commit": "6e0d60e901bb939eb526139cb1f8d59065132fd9"
+  },
+  "org-capture-filetype": {
+    "branch": "main",
+    "commit": "21c671f1bbfc3b182d7731c0474a5175257fd87c"
+  },
+  "orgmode": {
+    "branch": "master",
+    "commit": "d8020e95f531369962d74d037f603d038d70de1e"
+  },
+  "orgmode-multi-key": {
+    "branch": "main",
+    "commit": "6d4c89f8e2266536e0e0dded5657a209fd818771"
+  },
   "plenary.nvim": {
     "branch": "master",
     "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054"
@@ -126,6 +142,10 @@
   "telescope-gitmoji.nvim": {
     "branch": "master",
     "commit": "b8672e5f816fcf1f0a248e9c41f05e7b7f1e9d94"
+  },
+  "telescope-orgmode.nvim": {
+    "branch": "main",
+    "commit": "eabff061c3852a9aa94e672a7d2fa4a1ef63f9e2"
   },
   "telescope.nvim": {
     "branch": "master",

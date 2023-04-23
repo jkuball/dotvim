@@ -1,9 +1,3 @@
--- Look into the whole org x nvim situation.
--- - https://github.com/nvim-neorg/neorg
--- - https://github.com/nvim-orgmode/orgmode
--- - what about org-roam?
--- - https://github.com/renerocksai/telekasten.nvim
-
 -- Look into a Highlighter plugin.
 -- That might be helpful for pair programming and such.
 -- - https://github.com/Pocco81/high-str.nvim
@@ -22,6 +16,7 @@
 -- - https://github.com/nvim-pack/nvim-spectre
 -- - https://github.com/RRethy/vim-illuminate
 -- - https://github.com/echasnovski/mini.nvim
+-- - https://github.com/ecthelionvi/NeoComposer.nvim
 
 return {
     "tpope/vim-apathy",
