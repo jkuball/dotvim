@@ -12,6 +12,9 @@
 -- Think about whether which-key is something I want.
 -- - https://github.com/folke/which-key.nvim
 
+-- Maybe get back to using dirvish.
+-- - https://github.com/justinmk/vim-dirvish
+
 -- Interesting other plugins I want to look into:
 -- - https://github.com/nvim-pack/nvim-spectre
 -- - https://github.com/RRethy/vim-illuminate
