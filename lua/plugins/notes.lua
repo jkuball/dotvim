@@ -37,6 +37,9 @@ return {
         init = function()
             require("orgmode").setup_ts_grammar()
             require("org-capture-filetype")
+            require("which-key").register({
+                o = { name = "org" },
+            }, { prefix = "<Leader>" })
         end,
         dependencies = { "TravonteD/org-capture-filetype" },
     },

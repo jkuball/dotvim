@@ -21,7 +21,7 @@ return {
 
         wk.register({
             h = {
-                name = "Harpoon",
+                name = "+harpoon",
                 h = { harpoon_ui.toggle_quick_menu, "Toggle Quick Menu" },
                 a = { harpoon_mark.add_file, "Add current file" },
                 n = { harpoon_mark.nav_next, "Go to next file" },
