@@ -174,11 +174,32 @@ return {
                 vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
             end
 
+            vim.diagnostic.config({
+                virtual_text = true,
+                float = { border = "rounded" },
+            })
+
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserEnableOmnifunc", {}),
                 callback = function(event)
+                    local common_map_options = { noremap = true, silent = true }
+
                     -- Enable completion triggered by <c-x><c-o>
                     vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+                    -- Code actions
+                    vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, common_map_options)
+
+                    -- Rename symbols
+                    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, common_map_options)
+                    vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, common_map_options)
+
+                    -- Jump between diagnostics marks
+                    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, common_map_options)
+                    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, common_map_options)
+
+                    -- Jump between diagnostics marks
+                    vim.keymap.set("n", "<Space>dl", vim.diagnostic.open_float, common_map_options)
                 end,
             })
         end,
@@ -199,7 +220,6 @@ return {
         opts = {},
         init = function()
             vim.diagnostic.config({
-                virtual_text = true,
                 virtual_lines = { only_current_line = true },
             })
         end,
@@ -223,20 +243,8 @@ return {
                 callback = function(event)
                     local bufopts = { noremap = true, silent = true, buffer = event.buf }
 
-                    -- Use LSP Code Actions.
-                    vim.keymap.set("n", "<Leader>ca", "<cmd>Lspsaga code_action<cr>", bufopts)
-
-                    -- Rename symbols.
-                    vim.keymap.set("n", "<F2>", "<cmd>Lspsaga rename ++project<cr>", bufopts)
-                    vim.keymap.set("n", "<Leader>rn", "<cmd>Lspsaga rename ++project<cr>", bufopts)
-
                     -- Goto definition.
                     vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<cr>", bufopts)
-
-                    -- Jump between diagnostics marks (overridden by lspsaga plugin)
-                    local common_map_options = { noremap = true, silent = true }
-                    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", common_map_options)
-                    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", common_map_options)
                 end,
             })
         end,
