@@ -9,9 +9,6 @@
 -- - https://github.com/folke/persistence.nvim
 -- - https://github.com/tpope/vim-obsession
 
--- Think about whether which-key is something I want.
--- - https://github.com/folke/which-key.nvim
-
 -- Maybe get back to using dirvish.
 -- - https://github.com/justinmk/vim-dirvish
 
@@ -34,17 +31,6 @@ return {
             window = {
                 border = "single",
             },
-        },
-    },
-    {
-        "nvim-telescope/telescope.nvim",
-        version = "0.1.x",
-        config = function()
-            require("config.telescope").setup()
-        end,
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "olacin/telescope-gitmoji.nvim",
         },
     },
     {
