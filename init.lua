@@ -23,4 +23,4 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- Automatically loads all plugins defined in `lua/plugins/*.lua`.
-require("lazy").setup({ { import = "plugins" } })
+require("lazy").setup({ { import = "plugins" } }, { change_detection = { notify = false } })
