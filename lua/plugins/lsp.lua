@@ -104,6 +104,19 @@ local function load_language_servers()
             },
         },
     })
+
+    -- $ npm i -g angular-language-server
+    lsp.angularls.setup({
+        on_attach = function(client, bufnr)
+            lsp_format.on_attach(client)
+            -- NOTE: angularls does not provide document symbols, so navbuddy doesn't work
+        end,
+    })
+
+    -- $ npm i -g typescript-language-server
+    lsp.tsserver.setup({
+        on_attach = on_attach,
+    })
 end
 
 return {
