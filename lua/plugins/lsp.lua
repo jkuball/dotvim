@@ -163,7 +163,10 @@ return {
                     }),
                     -- brew install markdownlint-cli
                     null_ls.builtins.formatting.markdownlint,
-                    null_ls.builtins.diagnostics.markdownlint,
+                    null_ls.builtins.diagnostics.markdownlint.with({
+                        -- disable line-length error globally
+                        args = { "--stdin", "--disable", "MD013", "--" },
+                    }),
                     -- brew install prettier
                     null_ls.builtins.formatting.prettier,
                 },
