@@ -47,22 +47,8 @@ local function load_language_servers()
     lsp.pyright.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-        on_new_config = function(config, root_dir)
-            local venv = PythonUtils.get_venv(root_dir)
-            if venv then
-                config.settings.python.pythonPath = venv .. "/bin/python"
-            end
-        end,
-        settings = {},
+        settings = {}, -- venv is set by venv-selector.nvim
     })
-
-    -- -- NOTE: This is commented right now. Do I even need it, what does it provide that pyright doesn't?
-    -- -- pip install -U jedi-language-server
-    -- lsp.jedi_language_server.setup({
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
-    --     settings = {}, -- NOTE: jedi-language-server figures the virtualenv out by itself.
-    -- })
 
     -- $ brew install yaml-language-server
     lsp.yamlls.setup({
@@ -143,21 +129,21 @@ return {
                     -- pip install ruff
                     null_ls.builtins.diagnostics.ruff.with({
                         command = function(params)
-                            local venv = PythonUtils.get_venv(params.root)
+                            local venv = require("venv-selector").get_active_venv()
                             return PythonUtils.narrow_bin(venv, "ruff")
                         end,
                     }),
                     -- pip install black
                     null_ls.builtins.formatting.black.with({
                         command = function(params)
-                            local venv = PythonUtils.get_venv(params.root)
+                            local venv = require("venv-selector").get_active_venv()
                             return PythonUtils.narrow_bin(venv, "black")
                         end,
                     }),
                     -- pip install isort
                     null_ls.builtins.formatting.isort.with({
                         command = function(params)
-                            local venv = PythonUtils.get_venv(params.root)
+                            local venv = require("venv-selector").get_active_venv()
                             return PythonUtils.narrow_bin(venv, "isort")
                         end,
                     }),

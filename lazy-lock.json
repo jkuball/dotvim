@@ -171,6 +171,10 @@
     "branch": "main",
     "commit": "d56bfc0c501ced4002a57cb60433362fb2ce9c4d"
   },
+  "venv-selector.nvim": {
+    "branch": "main",
+    "commit": "69a9a78d3de205963815b83f02c277a2dfe51dcc"
+  },
   "vim-apathy": {
     "branch": "master",
     "commit": "27128a0f55189724c841843ba41cd33cf7186032"

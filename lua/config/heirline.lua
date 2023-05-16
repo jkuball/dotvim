@@ -25,6 +25,8 @@ function Module.setup()
         Spacing,
         Module.GitBlock(conditions, utils),
         Align,
+        Module.VenvBlock(conditions, utils),
+        Spacing,
         Module.FileEncodingBlock(conditions, utils),
         Spacing,
         Module.FileTypeBlock(conditions, utils),
@@ -195,6 +197,35 @@ function Module.FileNameBlock(conditions, utils)
     )
 
     return FileNameBlock
+end
+
+function Module.VenvBlock(conditions, utils)
+    local activated_venv = function()
+        local venv_name = require("venv-selector").get_active_venv()
+        if venv_name ~= nil then
+            return string.gsub(venv_name, ".*/pypoetry/virtualenvs/", "(poetry) ")
+        else
+            return "system"
+        end
+    end
+
+    return {
+        {
+            condition = function()
+                return require("venv-selector").get_active_venv() ~= nil
+            end,
+            provider = function()
+                return "  " .. activated_venv()
+            end,
+            hl = { fg = utils.get_highlight("Type").fg, bold = true },
+        },
+        on_click = {
+            callback = function()
+                vim.cmd.VenvSelect()
+            end,
+            name = "heirline_statusline_venv_selector",
+        },
+    }
 end
 
 function Module.ViMode()
