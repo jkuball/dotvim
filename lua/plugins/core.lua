@@ -43,13 +43,6 @@ return {
         end,
     },
     {
-        "folke/trouble.nvim",
-        config = function()
-            require("config.trouble").setup()
-        end,
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
-    {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
         opts = {},
