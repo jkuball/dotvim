@@ -1,10 +1,18 @@
 local wk = require("which-key")
 
--- Jump between diagnostics marks (overridden by lspsaga plugin)
+-- Jump between diagnostics marks
 wk.register({
     ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
     ["[d"] = { vim.diagnostic.goto_prev, "Previous Diagnostic" },
 })
+
+-- Other diagnostics mappings
+wk.register({
+    d = {
+        name = "+diagnostics",
+        l = { vim.diagnostic.open_float, "Show Line Diagnostics" },
+    },
+}, { prefix = "<Leader>" })
 
 -- Open splits in a more natural order (for me)
 vim.opt.splitright = true

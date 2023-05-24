@@ -189,19 +189,16 @@ return {
                     -- Enable completion triggered by <c-x><c-o>
                     vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-                    -- Code actions
-                    vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, common_map_options)
+                    require("which-key").register({
+                        c = {
+                            name = "+code",
+                            a = { vim.lsp.buf.code_action, "LSP Code Action" },
+                            r = { vim.lsp.buf.rename, "LSP Rename Symbol" },
+                        },
+                    }, { prefix = "<Leader>" })
 
-                    -- Rename symbols
+                    -- Brain Compatibility Mapping(s)
                     vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, common_map_options)
-                    vim.keymap.set("n", "<Leader>rn", vim.lsp.buf.rename, common_map_options)
-
-                    -- Jump between diagnostics marks
-                    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, common_map_options)
-                    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, common_map_options)
-
-                    -- Jump between diagnostics marks
-                    vim.keymap.set("n", "<Space>dl", vim.diagnostic.open_float, common_map_options)
                 end,
             })
         end,
