@@ -1,4 +1,3 @@
--- Other plugins to think about using in the future:
 -- - https://github.com/renerocksai/telekasten.nvim
 -- - https://github.com/nvim-neorg/neorg
 -- But overall, I think the nvim-orgmode plugin might be the best way of keeping organization in neovim.
@@ -8,6 +7,20 @@
 -- - lukas-reineke/headlines.nvim
 
 local home = vim.fn.expand("~/game-of-life/")
+
+local templates = {}
+templates.recipe = [[
+
+* %^{Rezeptname} :recipe:
+%u
+
+Link: %x
+
+** Zutaten
+** Rezept
+
+   %?
+]]
 
 return {
     {
@@ -25,6 +38,11 @@ return {
                     description = "Journal",
                     template = "\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?",
                     target = home .. "/journal.org",
+                },
+                r = {
+                    description = "Recipe",
+                    template = templates.recipe,
+                    target = home .. "/cookbook.org",
                 },
                 l = {
                     description = "Ledger Entry",
