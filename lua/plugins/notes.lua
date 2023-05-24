@@ -90,4 +90,11 @@ return {
             })
         end,
     },
+    {
+        "iamcco/markdown-preview.nvim",
+        build = function()
+            vim.api.nvim_call_function("mkdp#util#install", {})
+        end,
+        ft = "markdown",
+    },
 }
