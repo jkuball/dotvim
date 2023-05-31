@@ -40,8 +40,8 @@
     "commit": "0ba1e16d07627532b6cae915cc992ecac249fb97"
   },
   "harpoon": {
-    "branch": "master",
-    "commit": "8cb54c4003045fe1b690de96638d334de9449546"
+    "branch": "feat/cmd-ui/resend",
+    "commit": "21f4c47c6803d64ddb934a5b314dcb1b8e7365dc"
   },
   "heirline.nvim": {
     "branch": "master",

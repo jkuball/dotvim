@@ -1,10 +1,8 @@
--- TODO: Think about how to use harpoon terminals.
--- They are an interesting feature, but I am not sure how to include them in my workflow.
-
--- Idea: Do I want to include the number of harpooned files in my statusline?
+-- IDEA: Do I want to include the number of harpooned files in my statusline?
 
 return {
-    "ThePrimeagen/harpoon",
+    "jkuball/harpoon", -- until https://github.com/ThePrimeagen/harpoon/pull/295 is approved
+    branch = "feat/cmd-ui/resend",
     opts = {
         global_settings = {
             enter_on_sendcmd = true,
@@ -14,6 +12,7 @@ return {
         require("harpoon").setup(opts)
 
         local harpoon_ui = require("harpoon.ui")
+        local harpoon_cmd_ui = require("harpoon.cmd-ui")
         local harpoon_mark = require("harpoon.mark")
         local harpoon_term = require("harpoon.term")
         local wk = require("which-key")
@@ -35,7 +34,8 @@ return {
         wk.register({
             t = {
                 name = "+term",
-                t = { require("harpoon.cmd-ui").toggle_quick_menu, "harpoon cmd ui" },
+                t = { require("harpoon.cmd-ui").toggle_quick_menu, "Harpoon Cmd-Ui" },
+                ["<CR>"] = { harpoon_cmd_ui.resend, "Send last selected Harpoon Command" },
                 ["#"] = "Go to Harpoon Terminal (1-9)",
                 ["1"] = { _nav_term(1), invisible },
                 ["2"] = { _nav_term(2), invisible },
@@ -64,6 +64,7 @@ return {
                 ["8"] = { _nav_file(8), invisible },
                 ["9"] = { _nav_file(9), invisible },
             },
+            ["<CR>"] = { harpoon_cmd_ui.resend, "Send last selected Harpoon Command" },
             ["#"] = "Go to Harpooned File (1-9)",
             ["1"] = { _nav_file(1), invisible },
             ["2"] = { _nav_file(2), invisible },
