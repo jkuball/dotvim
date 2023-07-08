@@ -49,3 +49,8 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
         vim.cmd.setlocal("signcolumn=yes")
     end,
 })
+
+-- Dispatch Mappings
+wk.register({
+    ["<CR>"] = { "<cmd>Start<cr>", ":Start" },
+}, { prefix = "<Leader>" })
