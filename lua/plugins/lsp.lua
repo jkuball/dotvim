@@ -267,6 +267,7 @@ return {
     {
         "lvimuser/lsp-inlayhints.nvim",
         opts = {},
+        enabled = false, -- only not for rust
         init = function()
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("LspAttachInlayHints", {}),
