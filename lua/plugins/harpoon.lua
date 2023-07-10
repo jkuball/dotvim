@@ -18,15 +18,21 @@ return {
         local wk = require("which-key")
 
         local _nav_file = function(num)
-            return function()
-                harpoon_ui.nav_file(num)
-            end
+            return {
+                function()
+                    harpoon_ui.nav_file(num)
+                end,
+                "which_key_ignore",
+            }
         end
 
         local _nav_term = function(num)
-            return function()
-                harpoon_term.gotoTerminal(num)
-            end
+            return {
+                function()
+                    harpoon_term.gotoTerminal(num)
+                end,
+                "which_key_ignore",
+            }
         end
 
         local invisible = "which_key_ignore"
@@ -34,18 +40,18 @@ return {
         wk.register({
             t = {
                 name = "+term",
-                t = { require("harpoon.cmd-ui").toggle_quick_menu, "Harpoon Cmd-Ui" },
+                t = { harpoon_cmd_ui.toggle_quick_menu, "Harpoon Cmd-Ui" },
                 ["<CR>"] = { harpoon_cmd_ui.resend, "Send last selected Harpoon Command" },
                 ["#"] = "Go to Harpoon Terminal (1-9)",
-                ["1"] = { _nav_term(1), invisible },
-                ["2"] = { _nav_term(2), invisible },
-                ["3"] = { _nav_term(3), invisible },
-                ["4"] = { _nav_term(4), invisible },
-                ["5"] = { _nav_term(5), invisible },
-                ["6"] = { _nav_term(6), invisible },
-                ["7"] = { _nav_term(7), invisible },
-                ["8"] = { _nav_term(8), invisible },
-                ["9"] = { _nav_term(9), invisible },
+                ["1"] = _nav_term(1),
+                ["2"] = _nav_term(2),
+                ["3"] = _nav_term(3),
+                ["4"] = _nav_term(4),
+                ["5"] = _nav_term(5),
+                ["6"] = _nav_term(6),
+                ["7"] = _nav_term(7),
+                ["8"] = _nav_term(8),
+                ["9"] = _nav_term(9),
             },
             h = {
                 name = "+harpoon",
@@ -54,27 +60,26 @@ return {
                 n = { harpoon_mark.nav_next, "Go to next file" },
                 p = { harpoon_mark.nav_prev, "Go to previous file" },
                 ["#"] = "Go to Harpooned File (1-9)",
-                ["1"] = { _nav_file(1), invisible },
-                ["2"] = { _nav_file(2), invisible },
-                ["3"] = { _nav_file(3), invisible },
-                ["4"] = { _nav_file(4), invisible },
-                ["5"] = { _nav_file(5), invisible },
-                ["6"] = { _nav_file(6), invisible },
-                ["7"] = { _nav_file(7), invisible },
-                ["8"] = { _nav_file(8), invisible },
-                ["9"] = { _nav_file(9), invisible },
+                ["1"] = _nav_file(1),
+                ["2"] = _nav_file(2),
+                ["3"] = _nav_file(3),
+                ["4"] = _nav_file(4),
+                ["5"] = _nav_file(5),
+                ["6"] = _nav_file(6),
+                ["7"] = _nav_file(7),
+                ["8"] = _nav_file(8),
+                ["9"] = _nav_file(9),
             },
-            ["<CR>"] = { harpoon_cmd_ui.resend, "Send last selected Harpoon Command" },
             ["#"] = "Go to Harpooned File (1-9)",
-            ["1"] = { _nav_file(1), invisible },
-            ["2"] = { _nav_file(2), invisible },
-            ["3"] = { _nav_file(3), invisible },
-            ["4"] = { _nav_file(4), invisible },
-            ["5"] = { _nav_file(5), invisible },
-            ["6"] = { _nav_file(6), invisible },
-            ["7"] = { _nav_file(7), invisible },
-            ["8"] = { _nav_file(8), invisible },
-            ["9"] = { _nav_file(9), invisible },
+            ["1"] = _nav_file(1),
+            ["2"] = _nav_file(2),
+            ["3"] = _nav_file(3),
+            ["4"] = _nav_file(4),
+            ["5"] = _nav_file(5),
+            ["6"] = _nav_file(6),
+            ["7"] = _nav_file(7),
+            ["8"] = _nav_file(8),
+            ["9"] = _nav_file(9),
         }, { prefix = "<Leader>" })
 
         wk.register({
