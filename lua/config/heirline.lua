@@ -24,6 +24,8 @@ function Module.setup()
         Module.FileNameBlock(conditions, utils),
         Spacing,
         Module.GitBlock(conditions, utils),
+        Spacing,
+        Module.HarpoonBlock(conditions, utils),
         Align,
         Module.VenvBlock(conditions, utils),
         Spacing,
@@ -81,6 +83,27 @@ function Module.GitBlock(_, _)
         {
             provider = function(self)
                 return " " .. self.head
+            end,
+            hl = { bold = true },
+        },
+    }
+end
+
+function Module.HarpoonBlock(_, _)
+    return {
+        condition = function()
+            return require("harpoon.mark").get_length() > 0
+        end,
+        hl = { fg = "orange" },
+        on_click = {
+            name = "heirline_harpoon_ui_toggle",
+            callback = function()
+                require("harpoon.ui").toggle_quick_menu()
+            end,
+        },
+        {
+            provider = function(self)
+                return "⇀ " .. require("harpoon.mark").get_length()
             end,
             hl = { bold = true },
         },
