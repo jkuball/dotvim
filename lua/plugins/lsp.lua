@@ -250,10 +250,11 @@ return {
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspsagaConfig", {}),
                 callback = function(event)
-                    local bufopts = { noremap = true, silent = true, buffer = event.buf }
-
-                    -- Goto definition.
-                    vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<cr>", bufopts)
+                    require("which-key").register({
+                        d = { "<cmd>Lspsaga goto_definition<cr>", "Go To Definition" },
+                        D = { "<cmd>Lspsaga goto_type_definition<cr>", "Go To Type Definition" },
+                        r = { "<cmd>Telescope lsp_references<cr>", "Show References" },
+                    }, { prefix = "g" })
                 end,
             })
         end,
