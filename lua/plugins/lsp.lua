@@ -305,6 +305,7 @@ return {
     },
     {
         "Saecki/crates.nvim",
+        event = "BufRead Cargo.toml",
         opts = {
             null_ls = {
                 enabled = true,
