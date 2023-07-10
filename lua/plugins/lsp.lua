@@ -43,6 +43,16 @@ local function load_language_servers()
         },
     })
 
+    -- $ :MasonInstall buf-language-server
+    lsp.bufls.setup({
+        on_attach = function(client, bufnr)
+            lsp_format.on_attach(client)
+            -- NOTE: bufls does not provide document symbols, so navbuddy doesn't work
+        end,
+        capabilities = capabilities,
+        settings = {},
+    })
+
     -- $ brew install pyright
     lsp.pyright.setup({
         on_attach = on_attach,
