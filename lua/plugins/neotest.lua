@@ -1,6 +1,7 @@
 return {
     {
         "nvim-neotest/neotest",
+        event = "BufEnter */tests/*.py",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
