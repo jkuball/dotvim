@@ -1,5 +1,17 @@
 local wk = require("which-key")
 
+-- Use formatprg
+wk.register({
+    ["Q"] = {
+        function()
+            local view = vim.fn.winsaveview()
+            vim.cmd.normal("gggqG")
+            vim.fn.winrestview(view)
+        end,
+        "run formatprg on whole file",
+    },
+})
+
 -- Jump between diagnostics marks
 wk.register({
     ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
@@ -52,5 +64,5 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 
 -- Dispatch Mappings
 wk.register({
-    ["<CR>"] = { "<cmd>Start<cr>", ":Start" },
+    ["<CR>"] = { "<cmd>Start<cr>", ":Start -wait=always" },
 }, { prefix = "<Leader>" })
