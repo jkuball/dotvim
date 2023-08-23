@@ -1,15 +1,32 @@
 -- I am not a fan of Lspsaga's show_line_diagnostics,
 -- maybe there is a better way / plugin?
 
-local function load_language_servers()
+local function load_language_servers(opts)
     local lsp = require("lspconfig")
     local lsp_format = require("lsp-format")
+
+    local wk = require("which-key")
+    wk.register({
+        c = {
+            i = {
+                function()
+                    vim.lsp.inlay_hint(0, nil)
+                end,
+                "Toggle Inlay Type Hints",
+            },
+        },
+    }, { prefix = "<Leader>" })
 
     -- TODO: Split this function, maybe into different files.
     -- What about 'lua/lsp/$LANGUAGE.lua'?
 
     local on_attach = function(client, bufnr)
         lsp_format.on_attach(client)
+
+        -- Enable Inlay Hints by default, if supported.
+        if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint(bufnr, true)
+        end
     end
 
     -- TODO: Order?
@@ -120,7 +137,11 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        init = function()
+        -- TODO: event BufReadPre
+        opts = {},
+        config = function(_, opts)
+            load_language_servers(opts)
+
             local signs = {
                 { name = "DiagnosticSignError", text = "" },
                 { name = "DiagnosticSignWarn", text = "" },
@@ -158,7 +179,6 @@ return {
                 end,
             })
         end,
-        config = load_language_servers,
         dependencies = {
             "lukas-reineke/lsp-format.nvim",
             "folke/neodev.nvim",
@@ -205,26 +225,6 @@ return {
             -- TODO: let lazy.nvim make sure
             { "nvim-treesitter/nvim-treesitter" },
         },
-    },
-    {
-        "lvimuser/lsp-inlayhints.nvim",
-        opts = {},
-        enabled = false, -- only not for rust
-        init = function()
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("LspAttachInlayHints", {}),
-                callback = function(args)
-                    if not (args.data and args.data.client_id) then
-                        return
-                    end
-
-                    local bufnr = args.buf
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    local force = false
-                    require("lsp-inlayhints").on_attach(client, bufnr, force)
-                end,
-            })
-        end,
     },
     {
         "lewis6991/hover.nvim",
