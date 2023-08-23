@@ -122,55 +122,6 @@ return {
         opts = {},
     },
     {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-            local null_ls = require("null-ls")
-            local lsp_format = require("lsp-format")
-
-            local on_attach = function(client, bufnr)
-                lsp_format.on_attach(client)
-                -- NOTE: null-ls does not provide document symbols, so navbuddy doesn't work.
-                -- require("nvim-navbuddy").attach(client, bufnr)
-            end
-
-            null_ls.setup({
-                on_attach = on_attach,
-                root_dir = require("null-ls.utils").root_pattern(".null-ls-root", "Makefile", ".git", "pyproject.toml"),
-                sources = {
-                    -- pip install ruff
-                    null_ls.builtins.diagnostics.ruff.with({
-                        command = function(params)
-                            local venv = require("venv-selector").get_active_venv()
-                            return PythonUtils.narrow_bin(venv, "ruff")
-                        end,
-                    }),
-                    -- pip install black
-                    null_ls.builtins.formatting.black.with({
-                        command = function(params)
-                            local venv = require("venv-selector").get_active_venv()
-                            return PythonUtils.narrow_bin(venv, "black")
-                        end,
-                    }),
-                    -- pip install isort
-                    null_ls.builtins.formatting.isort.with({
-                        command = function(params)
-                            local venv = require("venv-selector").get_active_venv()
-                            return PythonUtils.narrow_bin(venv, "isort")
-                        end,
-                    }),
-                    -- brew install markdownlint-cli
-                    null_ls.builtins.formatting.markdownlint,
-                    null_ls.builtins.diagnostics.markdownlint.with({
-                        -- disable line-length error globally
-                        args = { "--stdin", "--disable", "MD013", "--" },
-                    }),
-                    -- brew install prettier
-                    null_ls.builtins.formatting.prettier,
-                },
-            })
-        end,
-    },
-    {
         "folke/neodev.nvim",
     },
     {
