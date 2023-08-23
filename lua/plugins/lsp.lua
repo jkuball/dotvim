@@ -1,19 +1,15 @@
 -- I am not a fan of Lspsaga's show_line_diagnostics,
 -- maybe there is a better way / plugin?
 
-local PythonUtils = require("utils.python")
-
 local function load_language_servers()
     local lsp = require("lspconfig")
     local lsp_format = require("lsp-format")
-    local navbuddy = require("nvim-navbuddy")
 
     -- TODO: Split this function, maybe into different files.
     -- What about 'lua/lsp/$LANGUAGE.lua'?
 
     local on_attach = function(client, bufnr)
         lsp_format.on_attach(client)
-        navbuddy.attach(client, bufnr)
     end
 
     -- TODO: Order?
@@ -25,6 +21,10 @@ local function load_language_servers()
         capabilities = capabilities,
         settings = {
             Lua = {
+                semantic = {
+                    -- Disable semantic syntax highlighting to avoid flickering.
+                    enable = false,
+                },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = vim.api.nvim_get_runtime_file("", true),
@@ -45,10 +45,7 @@ local function load_language_servers()
 
     -- $ :MasonInstall buf-language-server
     lsp.bufls.setup({
-        on_attach = function(client, bufnr)
-            lsp_format.on_attach(client)
-            -- NOTE: bufls does not provide document symbols, so navbuddy doesn't work
-        end,
+        on_attach = on_attach,
         capabilities = capabilities,
         settings = {},
     })
@@ -103,10 +100,7 @@ local function load_language_servers()
 
     -- $ npm i -g angular-language-server
     lsp.angularls.setup({
-        on_attach = function(client, bufnr)
-            lsp_format.on_attach(client)
-            -- NOTE: angularls does not provide document symbols, so navbuddy doesn't work
-        end,
+        on_attach = on_attach,
     })
 
     -- $ npm i -g typescript-language-server
@@ -168,7 +162,6 @@ return {
         dependencies = {
             "lukas-reineke/lsp-format.nvim",
             "folke/neodev.nvim",
-            "SmiteshP/nvim-navbuddy",
             { "williamboman/mason-lspconfig.nvim", opts = {} },
         },
     },
@@ -184,10 +177,6 @@ return {
                 virtual_lines = { only_current_line = true },
             })
         end,
-    },
-    {
-        "SmiteshP/nvim-navbuddy",
-        dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
     },
     {
         "glepnir/lspsaga.nvim",
