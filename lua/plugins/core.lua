@@ -21,10 +21,34 @@
 return {
     "tpope/vim-apathy",
     "tpope/vim-characterize",
-    "tpope/vim-dispatch",
     "tpope/vim-eunuch",
     "tpope/vim-repeat",
     "tpope/vim-vinegar",
+    {
+        "tpope/vim-dispatch",
+        init = function()
+            local path = require("plenary.path")
+
+            vim.api.nvim_create_autocmd("BufReadPost", {
+                group = vim.api.nvim_create_augroup("DispatchLoadStartFromFile", {}),
+                callback = function(event)
+                    local target = path:new(vim.fs.dirname(event.file)) / "b:start"
+
+                    -- TODO: Set this for the whole filetree below this.
+
+                    if target:exists() then
+                        target:read(function(data)
+                            vim.b.start = data
+                            vim.notify(
+                                string.format("Loaded standard dispatch function from '%s'", target:make_relative())
+                            )
+                        end)
+                    end
+                end,
+            })
+        end,
+        requires = { "nvim-lua/plenary.nvim" },
+    },
     {
         "folke/which-key.nvim",
         opts = {
