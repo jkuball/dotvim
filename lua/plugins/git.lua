@@ -6,6 +6,7 @@ return {
     "airblade/vim-gitgutter",
     {
         "tveskag/nvim-blame-line",
+        event = "VeryLazy",
         config = function()
             require("which-key").register({
                 g = {

@@ -3,6 +3,7 @@
 return {
     "jkuball/harpoon", -- until https://github.com/ThePrimeagen/harpoon/pull/295 is approved
     branch = "feat/cmd-ui/resend",
+    event = "VeryLazy",
     opts = {
         global_settings = {
             enter_on_sendcmd = true,

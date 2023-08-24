@@ -2,6 +2,7 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         version = "0.1.x",
+        event = "VeryLazy",
         config = function()
             require("telescope").setup({
                 defaults = {
@@ -17,6 +18,7 @@ return {
                     gitmoji = {
                         action = function(entry)
                             local emoji = entry.value.value
+
                             -- Copy emoji to the unnamed register
                             vim.fn.setreg('"', emoji)
 

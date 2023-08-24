@@ -1,7 +1,4 @@
 return {
-    "tpope/vim-unimpaired",
-    "tpope/vim-rsi",
-    "tpope/vim-speeddating",
     "godlygeek/tabular",
     {
         "hrsh7th/nvim-cmp",
@@ -57,13 +54,5 @@ return {
                 },
             },
         },
-    },
-    {
-        "numToStr/Comment.nvim",
-        opts = {},
-    },
-    {
-        "kylechui/nvim-surround",
-        opts = {},
     },
 }

@@ -10,5 +10,12 @@ return {
             vim.api.nvim_call_function("mkdp#util#install", {})
         end,
         ft = "markdown",
+        keys = {
+            {
+                "<leader>mp",
+                "<cmd>:MarkdownPreviewToggle<cr>",
+                desc = "Toggle Markdown Preview (in Browser)",
+            },
+        },
     },
 }

@@ -24,9 +24,20 @@ return {
     "tpope/vim-eunuch",
     "tpope/vim-repeat",
     "tpope/vim-vinegar",
+    "tpope/vim-unimpaired",
+    "tpope/vim-rsi",
+    "tpope/vim-speeddating",
+    {
+        "numToStr/Comment.nvim",
+        opts = {},
+    },
+    {
+        "kylechui/nvim-surround",
+        opts = {},
+    },
     {
         "tpope/vim-dispatch",
-        init = function()
+        config = function(_, _)
             local path = require("plenary.path")
 
             vim.api.nvim_create_autocmd("BufReadPost", {
@@ -50,6 +61,7 @@ return {
         requires = { "nvim-lua/plenary.nvim" },
     },
     {
+        event = "VeryLazy",
         "folke/which-key.nvim",
         opts = {
             window = {
@@ -58,6 +70,7 @@ return {
         },
     },
     {
+        event = "VeryLazy",
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
         opts = {},
