@@ -168,7 +168,6 @@ return {
 
                     require("which-key").register({
                         c = {
-                            name = "+code",
                             a = { vim.lsp.buf.code_action, "LSP Code Action" },
                             r = { vim.lsp.buf.rename, "LSP Rename Symbol" },
                         },

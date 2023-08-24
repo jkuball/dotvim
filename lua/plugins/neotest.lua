@@ -20,7 +20,6 @@ return {
             local wk = require("which-key")
 
             wk.register({
-                name = "+test",
                 t = { neotest.run.run, "Run nearest Test" },
                 T = {
                     function()

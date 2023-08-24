@@ -7,13 +7,12 @@ return {
     {
         "tveskag/nvim-blame-line",
         event = "VeryLazy",
-        config = function()
-            require("which-key").register({
-                g = {
-                    name = "+git",
-                    b = { vim.cmd.ToggleBlameLine, "Toggle Blame Line" },
-                },
-            }, { prefix = "<Leader>" })
-        end,
+        keys = {
+            {
+                "<Leader>gb",
+                "<cmd>:ToggleBlameLine<cr>",
+                desc = "Toggle Blame Browser",
+            },
+        },
     },
 }

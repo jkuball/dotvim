@@ -1,5 +1,37 @@
 local wk = require("which-key")
 
+-- Define all global Leader prefix names.
+wk.register({
+    ["c"] = {
+        name = "+code",
+        ["f"] = {
+            name = "+format",
+        },
+    },
+    ["d"] = {
+        name = "+diagnostics",
+    },
+    ["f"] = {
+        name = "+find",
+    },
+    ["g"] = {
+        name = "+git",
+    },
+    ["h"] = {
+        name = "+harpoon",
+    },
+    ["t"] = {
+        name = "+term",
+    },
+}, { prefix = "<Leader>" })
+
+-- Define all global Leader prefix names.
+wk.register({
+    ["t"] = {
+        name = "+test",
+    },
+}, { prefix = "<Localleader>" })
+
 -- Use formatprg
 wk.register({
     ["Q"] = {
@@ -21,7 +53,6 @@ wk.register({
 -- Other diagnostics mappings
 wk.register({
     d = {
-        name = "+diagnostics",
         l = { vim.diagnostic.open_float, "Show Line Diagnostics" },
     },
 }, { prefix = "<Leader>" })

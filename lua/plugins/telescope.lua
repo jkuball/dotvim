@@ -36,7 +36,6 @@ return {
             local wk = require("which-key")
             local builtin = require("telescope.builtin")
             wk.register({
-                name = "+find",
                 ["<C-p>"] = { builtin.builtin, "Finders / Pickers" },
                 f = { builtin.find_files, "Find files" },
                 g = { builtin.live_grep, "Live grep" },

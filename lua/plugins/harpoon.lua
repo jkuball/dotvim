@@ -36,11 +36,8 @@ return {
             }
         end
 
-        local invisible = "which_key_ignore"
-
         wk.register({
             t = {
-                name = "+term",
                 t = { harpoon_cmd_ui.toggle_quick_menu, "Harpoon Cmd-Ui" },
                 ["<CR>"] = { harpoon_cmd_ui.resend, "Send last selected Harpoon Command" },
                 ["#"] = "Go to Harpoon Terminal (1-9)",
@@ -55,7 +52,6 @@ return {
                 ["9"] = _nav_term(9),
             },
             h = {
-                name = "+harpoon",
                 h = { harpoon_ui.toggle_quick_menu, "Toggle Quick Menu" },
                 a = { harpoon_mark.add_file, "Add current file" },
                 n = { harpoon_mark.nav_next, "Go to next file" },
