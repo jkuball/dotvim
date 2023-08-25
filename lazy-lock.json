@@ -8,6 +8,7 @@
   "cmp-snippy": { "branch": "master", "commit": "c4dc31232c510cd32d4708701e6f06746d46df90" },
   "crates.nvim": { "branch": "main", "commit": "d5caf28aba49e81ac4099426231f3cf3c151013a" },
   "doom-one.nvim": { "branch": "main", "commit": "a43528cbd7908ccec7af4587ec8e18be149095bd" },
+  "efmls-configs-nvim": { "branch": "main", "commit": "c89a9a48148d5b5f676d447166f45091f33e347c" },
   "fidget.nvim": { "branch": "main", "commit": "0ba1e16d07627532b6cae915cc992ecac249fb97" },
   "harpoon": { "branch": "feat/cmd-ui/resend", "commit": "43b7b252c39db0f3d0398cc59cb77235d9ccf3b2" },
   "heirline.nvim": { "branch": "master", "commit": "1840fe27dbb38efa13c8af4614acafe6efa41988" },

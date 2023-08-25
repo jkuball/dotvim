@@ -32,7 +32,7 @@ local function load_language_servers(opts)
     -- TODO: Order?
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-    -- $ brew install lua-language-server
+    -- $ :MasonInstall install lua-language-server
     lsp.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
@@ -67,21 +67,21 @@ local function load_language_servers(opts)
         settings = {},
     })
 
-    -- $ brew install pyright
+    -- $ :MasonInstall pyright
     lsp.pyright.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {}, -- venv is set by venv-selector.nvim
     })
 
-    -- $ brew install yaml-language-server
+    -- $ :MasonInstall yaml-language-server
     lsp.yamlls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {},
     })
 
-    -- $ brew install rust-analyzer
+    -- $ :MasonInstall rust-analyzer
     -- NOTE: This only runs diagnostics on-save, since it relies on an external call to 'cargo check/clippy'.
     -- I tried some things to make it more feasible to use, but it seems like this is just something you have to work with.
     -- Auto-Save might be a solution, but a autogroup with vim.cmd.write() didn't trigger a re-run of the ckeck command.
@@ -115,15 +115,42 @@ local function load_language_servers(opts)
         },
     })
 
-    -- $ npm i -g angular-language-server
+    -- $ :MasonInstall angular-language-server
     lsp.angularls.setup({
         on_attach = on_attach,
     })
 
-    -- $ npm i -g typescript-language-server
+    -- $ :MasonInstall typescript-language-server
     lsp.tsserver.setup({
-        on_attach = on_attach,
+        on_attach = function(client, bufnr)
+            -- disable tsservers formatting capabilities
+            client.resolved_capabilities.document_formatting = false
+            on_attach(client, bufnr)
+        end,
     })
+
+    -- $ :MasonInstall efm
+    -- Use all languages that the plugin provides.
+    -- NOTE: The default languages are a little weird, at least the prettier one:
+    -- It enforces my editor's shiftwidth/expandtab onto them,
+    -- even if the project contains an editorconfig or prettirrc that says otherwise.
+    -- TODO: Maybe I want to use Sleuth.vim? That would be the perfect solution, I think.
+    local languages = require("efmls-configs.defaults").languages()
+    local efmls_config = {
+        filetypes = vim.tbl_keys(languages),
+        settings = {
+            rootMarkers = { ".git/" },
+            languages = languages,
+        },
+        init_options = {
+            documentFormatting = true,
+            documentRangeFormatting = true,
+        },
+    }
+    lsp.efm.setup(vim.tbl_extend("force", efmls_config, {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    }))
 end
 
 return {
@@ -137,7 +164,6 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
-        -- TODO: event BufReadPre
         opts = {},
         config = function(_, opts)
             load_language_servers(opts)
@@ -182,6 +208,11 @@ return {
             "lukas-reineke/lsp-format.nvim",
             "folke/neodev.nvim",
             { "williamboman/mason-lspconfig.nvim", opts = {} },
+            {
+                "creativenull/efmls-configs-nvim",
+                tag = "v1.x.x",
+                dependencies = { "neovim/nvim-lspconfig" },
+            },
         },
     },
     {
