@@ -9,9 +9,6 @@
 -- - https://github.com/folke/persistence.nvim
 -- - https://github.com/tpope/vim-obsession
 
--- Maybe get back to using dirvish.
--- - https://github.com/justinmk/vim-dirvish
-
 -- Interesting other plugins I want to look into:
 -- - https://github.com/nvim-pack/nvim-spectre
 -- - https://github.com/RRethy/vim-illuminate
@@ -23,7 +20,6 @@ return {
     "tpope/vim-characterize",
     "tpope/vim-eunuch",
     "tpope/vim-repeat",
-    "tpope/vim-vinegar",
     "tpope/vim-unimpaired",
     "tpope/vim-rsi",
     "tpope/vim-speeddating",
