@@ -1,7 +1,15 @@
+local colorscheme = "catppuccin-frappe"
+
+local function maybe_enable(c)
+    if c == colorscheme then
+        vim.cmd.colorscheme(c)
+    end
+end
+
 return {
     {
         "NTBBloodbath/doom-one.nvim",
-        priority = 9001, -- load the main colorscheme before everything else.
+        priority = 9001, -- load colorschemes before everything else.
         init = function()
             -- These are all configuration options of doom-one,
             -- even if I am setting them to their default.
@@ -12,7 +20,25 @@ return {
             vim.g.doom_one_cursor_coloring = true
             vim.g.doom_one_telescope_highlights = true
 
-            vim.cmd.colorscheme("doom-one")
+            maybe_enable("doom-one")
+        end,
+    },
+    {
+        "andreasvc/vim-256noir",
+        priority = 9001, -- load colorschemes before everything else.
+        init = function()
+            maybe_enable("256_noir")
+        end,
+    },
+    {
+        "catppuccin/nvim",
+        priority = 9001, -- load colorschemes before everything else.
+        init = function()
+            maybe_enable("catppuccin")
+            maybe_enable("catppuccin-latte")
+            maybe_enable("catppuccin-frappe")
+            maybe_enable("catppuccin-macchiato")
+            maybe_enable("catppuccin-mocha")
         end,
     },
     {
