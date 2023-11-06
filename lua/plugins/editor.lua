@@ -34,6 +34,31 @@ return {
                     ghost_text = true,
                 },
             })
+
+            cmp.setup.filetype("gitcommit", {
+                sources = cmp.config.sources({
+                    { name = "git" },
+                }, {
+                    { name = "buffer" },
+                }),
+            })
+
+            cmp.setup.cmdline({ "/", "?" }, {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "buffer" },
+                },
+            })
+
+            -- NOTE: This renders the command line invisible for me, might be a clash with another plugin.
+            -- cmp.setup.cmdline(':', {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = cmp.config.sources({
+            --         { name = 'path' }
+            --     }, {
+            --         { name = 'cmdline' }
+            --     })
+            -- })
         end,
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
@@ -42,6 +67,7 @@ return {
             "hrsh7th/cmp-buffer",
             "dcampos/nvim-snippy",
             "hrsh7th/cmp-nvim-lsp-signature-help",
+            "petertriho/cmp-git",
         },
     },
     {
