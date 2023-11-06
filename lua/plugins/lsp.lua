@@ -69,9 +69,53 @@ local function load_language_servers(opts)
 
     -- $ :MasonInstall pyright
     lsp.pyright.setup({
+        on_attach = function(client, bufnr)
+            -- Set python interpreter path for pyright,
+            -- see https://github.com/microsoft/pyright/discussions/6068.
+            local handle = io.popen("which python")
+            if not handle then
+                return
+            end
+            local output = handle:read("*a"):gsub("[\n\r]", "")
+            handle:close()
+            vim.defer_fn(function()
+                vim.cmd("PyrightSetPythonPath " .. output)
+            end, 1)
+
+            on_attach(client, bufnr)
+        end,
+        capabilities = (function()
+            -- disable 'hints' from pyright, since they interfere with ruff-lsp.
+            -- code from https://www.reddit.com/r/neovim/comments/11k5but/how_to_disable_pyright_diagnostics/
+            local local_capabilities = vim.lsp.protocol.make_client_capabilities()
+            local_capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
+            return vim.tbl_deep_extend("force", local_capabilities, capabilities)
+        end)(),
+        settings = {
+            pyright = {
+                autoImportCompletions = true,
+            },
+            python = {
+                analysis = {
+                    typeCheckingMode = "basic", -- "strict" is a little too strict. But sometimes interesting to see, can I implement some kind of toggle?
+                },
+            },
+        },
+    })
+
+    -- $ :MasonInstall ruff-lsp
+    lsp.ruff_lsp.setup({
         on_attach = on_attach,
         capabilities = capabilities,
-        settings = {}, -- venv is set by venv-selector.nvim
+        init_options = {
+            settings = {
+                args = {
+                    -- (Comma separated list)
+                    -- E501: line length
+                    "--ignore E501",
+                },
+            },
+        },
     })
 
     -- $ :MasonInstall yaml-language-server
