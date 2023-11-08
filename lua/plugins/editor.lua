@@ -3,9 +3,20 @@ return {
     {
         "hrsh7th/nvim-cmp",
         config = function()
+            local lspkind = require("lspkind")
             local cmp = require("cmp")
 
             cmp.setup({
+                formatting = {
+                    format = lspkind.cmp_format({
+                        mode = "symbol_text",
+                        maxwidth = 50,
+                        ellipsis_char = "...",
+                        symbol_map = {
+                            Copilot = "",
+                        },
+                    }),
+                },
                 snippet = {
                     expand = function(args)
                         require("snippy").expand_snippet(args.body)
@@ -23,15 +34,33 @@ return {
                     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
                 sources = cmp.config.sources({
+                    { name = "copilot" },
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
                     { name = "snippy" },
                     { name = "path" },
-                }, {
                     { name = "buffer" },
                 }),
                 experimental = {
                     ghost_text = true,
+                },
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        require("copilot_cmp.comparators").prioritize,
+
+                        -- Below is the default comparitor list and order for nvim-cmp
+                        cmp.config.compare.offset,
+                        -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+                        cmp.config.compare.exact,
+                        cmp.config.compare.score,
+                        cmp.config.compare.recently_used,
+                        cmp.config.compare.locality,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
                 },
             })
 
@@ -49,16 +78,6 @@ return {
                     { name = "buffer" },
                 },
             })
-
-            -- NOTE: This renders the command line invisible for me, might be a clash with another plugin.
-            -- cmp.setup.cmdline(':', {
-            --     mapping = cmp.mapping.preset.cmdline(),
-            --     sources = cmp.config.sources({
-            --         { name = 'path' }
-            --     }, {
-            --         { name = 'cmdline' }
-            --     })
-            -- })
         end,
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
@@ -68,6 +87,9 @@ return {
             "dcampos/nvim-snippy",
             "hrsh7th/cmp-nvim-lsp-signature-help",
             "petertriho/cmp-git",
+            "onsails/lspkind.nvim",
+            "zbirenbaum/copilot.lua",
+            "zbirenbaum/copilot-cmp",
         },
     },
     {
@@ -80,5 +102,25 @@ return {
                 },
             },
         },
+    },
+    {
+        "zbirenbaum/copilot.lua",
+        -- cmd = "Copilot",
+        -- event = "InsertEnter",
+        opts = {
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+        },
+        config = function(_, opts)
+            require("copilot").setup(opts)
+        end,
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        opts = {},
+        config = function(_, opts)
+            require("copilot_cmp").setup(opts)
+        end,
     },
 }
