@@ -176,12 +176,14 @@ local function load_language_servers(opts)
     })
 
     -- $ :MasonInstall efm
-    -- Use all languages that the plugin provides.
-    -- NOTE: The default languages are a little weird, at least the prettier one:
-    -- It enforces my editor's shiftwidth/expandtab onto them,
-    -- even if the project contains an editorconfig or prettirrc that says otherwise.
-    -- TODO: Maybe I want to use Sleuth.vim? That would be the perfect solution, I think.
-    local languages = require("efmls-configs.defaults").languages()
+    -- See online documentation for preconfigured linters / formatters and pick what you like:
+    -- - https://github.com/creativenull/efmls-configs-nvim/blob/main/doc/SUPPORTED_LIST.md
+    local languages = {
+        python = {
+            require("efmls-configs.formatters.black"),
+            require("efmls-configs.formatters.isort"),
+        },
+    }
     local efmls_config = {
         filetypes = vim.tbl_keys(languages),
         settings = {
