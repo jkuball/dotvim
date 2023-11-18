@@ -258,7 +258,7 @@ return {
             { "williamboman/mason-lspconfig.nvim", opts = {} },
             {
                 "creativenull/efmls-configs-nvim",
-                tag = "v1.x.x",
+                version = "v1.x.x",
                 dependencies = { "neovim/nvim-lspconfig" },
             },
         },
