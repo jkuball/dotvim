@@ -109,6 +109,8 @@ local function load_language_servers(opts)
         capabilities = capabilities,
         init_options = {
             settings = {
+                organizeImports = false,
+                fixAll = false,
                 args = {
                     -- (Comma separated list)
                     -- E501: line length
