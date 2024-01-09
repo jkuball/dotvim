@@ -10,7 +10,7 @@ local function load_language_servers(opts)
         c = {
             i = {
                 function()
-                    vim.lsp.inlay_hint(0, nil)
+                    vim.lsp.inlay_hint.enable(0, nil)
                 end,
                 "Toggle Inlay Type Hints",
             },
@@ -25,7 +25,7 @@ local function load_language_servers(opts)
 
         -- Enable Inlay Hints by default, if supported.
         if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint(bufnr, true)
+            vim.lsp.inlay_hint.enable(bufnr, true)
         end
     end
 
