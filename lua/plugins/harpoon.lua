@@ -1,8 +1,6 @@
--- IDEA: Do I want to include the number of harpooned files in my statusline?
-
 return {
-    "jkuball/harpoon", -- until https://github.com/ThePrimeagen/harpoon/pull/295 is approved
-    branch = "feat/cmd-ui/resend",
+    "ThePrimeagen/harpoon",
+    branch = "master",
     event = "VeryLazy",
     opts = {
         global_settings = {
