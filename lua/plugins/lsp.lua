@@ -85,7 +85,7 @@ local function load_language_servers(opts)
             on_attach(client, bufnr)
         end,
         capabilities = (function()
-            -- disable 'hints' from pyright, since they interfere with ruff-lsp.
+            -- disable 'hints' from pyright, since they interfere with ruff and other linters.
             -- code from https://www.reddit.com/r/neovim/comments/11k5but/how_to_disable_pyright_diagnostics/
             local local_capabilities = vim.lsp.protocol.make_client_capabilities()
             local_capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
@@ -98,23 +98,6 @@ local function load_language_servers(opts)
             python = {
                 analysis = {
                     typeCheckingMode = "basic", -- "strict" is a little too strict. But sometimes interesting to see, can I implement some kind of toggle?
-                },
-            },
-        },
-    })
-
-    -- $ :MasonInstall ruff-lsp
-    lsp.ruff_lsp.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        init_options = {
-            settings = {
-                organizeImports = false,
-                fixAll = false,
-                args = {
-                    -- (Comma separated list)
-                    -- E501: line length
-                    "--ignore E501",
                 },
             },
         },
@@ -175,13 +158,17 @@ local function load_language_servers(opts)
         end,
     })
 
+    -- $ MasonInstall texlab
+    lsp.texlab.setup({})
+
     -- $ :MasonInstall efm
     -- See online documentation for preconfigured linters / formatters and pick what you like:
     -- - https://github.com/creativenull/efmls-configs-nvim/blob/main/doc/SUPPORTED_LIST.md
     local languages = {
         python = {
-            require("efmls-configs.formatters.black"),
-            require("efmls-configs.formatters.isort"),
+            -- $ :MasonInstall ruff
+            require("efmls-configs.linters.ruff"),
+            require("efmls-configs.formatters.ruff"),
         },
     }
     local efmls_config = {
