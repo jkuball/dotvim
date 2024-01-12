@@ -22,5 +22,10 @@ vim.opt.termguicolors = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- Setting static configuration for Neovide.
+if vim.g.neovide then
+    vim.o.guifont = "FiraCode Nerd Font Mono:h10"
+end
+
 -- Automatically loads all plugins defined in `lua/plugins/*.lua`.
 require("lazy").setup({ { import = "plugins" } }, { change_detection = { notify = false } })
