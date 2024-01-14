@@ -38,7 +38,9 @@ wk.register({
         function()
             local view = vim.fn.winsaveview()
             vim.cmd.normal("gggqG")
-            vim.fn.winrestview(view)
+            if view ~= nil then
+                vim.fn.winrestview(view)
+            end
         end,
         "run formatprg on whole file",
     },

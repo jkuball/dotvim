@@ -23,6 +23,11 @@ local function load_language_servers(opts)
     local on_attach = function(client, bufnr)
         lsp_format.on_attach(client)
 
+        if client.server_capabilities.documentSymbolProvider then
+            local navic = require("nvim-navic")
+            navic.attach(client, bufnr)
+        end
+
         -- Enable Inlay Hints by default, if supported.
         if client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(bufnr, true)
@@ -266,6 +271,85 @@ return {
         end,
     },
     {
+        "SmiteshP/nvim-navic",
+        event = "VeryLazy",
+        opts = {
+            click = true,
+            highlight = true,
+            separator = "  ",
+            icons = {
+                File = " ",
+                Module = " ",
+                Namespace = " ",
+                Package = " ",
+                Class = " ",
+                Method = " ",
+                Property = " ",
+                Field = " ",
+                Constructor = " ",
+                Enum = " ",
+                Interface = " ",
+                Function = " ",
+                Variable = " ",
+                Constant = " ",
+                String = " ",
+                Number = " ",
+                Boolean = " ",
+                Array = " ",
+                Object = " ",
+                Key = " ",
+                Null = " ",
+                EnumMember = " ",
+                Struct = " ",
+                Event = " ",
+                Operator = " ",
+                TypeParameter = " ",
+            },
+        },
+        after = { "nvim-lspconfig" },
+        init = function(opts, _)
+            require("nvim-navic").setup(opts)
+
+            local highlights = {
+                NavicIconsFile = vim.api.nvim_get_hl(0, { name = "@string", link = false }),
+                NavicIconsModule = vim.api.nvim_get_hl(0, { name = "@lsp.type.namespace", link = false }),
+                NavicIconsNamespace = vim.api.nvim_get_hl(0, { name = "@lsp.type.namespace", link = false }),
+                NavicIconsPackage = vim.api.nvim_get_hl(0, { name = "@lsp.type.namespace", link = false }),
+                NavicIconsClass = vim.api.nvim_get_hl(0, { name = "@lsp.type.class", link = false }),
+                NavicIconsMethod = vim.api.nvim_get_hl(0, { name = "@lsp.type.method", link = false }),
+                NavicIconsProperty = vim.api.nvim_get_hl(0, { name = "@lsp.type.property", link = false }),
+                NavicIconsField = vim.api.nvim_get_hl(0, { name = "@field", link = false }),
+                NavicIconsConstructor = vim.api.nvim_get_hl(0, { name = "@constructor", link = false }),
+                NavicIconsEnum = vim.api.nvim_get_hl(0, { name = "@lsp.type.enum", link = false }),
+                NavicIconsInterface = vim.api.nvim_get_hl(0, { name = "@lsp.type.type", link = false }),
+                NavicIconsFunction = vim.api.nvim_get_hl(0, { name = "@lsp.type.function", link = false }),
+                NavicIconsVariable = vim.api.nvim_get_hl(0, { name = "@lsp.type.variable", link = false }),
+                NavicIconsConstant = vim.api.nvim_get_hl(0, { name = "@constant", link = false }),
+                NavicIconsString = vim.api.nvim_get_hl(0, { name = "@string", link = false }),
+                NavicIconsNumber = vim.api.nvim_get_hl(0, { name = "@number", link = false }),
+                NavicIconsBoolean = vim.api.nvim_get_hl(0, { name = "@boolean", link = false }),
+                NavicIconsArray = vim.api.nvim_get_hl(0, { name = "@lsp.type.struct", link = false }),
+                NavicIconsObject = vim.api.nvim_get_hl(0, { name = "@lsp.type.struct", link = false }),
+                NavicIconsKey = vim.api.nvim_get_hl(0, { name = "@text.literal", link = false }),
+                NavicIconsNull = vim.api.nvim_get_hl(0, { name = "@lsp.type.constant", link = false }),
+                NavicIconsEnumMember = vim.api.nvim_get_hl(0, { name = "@lsp.type.enumMember", link = false }),
+                NavicIconsStruct = vim.api.nvim_get_hl(0, { name = "@lsp.type.struct", link = false }),
+                NavicIconsEvent = vim.api.nvim_get_hl(0, { name = "@constant.builtin", link = false }),
+                NavicIconsOperator = vim.api.nvim_get_hl(0, { name = "@operator", link = false }),
+                NavicIconsTypeParameter = vim.api.nvim_get_hl(0, { name = "@lsp.type.typeParameter", link = false }),
+                NavicText = vim.api.nvim_get_hl(0, { name = "@text.reference", link = false }),
+                NavicSeparator = vim.api.nvim_get_hl(0, { name = "@comment", link = false }),
+            }
+
+            local bg = vim.api.nvim_get_hl(0, { name = "StatusLine" }).bg
+
+            for group, style in pairs(highlights) do
+                vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", style, { bg = bg }))
+            end
+        end,
+    },
+    {
+        -- TODO: get rid of this (but I like the goto animation..)
         "glepnir/lspsaga.nvim",
         branch = "main",
         opts = {
@@ -273,11 +357,14 @@ return {
                 sign = false,
                 virtual_text = true,
             },
+            symbol_in_winbar = {
+                enable = false, -- using nvim-navic instead
+            },
         },
         init = function()
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspsagaConfig", {}),
-                callback = function(event)
+                callback = function(_)
                     require("which-key").register({
                         d = { "<cmd>Lspsaga goto_definition<cr>", "Go To Definition" },
                         D = { "<cmd>Lspsaga goto_type_definition<cr>", "Go To Type Definition" },

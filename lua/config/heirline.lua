@@ -10,6 +10,8 @@ local Module = {}
 
 -- NOTE: An idea would be to make a "🔴 REC" component if a recording is going on.
 -- See :h reg_recording().
+-- TODO: Look into:
+-- - https://github.com/ecthelionvi/NeoComposer.nvim
 
 function Module.setup()
     local conditions = require("heirline.conditions")
@@ -41,14 +43,16 @@ function Module.setup()
         Module.FileNameBlock(conditions, utils),
     }
 
+    local highlightIfActive = function()
+        if conditions.is_active() then
+            return "StatusLine"
+        else
+            return "StatusLineNC"
+        end
+    end
+
     local StatusLines = {
-        hl = function()
-            if conditions.is_active() then
-                return "StatusLine"
-            else
-                return "StatusLineNC"
-            end
-        end,
+        hl = highlightIfActive,
         -- the first statusline with no condition, or which condition returns true is used.
         -- think of it as a switch case with breaks to stop fallthrough.
         fallthrough = false,
@@ -56,12 +60,71 @@ function Module.setup()
         DefaultStatusLine,
     }
 
+    local DefaultWinBar = {
+        Module.NavicBlock(conditions, utils),
+    }
+
+    local InactiveWinBar = {
+        condition = conditions.is_not_active,
+        { provider = "" },
+    }
+
+    local WinBars = {
+        hl = highlightIfActive,
+        fallthrough = false,
+        InactiveWinBar,
+        DefaultWinBar,
+    }
+
+    local disable_winbar_cb = function(args)
+        if args.event == "BufWinEnter" then
+            -- If a client is active, enable the winbar.
+            -- TODO: This is not a perfect solution, because the first time this is called,
+            -- the client is not active yet and thus you have to open the file twice, which is quite meh.
+            -- Maybe there is a way to use `vim.api.nvim_get_autocmds({ group = "lspconfig" })` to check
+            -- if there is a client that *would* attach to the current buffer?
+            local clients = vim.lsp.buf_get_clients()
+            for _, _ in ipairs(clients) do
+                return false
+            end
+        end
+        return true
+    end
+
     require("heirline").setup({
         statusline = StatusLines,
-        -- winbar = {},
+        winbar = WinBars,
         -- tabline = {},
         -- statuscolumn = {},
+        opts = {
+            disable_winbar_cb = disable_winbar_cb,
+        },
     })
+
+    -- -- Disable the global winbar but enable it for windows where a language server is attached.
+    -- vim.opt.winbar = nil
+    -- vim.api.nvim_create_autocmd('LspAttach', {
+    --     group = vim.api.nvim_create_augroup('UserEnableWinbarPerWindow', {}),
+    --     callback = function(event)
+    --         if vim.lsp.get_client_by_id(event.data.client_id).name == 'copilot' then
+    --             return
+    --         end
+    --
+    --         vim.notify('client!')
+    --
+    --         vim.opt_local.winbar = "%{%v:lua.require'heirline'.eval_winbar()%}"
+    --     end,
+    -- })
+end
+
+function Module.NavicBlock(_, _)
+    local navic = require("nvim-navic")
+    return {
+        condition = function()
+            return navic.is_available()
+        end,
+        provider = navic.get_location,
+    }
 end
 
 function Module.GitBlock(_, _)

@@ -1,4 +1,5 @@
--- NOTE: Update to harpoon 2 when it is stable (https://github.com/ThePrimeagen/harpoon).
+-- TODO: Update to harpoon 2 when it is stable (https://github.com/ThePrimeagen/harpoon).
+-- NOTE: Don't forget the heirline HarpoonBlock.
 return {
     "ThePrimeagen/harpoon",
     branch = "master",
