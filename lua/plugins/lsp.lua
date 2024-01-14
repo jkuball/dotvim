@@ -170,6 +170,9 @@ local function load_language_servers(opts)
             require("efmls-configs.linters.ruff"),
             require("efmls-configs.formatters.ruff"),
         },
+        typescript = {
+            require("efmls-configs.linters.eslint"),
+        },
     }
     local efmls_config = {
         filetypes = vim.tbl_keys(languages),
