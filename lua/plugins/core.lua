@@ -32,29 +32,8 @@ return {
         opts = {},
     },
     {
+        event = "VeryLazy",
         "tpope/vim-dispatch",
-        config = function(_, _)
-            local path = require("plenary.path")
-
-            vim.api.nvim_create_autocmd("BufReadPost", {
-                group = vim.api.nvim_create_augroup("DispatchLoadStartFromFile", {}),
-                callback = function(event)
-                    local target = path:new(vim.fs.dirname(event.file)) / "b:start"
-
-                    -- TODO: Set this for the whole filetree below this.
-
-                    if target:exists() then
-                        target:read(function(data)
-                            vim.b.start = data
-                            vim.notify(
-                                string.format("Loaded standard dispatch function from '%s'", target:make_relative())
-                            )
-                        end)
-                    end
-                end,
-            })
-        end,
-        requires = { "nvim-lua/plenary.nvim" },
     },
     {
         event = "VeryLazy",

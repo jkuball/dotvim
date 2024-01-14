@@ -1,3 +1,4 @@
+-- NOTE: Update to harpoon 2 when it is stable (https://github.com/ThePrimeagen/harpoon).
 return {
     "ThePrimeagen/harpoon",
     branch = "master",
@@ -37,7 +38,6 @@ return {
         wk.register({
             t = {
                 t = { harpoon_cmd_ui.toggle_quick_menu, "Harpoon Cmd-Ui" },
-                ["<CR>"] = { harpoon_cmd_ui.resend, "Send last selected Harpoon Command" },
                 ["#"] = "Go to Harpoon Terminal (1-9)",
                 ["1"] = _nav_term(1),
                 ["2"] = _nav_term(2),

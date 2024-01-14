@@ -194,7 +194,6 @@ end
 return {
     {
         "j-hui/fidget.nvim",
-        tag = "legacy",
         opts = {},
     },
     {
@@ -296,7 +295,6 @@ return {
     },
     {
         "lewis6991/hover.nvim",
-        commit = "24369e8595736077e30b3ca5fc233f44abeccb8b", -- NOTE: Can go back to main after this is solved: https://github.com/lewis6991/hover.nvim/issues/45
         init = function()
             -- Setup keymaps
             vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
