@@ -24,7 +24,20 @@ vim.g.maplocalleader = ","
 
 -- Setting static configuration for Neovide.
 if vim.g.neovide then
-    vim.o.guifont = "FiraCode Nerd Font Mono:h10"
+    vim.o.guifont = "FiraCode Nerd Font Mono:h14"
+
+    vim.g.neovide_scale_factor = 1.0
+    local change_scale_factor = function(delta)
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+        vim.cmd("redraw!")
+    end
+    -- NOTE: D-+ is not mappable, but D-= feels well enough since it is on the same key a as the +.
+    vim.keymap.set("n", "<D-=>", function()
+        change_scale_factor(1.25)
+    end)
+    vim.keymap.set("n", "<D-->", function()
+        change_scale_factor(1 / 1.25)
+    end)
 end
 
 -- Automatically loads all plugins defined in `lua/plugins/*.lua`.
