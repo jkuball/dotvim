@@ -1,0 +1,50 @@
+plugins:
+- NeoComposer.nvim
+- aerial.nvim
+- copilot.lua
+- crates.nvim
+- eagle.nvim
+- ferris.nvim
+- fugitive
+- git-conflict.nvim
+- harpoon
+- heirline.nvim
+- high-str.nvim
+- lsp-format.nvim / some autocommands
+- lsp-timeout
+- lspkind.nvim
+- markdown-preview
+- mdeval.nvim
+- mini.nvim
+- neotest / neotest-python
+- none-ls.nvim / efmls
+- nvim-blame-line
+- nvim-cmp
+- nvim-lightbulb
+- nvim-lspimport
+- nvim-navbuddy
+- nvim-navic
+- nvim-spectre
+- nvim-treesitter
+- obsidian.nvim
+- octo.nvim
+- otter.nvim
+- persistence.nvim / vim-obsession
+- pkl-neovim.git
+- tabular
+- telescope gitmojis
+- todo-comments.nvim
+- trouble
+- venv-selector.nvim
+- vim-apathy
+- vim-characterize
+- vim-dispatch
+- vim-eunuch
+- vim-gitgutter / gitsigns.nvim
+- vim-illuminate
+- vim-repeat
+- vim-rsi
+- & a bunch of lsps
+
+bugs:
+- fix gx
