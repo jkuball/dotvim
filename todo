@@ -36,7 +36,6 @@ plugins to maybe add:
 - nvim-various-textobjs / nvim-treesitter-textobjects
 - obsidian.nvim
 - octo.nvim
-- open.nvim
 - otter.nvim
 - persistence.nvim / vim-obsession
 - pkl-neovim.git
@@ -58,3 +57,4 @@ plugins to maybe add:
 other things:
 - fix gx
 - undo persistence over nvim instances
+- sort mapping / motion
