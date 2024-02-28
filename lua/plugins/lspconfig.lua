@@ -1,4 +1,5 @@
 -- @type LazyPluginSpec[]
+--
 local specs = {{
 	-- specific language servers reside in their own file each,
 	-- this file is just to setup everything that is needed by every lsp.
@@ -8,45 +9,39 @@ local specs = {{
 {
 	"https://github.com/neovim/nvim-lspconfig",
 	branch = "master",
-	cmd = {"LspInfo", "LspLog", "LspStart", "LspRestart", "LspStop"},
+	cmd = { "LspInfo", "LspLog", "LspStart", "LspRestart", "LspStop" },
 	keys = {
 		{ "<Leader>e", vim.diagnostic.open_float, desc = "Show Line Diagnostics" },
-		{ "]e", vim.diagnostic.goto_next, desc = "Go To Next Diagnostic" },
-		{ "[e", vim.diagnostic.goto_prev, desc = "Go To Previous Diagnostic" },
+		{ "]e",        vim.diagnostic.goto_next,  desc = "Go To Next Diagnostic" },
+		{ "[e",        vim.diagnostic.goto_prev,  desc = "Go To Previous Diagnostic" },
 	},
 	config = function()
 		require("mason").setup({})
 		require("mason-lspconfig").setup({ automatic_installation = true })
 		require("fidget").setup({})
 
-		-- Use LspAttach autocommand to only map the following keys
-		-- after the language server attaches to the current buffer
 		vim.api.nvim_create_autocmd('LspAttach', {
 			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 			callback = function(ev)
-				-- Enable completion triggered by <c-x><c-o>
 				vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-				-- Buffer local mappings.
-				-- See `:help vim.lsp.*` for documentation on any of the below functions
-				local opts = { buffer = ev.buf }
-				vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-				vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-				vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-				vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-				vim.keymap.set('n', '<space>wl', function()
-					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-				end, opts)
-				vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-				vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-				vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-				vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-				vim.keymap.set('n', '<space>Q', function()
-					vim.lsp.buf.format { async = true }
-				end, opts)
+				local telescope_builtin = require("telescope.builtin")
+
+				-- buffer local mappings only available after a lsp client attached
+				-- TODO: Look into vim.lsp.buf.{add,remove,list}_workspace_folder(s). Is this cool?
+				require("which-key").register({
+					["gd"] = { vim.lsp.buf.definition, "Go to Definition [lsp]", buffer = ev.buf },
+					["gD"] = { vim.lsp.buf.declaration, "Go to Declaration [lsp]", buffer = ev.buf },
+					["gT"] = { vim.lsp.buf.type_definition, "Go to Type Definition [lsp]", buffer = ev.buf },
+					["gr"] = { vim.lsp.buf.references, "Go to Reference [lsp]", buffer = ev.buf }, -- for finding better use telescope, <Leader>fr
+					["K"] = { vim.lsp.buf.hover, "Show Hover Info [lsp]", buffer = ev.buf },
+					["<c-k>"] = { vim.lsp.buf.signature_help, "Show Signature Help [lsp]", buffer = ev.buf },
+					["<Leader>ca"] = { vim.lsp.buf.code_action, "Run Code Action [lsp]", mode = { "n", "v" }, buffer = ev.buf },
+					["<Leader>cr"] = { vim.lsp.buf.rename, "Rename Symbol [lsp]", buffer = ev.buf },
+					["Q"] = { function() vim.lsp.buf.format({async = true}) end, "Format File [lsp]", buffer = ev.buf },
+					["<Leader>fs"] = { telescope_builtin.lsp_document_symbols, "Find Document Symbols [lsp]", buffer = ev.buf },
+					["<Leader>fS"] = { telescope_builtin.lsp_workspace_symbols, "Find Workspace Symbols [lsp]", buffer = ev.buf },
+				})
 			end,
 		})
 	end,

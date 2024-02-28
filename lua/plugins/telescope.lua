@@ -2,7 +2,7 @@
 --- @see nvim-help :h telescope.setup()
 
 --- @type LazyPluginSpec[]
-local specs = { {
+local specs = {{
 	"https://github.com/nvim-telescope/telescope.nvim",
 	version = "^0.1.5",
 	--- @type TelescopeConfig
@@ -64,6 +64,6 @@ local specs = { {
 			]],
 		}
 	}
-} }
+}}
 
 return specs
