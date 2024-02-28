@@ -1,5 +1,4 @@
--- @type LazyPluginSpec[]
---
+--- @type LazyPluginSpec[]
 local specs = {{
 	-- specific language servers reside in their own file each,
 	-- this file is just to setup everything that is needed by every lsp.
@@ -16,8 +15,7 @@ local specs = {{
 		{ "[e",        vim.diagnostic.goto_prev,  desc = "Go To Previous Diagnostic" },
 	},
 	config = function()
-		require("mason").setup({})
-		require("mason-lspconfig").setup({ automatic_installation = true })
+		require("mason").setup({ automatic_installation = true })
 		require("fidget").setup({})
 
 		vim.api.nvim_create_autocmd('LspAttach', {

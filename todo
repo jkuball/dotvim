@@ -3,6 +3,7 @@ plugins to maybe add:
 - aerial.nvim
 - agrolens.nvim
 - bookmarks.nvim
+- buffer_manager.nvim
 - copilot.lua
 - crates.nvim
 - diaglist.nvim
@@ -10,7 +11,6 @@ plugins to maybe add:
 - ferris.nvim
 - fugitive
 - git-conflict.nvim
-- harpoon
 - heirline.nvim
 - high-str.nvim
 - hlargs.nvim
@@ -26,13 +26,13 @@ plugins to maybe add:
 - none-ls.nvim / efmls
 - nvim-blame-line
 - nvim-cmp
+- nvim-dap / nvim-python-dap
 - nvim-lightbulb
 - nvim-lspimport
 - nvim-navbuddy
 - nvim-navic
 - nvim-rulebook
 - nvim-spectre
-- nvim-treesitter
 - nvim-various-textobjs / nvim-treesitter-textobjects
 - obsidian.nvim
 - octo.nvim
@@ -42,7 +42,6 @@ plugins to maybe add:
 - tabular
 - todo-comments.nvim
 - trouble
-- venv-selector.nvim
 - vim-apathy
 - vim-characterize
 - vim-dispatch
@@ -53,7 +52,6 @@ plugins to maybe add:
 - vim-rsi
 - vim-sort-motion
 - workspace-diagnostics.nvim
-- buffer_manager.nvim
 - & a bunch of lsps
 
 todos for heirline:
@@ -61,6 +59,7 @@ todos for heirline:
 - harpoon
 - neocomposer
 - trouble ?
+- when venv-selector.nvim selects one, show it
 
 other things:
 - fix gx
