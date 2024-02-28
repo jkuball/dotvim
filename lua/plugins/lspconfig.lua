@@ -30,17 +30,19 @@ local specs = {{
 				-- buffer local mappings only available after a lsp client attached
 				-- TODO: Look into vim.lsp.buf.{add,remove,list}_workspace_folder(s). Is this cool?
 				require("which-key").register({
-					["gd"] = { vim.lsp.buf.definition, "Go to Definition [lsp]", buffer = ev.buf },
-					["gD"] = { vim.lsp.buf.declaration, "Go to Declaration [lsp]", buffer = ev.buf },
-					["gT"] = { vim.lsp.buf.type_definition, "Go to Type Definition [lsp]", buffer = ev.buf },
-					["gr"] = { vim.lsp.buf.references, "Go to Reference [lsp]", buffer = ev.buf }, -- for finding better use telescope, <Leader>fr
-					["K"] = { vim.lsp.buf.hover, "Show Hover Info [lsp]", buffer = ev.buf },
-					["<c-k>"] = { vim.lsp.buf.signature_help, "Show Signature Help [lsp]", buffer = ev.buf },
 					["<Leader>ca"] = { vim.lsp.buf.code_action, "Run Code Action [lsp]", mode = { "n", "v" }, buffer = ev.buf },
 					["<Leader>cr"] = { vim.lsp.buf.rename, "Rename Symbol [lsp]", buffer = ev.buf },
-					["Q"] = { function() vim.lsp.buf.format({async = true}) end, "Format File [lsp]", buffer = ev.buf },
-					["<Leader>fs"] = { telescope_builtin.lsp_document_symbols, "Find Document Symbols [lsp]", buffer = ev.buf },
 					["<Leader>fS"] = { telescope_builtin.lsp_workspace_symbols, "Find Workspace Symbols [lsp]", buffer = ev.buf },
+					["<Leader>fs"] = { telescope_builtin.lsp_document_symbols, "Find Document Symbols [lsp]", buffer = ev.buf },
+					["<c-k>"] = { vim.lsp.buf.signature_help, "Show Signature Help [lsp]", buffer = ev.buf },
+					["<f2>"] = { vim.lsp.buf.rename, "Rename Symbol [lsp]", buffer = ev.buf },
+					["K"] = { vim.lsp.buf.hover, "Show Hover Info [lsp]", buffer = ev.buf },
+					["Q"] = { function() vim.lsp.buf.format({async = true}) end, "Format File [lsp]", buffer = ev.buf },
+					["gD"] = { vim.lsp.buf.declaration, "Go to Declaration [lsp]", buffer = ev.buf },
+					["gI"] = { telescope_builtin.lsp_implementations, "Go to Implementation(s) [lsp]", buffer = ev.buf },
+					["gT"] = { telescope_builtin.lsp_definitions, "Go to Type Definition(s) [lsp]", buffer = ev.buf },
+					["gd"] = { telescope_builtin.lsp_definitions, "Go to Definition(s) [lsp]", buffer = ev.buf },
+					["gr"] = { telescope_builtin.lsp_references, "Go to Reference [lsp]", buffer = ev.buf },
 				})
 			end,
 		})
