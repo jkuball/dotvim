@@ -51,8 +51,16 @@ plugins to maybe add:
 - vim-illuminate
 - vim-repeat
 - vim-rsi
+- vim-sort-motion
 - workspace-diagnostics.nvim
+- buffer_manager.nvim
 - & a bunch of lsps
+
+todos for heirline:
+- nvim-treesitter-context / nvim-navic
+- harpoon
+- neocomposer
+- trouble ?
 
 other things:
 - fix gx
