@@ -65,3 +65,4 @@ other things:
 - fix gx
 - undo persistence over nvim instances
 - sort mapping / motion
+- look at some TODOs in the code

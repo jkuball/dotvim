@@ -27,6 +27,7 @@ local specs = {{
 
 				-- buffer local mappings only available after a lsp client attached
 				-- TODO: Look into vim.lsp.buf.{add,remove,list}_workspace_folder(s). Is this cool?
+				-- TODO: I really can't get it to name the which-key '<Leader>c' prefix '+code'.
 				require("which-key").register({
 					["<Leader>ca"] = { vim.lsp.buf.code_action, "Run Code Action [lsp]", mode = { "n", "v" }, buffer = ev.buf },
 					["<Leader>cr"] = { vim.lsp.buf.rename, "Rename Symbol [lsp]", buffer = ev.buf },

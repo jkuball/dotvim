@@ -1,4 +1,3 @@
-
 --- @type LazyPluginSpec[]
 local specs = {{
 	"https://github.com/ThePrimeagen/harpoon/",

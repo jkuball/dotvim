@@ -1,6 +1,6 @@
 --- @class NeoTreeConfig: table
 --- @see nvim-help
---
+
 --- @type LazyPluginSpec[]
 local specs = {{
 	"https://github.com/nvim-neo-tree/neo-tree.nvim",
