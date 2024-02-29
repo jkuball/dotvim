@@ -57,7 +57,6 @@ todos for heirline:
 - when venv-selector.nvim selects one, show it
 
 other things:
-- fix gx
 - undo persistence over nvim instances
-- sort mapping / motion
+- find a sort mapping / motion
 - look at some TODOs in the code
