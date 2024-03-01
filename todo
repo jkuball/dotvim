@@ -16,15 +16,12 @@ plugins to maybe add:
 - lsp-format.nvim / some autocommands
 - lsp-timeout
 - lsp_lines.nvim
-- lspkind.nvim
 - markdown-preview
 - marks.nvim
 - mdeval.nvim
 - mini.nvim
 - neotest / neotest-python
 - none-ls.nvim / efmls
-- nvim-blame-line
-- nvim-cmp
 - nvim-dap / nvim-python-dap
 - nvim-lightbulb
 - nvim-lspimport
@@ -54,9 +51,13 @@ todos for heirline:
 - harpoon
 - neocomposer
 - trouble ?
-- when venv-selector.nvim selects one, show it
+- when venv-selector.nvim selected one, show it
 
 other things:
 - undo persistence over nvim instances
 - find a sort mapping / motion
 - look at some TODOs in the code
+- look at more cmp sources maybe https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
+- checkhealth which-key
+- set list
+- set splitright splitbelow

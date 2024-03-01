@@ -1,20 +1,22 @@
+--- @type LazyPluginSpec[]
 return {{
 	dir = "lua/plugins/languageservers/pyright",
 	name = "lsp:pyright",
 	ft = "python",
 	config = function()
-		require("lspconfig").pyright.setup {
+		require("lspconfig").pyright.setup({
+			capabilities = require("dotvim.common").get_lsp_capabilities(),
 			settings = {
 				pyright = {
 					autoImportCompletions = true,
 				},
 				python = {
 					analysis = {
-						typeCheckingMode = "basic", -- "strict" is a little too strict. But sometimes interesting to see, can I implement some kind of toggle?
+						typeCheckingMode = "basic", -- "strict" is a little too strict. But sometimes interesting to see, do I want some kind of toggle?
 					},
 				},
 			},
-		}
+		})
 	end,
 }}
 

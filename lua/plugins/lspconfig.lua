@@ -2,7 +2,7 @@
 local specs = {{
 	-- specific language servers reside in their own file each,
 	-- this file is just to setup everything that is needed by every lsp.
-	--- @see readme lua/plugins/languageservers/README.md
+	--- @see readme lua/plugins/languageservers/README.txt
 	import = "plugins.languageservers"
 },
 {
@@ -33,10 +33,11 @@ local specs = {{
 					["<Leader>cr"] = { vim.lsp.buf.rename, "Rename Symbol [lsp]", buffer = ev.buf },
 					["<Leader>fS"] = { telescope_builtin.lsp_workspace_symbols, "Find Workspace Symbols [lsp]", buffer = ev.buf },
 					["<Leader>fs"] = { telescope_builtin.lsp_document_symbols, "Find Document Symbols [lsp]", buffer = ev.buf },
-					["<c-k>"] = { vim.lsp.buf.signature_help, "Show Signature Help [lsp]", buffer = ev.buf },
+					["<c-k>"] = { vim.lsp.buf.signature_help, "Show Signature Help [lsp]", buffer = ev.buf, mode = { "n", "i" } },
 					["<f2>"] = { vim.lsp.buf.rename, "Rename Symbol [lsp]", buffer = ev.buf },
 					["K"] = { vim.lsp.buf.hover, "Show Hover Info [lsp]", buffer = ev.buf },
 					["Q"] = { function() vim.lsp.buf.format({async = true}) end, "Format File [lsp]", buffer = ev.buf },
+					-- TODO: Q for visual selection
 					["gD"] = { vim.lsp.buf.declaration, "Go to Declaration [lsp]", buffer = ev.buf },
 					["gI"] = { telescope_builtin.lsp_implementations, "Go to Implementation(s) [lsp]", buffer = ev.buf },
 					["gT"] = { telescope_builtin.lsp_definitions, "Go to Type Definition(s) [lsp]", buffer = ev.buf },
@@ -46,12 +47,6 @@ local specs = {{
 			end,
 		})
 	end,
-	dependencies = {
-		{
-			"https://github.com/j-hui/fidget.nvim",
-			version = "^1.4.0",
-		},
-	}
 }}
 
 return specs

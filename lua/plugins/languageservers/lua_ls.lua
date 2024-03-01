@@ -1,10 +1,12 @@
+--- @type LazyPluginSpec[]
 return {{
 	dir = "lua/plugins/languageservers/lua_ls",
 	name = "lsp:lua_ls",
 	ft = "lua",
 	config = function()
 		require("neodev").setup({})
-		require("lspconfig").lua_ls.setup {
+		require("lspconfig").lua_ls.setup({
+			capabilities = require("dotvim.common").get_lsp_capabilities(),
 			settings = {
 				Lua = {
 					workspace = {
@@ -15,7 +17,7 @@ return {{
 					}
 				},
 			},
-		}
+		})
 	end,
 	dependencies = {
 		"folke/neodev.nvim",

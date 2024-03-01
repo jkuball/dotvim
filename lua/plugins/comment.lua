@@ -4,8 +4,8 @@ local specs = {{
 	version = "^0.8.0",
 	opts = {},
 	keys = {
-		{ "gc", "Line Comment Motion" },
-		{ "gb", "Block Comment Motion" },
+		{ "gc", "Line Comment Motion", mode = {"n", "v"} },
+		{ "gb", "Block Comment Motion", mode = {"n", "v"} },
 	}
 }}
 
