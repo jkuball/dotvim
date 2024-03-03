@@ -18,6 +18,10 @@ local specs = {{
 						require("telescope.actions").move_selection_previous(
 							bufnr)
 					end,
+					["<c-t>"] = function(bufnr) require("trouble.providers.telescope").open_with_trouble(bufnr) end,
+				},
+				n = {
+					["<c-t>"] = function(bufnr) require("trouble.providers.telescope").open_with_trouble(bufnr) end
 				},
 			},
 		},
@@ -38,17 +42,16 @@ local specs = {{
 	end,
 	cmd = "Telescope",
 	keys = {
-		{ "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
-		{ "<leader>F", "<cmd>Telescope resume<cr>", desc = "Resume last Telescoping" },
-		{ "<leader>f:", "<cmd>Telescope commands<cr>", desc = "'Command Palette'" },
-		{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
-		{ "<leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Find Diagnostics" },
-		{ "<leader>fe", function() require("telescope.builtin").symbols({ sources = { "gitmoji" } }) end, desc = "Find Gitmojis" },
-		{ "<leader>fE", function() require("telescope.builtin").symbols({ sources = { "emoji" } }) end, desc = "Find Emojis 🙂" },
-		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-		{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-		{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find Help Tags" },
-		{ "<leader>ft", "<cmd>Telescope builtin<cr>", desc = "Find builtin telescope pickers" },
+		{ "<Leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
+		{ "<Leader>F", "<cmd>Telescope resume<cr>", desc = "Resume last Telescoping" },
+		{ "<Leader>f:", "<cmd>Telescope commands<cr>", desc = "'Command Palette'" },
+		{ "<Leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+		{ "<Leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Find Diagnostics" },
+		{ "<Leader>fe", function() require("telescope.builtin").symbols({ sources = { "gitmoji" } }) end, desc = "Find Gitmojis" },
+		{ "<Leader>fE", function() require("telescope.builtin").symbols({ sources = { "emoji" } }) end, desc = "Find Emojis 🙂" },
+		{ "<Leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+		{ "<Leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+		{ "<Leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find Help Tags" },
 		{ "g#", "<cmd>Telescope grep_string<cr>", desc = "Telescope Grep for WORD" },
 		{ "g*", "<cmd>Telescope grep_string<cr>", desc = "Telescope Grep for WORD" },
 	},

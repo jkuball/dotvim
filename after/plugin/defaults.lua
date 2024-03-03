@@ -4,4 +4,5 @@ local wk = require("which-key")
 wk.register({
 	f = { name = "+find" },
 	h = { name = "+harpoon" },
+	x = { name = "+trouble" },
 }, { prefix = "<Leader>" })

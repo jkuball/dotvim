@@ -18,7 +18,22 @@ local specs = {{
 			function()
 				require("harpoon"):list():append()
 			end,
-			desc = "Toggle Harpoon UI"
+			desc = "Add file to Harpoon"
+		},
+		{
+			"<Leader>hc",
+			function()
+				require("harpoon"):list():clear()
+			end,
+			desc = "Clear harpoon"
+		},
+		{
+			"<Leader>hA",
+			function()
+				require("harpoon"):list():clear()
+				require("harpoon"):list():append()
+			end,
+			desc = "Clear harpoon and add file"
 		},
 		{
 			"]h",

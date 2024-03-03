@@ -36,8 +36,6 @@ plugins to maybe add:
 - persistence.nvim / vim-obsession
 - pkl-neovim.git
 - tabular
-- todo-comments.nvim
-- trouble
 - vim-characterize
 - vim-dispatch
 - vim-illuminate

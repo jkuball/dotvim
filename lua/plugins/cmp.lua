@@ -75,6 +75,7 @@ local specs = {{
 				['<c-c>'] = cmp.mapping.abort(),
 				['<c-u>'] = cmp.mapping.scroll_docs(-vim.wo.scroll),
 				['<c-d>'] = cmp.mapping.scroll_docs(vim.wo.scroll),
+				['<c-Space>'] = cmp.mapping.complete(),
 			},
 			sources = cmp.config.sources(vim.deepcopy(default_sources)),
 			experimental = {

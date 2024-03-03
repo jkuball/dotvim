@@ -17,12 +17,14 @@ local specs = {{
 	config = function()
 		require("mason").setup({ automatic_installation = true })
 		require("fidget").setup({})
-
+	end,
+	init = function()
 		vim.api.nvim_create_autocmd('LspAttach', {
 			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 			callback = function(ev)
 				vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
+				require("lspconfig") -- force to load if not already done
 				local telescope_builtin = require("telescope.builtin")
 
 				-- buffer local mappings only available after a lsp client attached

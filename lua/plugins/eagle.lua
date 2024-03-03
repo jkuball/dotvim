@@ -1,5 +1,6 @@
 -- TODO: When starting nvim and not touching the mouse or keyboard the hover starts initially once. I don't like that.
 -- TODO: Does not work in neovide.
+-- TODO: Maybe just make this ultralazy and only load it when I need it (":Eagle"?).
 
 --- @type LazyPluginSpec[]
 local specs = {{
