@@ -5,7 +5,7 @@
 local specs = {{
 	"https://github.com/nvim-treesitter/nvim-treesitter",
 	version = "^0.9.2",
-	lazy = false,
+	event = "UIEnter",
 	build = function()
 		vim.cmd.TSUpdate()
 
@@ -23,7 +23,15 @@ local specs = {{
 		highlight = {
 			enable = true,
 		},
+		indent = {
+			enable = true,
+		},
 	},
+	--- @param opts TreeSitterConfig?
+	config = function (_, opts)
+		-- NOTE: This config is needed, it seems like lazy's module setup detection does not really work here.
+		require("nvim-treesitter.configs").setup(opts or {})
+	end
 }}
 
 return specs

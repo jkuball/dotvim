@@ -17,7 +17,6 @@ plugins to look into:
 - flatten.nvim
 - fold-cycle.nvim
 - git-conflict.nvim
-- heirline.nvim
 - high-str.nvim
 - hlargs.nvim
 - kitty-runner
