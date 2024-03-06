@@ -89,7 +89,7 @@ todos for heirline:
 - nvim-treesitter-context / nvim-navic
 - harpoon
 - neocomposer
-- trouble ?
+- diagnostics?
 - when venv-selector.nvim selected one, show it
 
 other things:

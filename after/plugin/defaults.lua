@@ -6,3 +6,7 @@ wk.register({
 	h = { name = "+harpoon" },
 	x = { name = "+trouble" },
 }, { prefix = "<Leader>" })
+
+-- natural openings
+vim.o.splitright = true
+vim.o.splitbelow = true
