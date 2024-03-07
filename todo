@@ -38,7 +38,6 @@ plugins to look into:
 - neomux
 - neoproj
 - neotest / neotest-python
-- nerdy.nvim
 - none-ls.nvim / efmls
 - numb.nvim
 - nvim-colorizer.lua

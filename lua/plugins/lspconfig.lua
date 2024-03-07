@@ -21,18 +21,24 @@ local specs = {
 		end,
 		init = function()
 			vim.api.nvim_create_autocmd('LspAttach', {
-				group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 				callback = function(ev)
-					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+					local client_id = ev.data.client_id
+					local client = assert(vim.lsp.get_client_by_id(client_id))
+
+					if client.server_capabilities.completionProvider then
+						vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+					end
+
+					if client.server_capabilities.definitionProvider then
+						vim.bo[ev.buf].tagfunc = "v:lua.vim.lsp.tagfunc"
+					end
 
 					-- enable inlay hints if the client supports it
-					-- TODO: make it toggleable
-					local client_id = ev.data.client_id
-					local client = vim.lsp.get_client_by_id(client_id)
-					if client ~= nil and client.supports_method("textDocument/inlayHint") then
-						-- only enable on nightly vim right now
+					-- TODO: make it toggleable via key
+					if client ~= nil and client.server_capabilities.inlayHintProvider then
+						-- only available on nightly vim right now
 						if vim.lsp.inlay_hint then
-							vim.lsp.inlay_hint.enable(ev.buf)
+							vim.lsp.inlay_hint.enable(ev.buf, true)
 						end
 					end
 

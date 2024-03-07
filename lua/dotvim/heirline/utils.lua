@@ -20,11 +20,13 @@ function M.spacing(len)
 end
 
 --- @param statusline table
---- @param len number
-function M.spaced(statusline, len)
+--- @param before number
+--- @param after number
+function M.spaced(statusline, before, after)
 	return utils.insert(
+		M.spacing(before),
 		statusline,
-		{ provider = string.rep(" ", len) }
+		M.spacing(after)
 	)
 end
 

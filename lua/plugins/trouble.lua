@@ -20,7 +20,6 @@ local specs = {{
 	},
 	init = function()
 		vim.api.nvim_create_autocmd('LspAttach', {
-			group = vim.api.nvim_create_augroup('UserLspTroubleConfig', {}),
 			callback = function(ev)
 				-- buffer local mappings only available after a lsp client attached
 				require("which-key").register({
@@ -33,7 +32,6 @@ local specs = {{
 
 		vim.api.nvim_create_autocmd('Filetype', {
 			pattern = "Trouble",
-			group = vim.api.nvim_create_augroup('UserTroubleConfig', {}),
 			callback = function(ev)
 				-- buffer local mappings only available in a trouble buffer
 				require("which-key").register({
