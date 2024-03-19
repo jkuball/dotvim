@@ -1,57 +1,38 @@
-return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = function()
-            require("nvim-treesitter.install").update({ with_sync = false })()
-        end,
-        opts = {
-            -- A list of parser names, or "all"
-            ensure_installed = "all",
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = true,
-            -- List of parsers to ignore installing (for "all")
-            ignore_install = {},
-            -- Use Treesitter for syntax highlighting
-            highlight = {
-                enable = true,
+--- @class TreeSitterConfig: table
+--- @see type TSConfig (not usable here because it is not partial)
 
-                -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-                -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-                -- the name of the parser)
-                -- list of language that will be disabled
-                disable = {},
+--- @type LazyPluginSpec[]
+local specs = {{
+	"https://github.com/nvim-treesitter/nvim-treesitter",
+	version = "^0.9.2",
+	event = "UIEnter",
+	build = function()
+		vim.cmd.TSUpdate()
 
-                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-                -- Using this option may slow down your editor, and you may see some duplicate highlights.
-                -- Instead of true it can also be a list of languages
-                additional_vim_regex_highlighting = false,
-            },
-            -- Use Treesitter for visual selections
-            incremental_selection = {
-                enable = true,
-                -- TODO: Maybe change the mappings.
-                -- I love the feature, but there are way to many keystrokes.
-                keymaps = {
-                    init_selection = "gnn",
-                    node_incremental = "grn",
-                    scope_incremental = "grc",
-                    node_decremental = "grm",
-                },
-            },
-        },
-        config = function(_, opts)
-            require("nvim-treesitter.configs").setup(opts)
+		-- NOTE: This is my "fix" for the slow startup time when I am using 'ensure_installed'.
+		-- A slight caveat is that this reinstalls the parsers everytime lazy builds this plugin.
+		-- Sadly, treesitter doesn't expose the is_installed or install functions, so no chance to make it better, I think.
+		vim.cmd.TSInstall({"c", "lua", "vim", "vimdoc", "query", bang = true})
+	end,
+	--- @type TreeSitterConfig
+	opts = {
+		additional_vim_regex_highlighting = false,
+		auto_install = true, -- when opening a new filetype, load & activate the parser
+		ensure_installed = {}, -- using this introduces noticeable lag on my work machine, maybe it's because of the antivirus, maybe not
+		sync_install = false,
+		highlight = {
+			enable = true,
+		},
+		indent = {
+			enable = true,
+		},
+	},
+	--- @param opts TreeSitterConfig?
+	config = function (_, opts)
+		-- NOTE: This config is needed, it seems like lazy's module setup detection does not really work here.
+		require("nvim-treesitter.configs").setup(opts or {})
+	end
+}}
 
-            -- Use Treesitter for folding
-            -- NOTE: The documentation states this is experimental.
-            -- If something breaks, `zx` (update folds) should help.
-            vim.o.foldmethod = "expr"
-            vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-            vim.o.foldenable = false
-        end,
-    },
-}
+return specs
+

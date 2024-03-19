@@ -1,0 +1,103 @@
+plugins to look into:
+- NeoComposer.nvim
+- NeoWell.lua
+- abbreinder.nvim
+- aerial.nvim
+- agrolens.nvim
+- attempt.nvim
+- bookmarks.nvim
+- buffer_manager.nvim
+- chartoggle.nvim
+- codewindow.nvim
+- crates.nvim
+- dap-utils.nvim
+- dashboard-nvim
+- diaglist.nvim
+- ferris.nvim
+- flatten.nvim
+- fold-cycle.nvim
+- git-conflict.nvim
+- high-str.nvim
+- hlargs.nvim
+- kitty-runner
+- kitty-scrollback
+- lazygit.nvim
+- lsp-format.nvim / some autocommands ?
+- lsp-timeout
+- lsp_lines.nvim
+- markdown-preview
+- marks.nvim
+- mdeval.nvim
+- mini.animate
+- mini.bracketed
+- mini.hipatterns
+- mini.pairs
+- mini.starter
+- mini.visits
+- nekifoch
+- neomux
+- neoproj
+- neotest / neotest-python
+- none-ls.nvim / efmls
+- numb.nvim
+- nvim-colorizer.lua
+- nvim-dap / nvim-python-dap
+- nvim-dap-ui
+- nvim-dap-virtual-text
+- nvim-lightbulb
+- nvim-lspimport
+- nvim-navbuddy
+- nvim-navic
+- nvim-rulebook
+- nvim-spectre
+- nvim-various-textobjs / nvim-treesitter-textobjects
+- obs.nvim
+- obsidian.nvim
+- octo.nvim
+- other.nvim
+- otter.nvim
+- package-info.nvim
+- persistence.nvim / vim-obsession
+- pkl-neovim.git
+- presence.nvim
+- present.nvim
+- projections.nvim
+- scratch.nvim
+- spaceport.nvim
+- specs.nvim
+- squirrel.nvim
+- startup.nvim
+- tabular
+- telescope-import.nvim
+- telescope-repo.nvim
+- telescope-tabs
+- twilight.nvim
+- usage-tracker.nvim
+- veil.nvim
+- vim-characterize
+- vim-dispatch
+- vim-illuminate
+- vim-repeat
+- vim-sort-motion
+- witch
+- workspace-diagnostics.nvim
+- workspaces.nvim
+- & a bunch of lsps
+
+todos for heirline:
+- nvim-treesitter-context / nvim-navic
+- harpoon
+- neocomposer
+- diagnostics?
+- when venv-selector.nvim selected one, show it
+
+other things:
+- undo persistence over nvim instances
+- find a sort mapping / motion
+- look at some TODOs in the code
+- look at more cmp sources maybe https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
+- checkhealth which-key
+- unimpaired lua implementation? mini.nvim has something like that...
+- look into all mini.nvim modules
+- set list
+- set splitright splitbelow

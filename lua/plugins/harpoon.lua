@@ -1,87 +1,66 @@
--- TODO: Update to harpoon 2 when it is stable (https://github.com/ThePrimeagen/harpoon).
--- NOTE: Don't forget the heirline HarpoonBlock.
-return {
-    "ThePrimeagen/harpoon",
-    branch = "master",
-    event = "VeryLazy",
-    opts = {
-        global_settings = {
-            enter_on_sendcmd = true,
-        },
-    },
-    config = function(_, opts)
-        require("harpoon").setup(opts)
+--- @type LazyPluginSpec[]
+local specs = {{
+	"https://github.com/ThePrimeagen/harpoon/",
+	branch = "harpoon2", -- currently in rewrite, let's test it. NOTE: Terminal support seems to be missing right now, come back to that later.
+	--- @type HarpoonPartialConfig
+	opts = {},
+	keys = {
+		{
+			"<Leader>hh",
+			function()
+				local harpoon = require("harpoon")
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end,
+			desc = "Toggle Harpoon UI"
+		},
+		{
+			"<Leader>ha",
+			function()
+				require("harpoon"):list():append()
+			end,
+			desc = "Add file to Harpoon"
+		},
+		{
+			"<Leader>hc",
+			function()
+				require("harpoon"):list():clear()
+			end,
+			desc = "Clear harpoon"
+		},
+		{
+			"<Leader>hA",
+			function()
+				require("harpoon"):list():clear()
+				require("harpoon"):list():append()
+			end,
+			desc = "Clear harpoon and add file"
+		},
+		{
+			"]h",
+			function()
+				require("harpoon"):list():next({ui_nav_wrap=true})
+			end,
+			desc = "Next Harpooned File (wrapping)"
+		},
+		{
+			"[h",
+			function()
+				require("harpoon"):list():prev({ui_nav_wrap=true})
+			end,
+			desc = "Prev Harpooned File (wrapping)"
+		},
+		{ "<Leader>#", desc = "Go to Harpoon Terminal (1-9)", },
+		{ "<Leader>1", function() require("harpoon"):list():select(1) end, desc = "which_key_ignore" },
+		{ "<Leader>2", function() require("harpoon"):list():select(2) end, desc = "which_key_ignore" },
+		{ "<Leader>3", function() require("harpoon"):list():select(3) end, desc = "which_key_ignore" },
+		{ "<Leader>4", function() require("harpoon"):list():select(4) end, desc = "which_key_ignore" },
+		{ "<Leader>5", function() require("harpoon"):list():select(5) end, desc = "which_key_ignore" },
+		{ "<Leader>6", function() require("harpoon"):list():select(6) end, desc = "which_key_ignore" },
+		{ "<Leader>7", function() require("harpoon"):list():select(7) end, desc = "which_key_ignore" },
+		{ "<Leader>8", function() require("harpoon"):list():select(8) end, desc = "which_key_ignore" },
+		{ "<Leader>9", function() require("harpoon"):list():select(9) end, desc = "which_key_ignore" },
+	},
+	dependencies = { "https://github.com/nvim-lua/plenary.nvim" },
+}}
 
-        local harpoon_ui = require("harpoon.ui")
-        local harpoon_cmd_ui = require("harpoon.cmd-ui")
-        local harpoon_mark = require("harpoon.mark")
-        local harpoon_term = require("harpoon.term")
-        local wk = require("which-key")
-
-        local _nav_file = function(num)
-            return {
-                function()
-                    harpoon_ui.nav_file(num)
-                end,
-                "which_key_ignore",
-            }
-        end
-
-        local _nav_term = function(num)
-            return {
-                function()
-                    harpoon_term.gotoTerminal(num)
-                end,
-                "which_key_ignore",
-            }
-        end
-
-        wk.register({
-            t = {
-                t = { harpoon_cmd_ui.toggle_quick_menu, "Harpoon Cmd-Ui" },
-                ["#"] = "Go to Harpoon Terminal (1-9)",
-                ["1"] = _nav_term(1),
-                ["2"] = _nav_term(2),
-                ["3"] = _nav_term(3),
-                ["4"] = _nav_term(4),
-                ["5"] = _nav_term(5),
-                ["6"] = _nav_term(6),
-                ["7"] = _nav_term(7),
-                ["8"] = _nav_term(8),
-                ["9"] = _nav_term(9),
-            },
-            h = {
-                h = { harpoon_ui.toggle_quick_menu, "Toggle Quick Menu" },
-                a = { harpoon_mark.add_file, "Add current file" },
-                n = { harpoon_mark.nav_next, "Go to next file" },
-                p = { harpoon_mark.nav_prev, "Go to previous file" },
-                ["#"] = "Go to Harpooned File (1-9)",
-                ["1"] = _nav_file(1),
-                ["2"] = _nav_file(2),
-                ["3"] = _nav_file(3),
-                ["4"] = _nav_file(4),
-                ["5"] = _nav_file(5),
-                ["6"] = _nav_file(6),
-                ["7"] = _nav_file(7),
-                ["8"] = _nav_file(8),
-                ["9"] = _nav_file(9),
-            },
-            ["#"] = "Go to Harpooned File (1-9)",
-            ["1"] = _nav_file(1),
-            ["2"] = _nav_file(2),
-            ["3"] = _nav_file(3),
-            ["4"] = _nav_file(4),
-            ["5"] = _nav_file(5),
-            ["6"] = _nav_file(6),
-            ["7"] = _nav_file(7),
-            ["8"] = _nav_file(8),
-            ["9"] = _nav_file(9),
-        }, { prefix = "<Leader>" })
-
-        wk.register({
-            ["[h"] = { harpoon_ui.nav_prev, "Next Harpooned File" },
-            ["]h"] = { harpoon_ui.nav_next, "Previous Harpooned File" },
-        })
-    end,
-    dependencies = { "nvim-lua/plenary.nvim" },
-}
+return specs

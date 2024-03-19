@@ -1,0 +1,6 @@
+- this directory is just an experiment on whether I could use lazy.nvim's plugin discovery to configure language servers.
+	- Let's see how I like that.
+	- I am using this file to document my learnings about it.
+- I found that it is possible to do a "dummy plugin" by giving lazy a `dir` that doesn't exist.
+	- That allow me to specify a specific language server as a lazy spec which can have specific lazy loading triggers
+		- That means, in the best case, that lspconfig isn't loaded until any lsp server feels responsible to say so

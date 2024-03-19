@@ -1,59 +1,73 @@
-return {
-    {
-        "nvim-telescope/telescope.nvim",
-        version = "0.1.x",
-        event = "VeryLazy",
-        config = function()
-            require("telescope").setup({
-                defaults = {
-                    mappings = {
-                        i = {
-                            -- Move around in the matches like I am used to from FZF.
-                            ["<C-j>"] = require("telescope.actions").move_selection_next,
-                            ["<C-k>"] = require("telescope.actions").move_selection_previous,
-                        },
-                    },
-                },
-                extensions = {
-                    gitmoji = {
-                        action = function(entry)
-                            local emoji = entry.value.value
+--- @class TelescopeConfig: table
+--- @see nvim-help :h telescope.setup()
 
-                            -- Copy emoji to the unnamed register
-                            vim.fn.setreg('"', emoji)
+--- @type LazyPluginSpec[]
+local specs = {{
+	"https://github.com/nvim-telescope/telescope.nvim",
+	version = "^0.1.5",
+	--- @type TelescopeConfig
+	opts = {
+		defaults = {
+			mappings = {
+				i = {
+					["<C-j>"] = function(bufnr)
+						require("telescope.actions").move_selection_next(
+							bufnr)
+					end,
+					["<C-k>"] = function(bufnr)
+						require("telescope.actions").move_selection_previous(
+							bufnr)
+					end,
+					["<c-t>"] = function(bufnr) require("trouble.providers.telescope").open_with_trouble(bufnr) end,
+				},
+				n = {
+					["<c-t>"] = function(bufnr) require("trouble.providers.telescope").open_with_trouble(bufnr) end
+				},
+			},
+		},
+		extensions = {
+			--- @see telescope-fzf-native https://github.com/nvim-telescope/telescope-fzf-native.nvim
+			fzf = {
+				fuzzy = true,
+				override_generic_sorter = true,
+				override_file_sorter = true,
+				case_mode = "smart_case",
+			}
+		}
+	},
+	--- @param opts? TelescopeConfig
+	config = function(_, opts)
+		require("telescope").setup(opts or {})
+		require('telescope').load_extension('fzf')
+	end,
+	cmd = "Telescope",
+	keys = {
+		{ "<Leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
+		{ "<Leader>F", "<cmd>Telescope resume<cr>", desc = "Resume last Telescoping" },
+		{ "<Leader>f:", "<cmd>Telescope commands<cr>", desc = "'Command Palette'" },
+		{ "<Leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find Buffers" },
+		{ "<Leader>fd", "<cmd>Telescope diagnostics<cr>", desc = "Find Diagnostics" },
+		{ "<Leader>fe", function() require("telescope.builtin").symbols({ sources = { "gitmoji" } }) end, desc = "Find Gitmojis" },
+		{ "<Leader>fE", function() require("telescope.builtin").symbols({ sources = { "emoji" } }) end, desc = "Find Emojis 🙂" },
+		{ "<Leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+		{ "<Leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+		{ "<Leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find Help Tags" },
+		{ "g#", "<cmd>Telescope grep_string<cr>", desc = "Telescope Grep for WORD" },
+		{ "g*", "<cmd>Telescope grep_string<cr>", desc = "Telescope Grep for WORD" },
+	},
+	dependencies = {
+		{ "https://github.com/nvim-lua/plenary.nvim" },
+		{ "https://github.com/nvim-telescope/telescope-symbols.nvim" },
+		{
+			"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+			branch = "main",
+			build = [[
+				cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
+				cmake --build build --config Release
+				cmake --install build --prefix build
+			]],
+		}
+	}
+}}
 
-                            -- When writing a commit message, just insert the selected emoji in the headline
-                            if vim.fn.expand("%:t") == "COMMIT_EDITMSG" then
-                                vim.cmd.normal("gg0P")
-                            end
-                        end,
-                    },
-                },
-            })
-
-            local gitmoji = require("telescope").load_extension("gitmoji")
-
-            local wk = require("which-key")
-            local builtin = require("telescope.builtin")
-            wk.register({
-                ["<C-p>"] = { builtin.builtin, "Finders / Pickers" },
-                f = { builtin.find_files, "Find files" },
-                g = { builtin.live_grep, "Live grep" },
-                ["*"] = { builtin.grep_string, "Live Grep for <cword>" },
-                t = { builtin.treesitter, "Treesitter node" },
-                c = { builtin.commands, "Vim command" },
-                ["/"] = { builtin.search_history, "Search history" },
-                s = { builtin.spell_suggest, "Spell suggestion" },
-                b = { builtin.buffers, "Buffers" },
-                d = { builtin.diagnostics, "Diagnostics" },
-                e = { gitmoji.gitmoji, "Gitmoji" },
-                l = { builtin.lsp_document_symbols, "Lsp Document Symbols" },
-                L = { builtin.lsp_workspace_symbols, "Lsp Workspace Symbols" },
-            }, { prefix = "<Leader>f" })
-        end,
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "olacin/telescope-gitmoji.nvim",
-        },
-    },
-}
+return specs
